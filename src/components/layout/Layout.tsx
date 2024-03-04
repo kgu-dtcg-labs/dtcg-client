@@ -6,7 +6,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <main className="mx-auto flex flex-col h-screen items-center overflow-auto">
+    <main className="mx-auto flex flex-col w-screen h-screen items-center overflow-auto">
       {children}
     </main>
   );
