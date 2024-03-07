@@ -22,7 +22,7 @@ const MainPage = () => {
   const [nowLayer, setNowLayer] = useState<number>(1);
 
   return (
-    <section>
+    <main>
       <Navbar />
       {/* 전체 해제 및 초기화 버튼 */}
       <div className="px-8 mt-10">
@@ -53,7 +53,7 @@ const MainPage = () => {
           ))}
         </ul>
       </div>
-    </section>
+    </main>
   );
 };
 
