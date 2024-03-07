@@ -7,7 +7,7 @@ interface Props {
 const CaseCard = ({ name }: Props) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   return (
-    <div className="flex items-center mt-10">
+    <div className="flex items-center">
       <div className="h-[1px] w-7 bg-black"></div>
       <button
         onClick={() => setIsSelected(!isSelected)}
