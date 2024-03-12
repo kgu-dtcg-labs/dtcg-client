@@ -2,7 +2,7 @@ import { TABLE_HEADER } from '@constants/header';
 
 const ResultTable = () => {
   return (
-    <table className="table-fixed text-center font-semibold">
+    <table className="table-fixed border text-center font-semibold">
       <thead>
         <tr>
           {TABLE_HEADER.map((item, index) => (
