@@ -8,7 +8,7 @@ interface LayerHeaderProps {
 
 const LayerHeader = ({ layer, onClick }: LayerHeaderProps) => {
   return (
-    <ul className="flex w-full overflow-auto divide-x cursor-pointer text-nowrap scrollbar-hide">
+    <ul className="flex w-full overflow-auto divide-x cursor-pointer text-nowrap select-none scrollbar-hide">
       {LAYER_LIST.map((item) => (
         <li
           key={item.layer}
