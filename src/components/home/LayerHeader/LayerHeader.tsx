@@ -8,13 +8,15 @@ interface LayerHeaderProps {
 
 const LayerHeader = ({ layer, onClick }: LayerHeaderProps) => {
   return (
-    <ul className="flex w-full overflow-auto divide-x cursor-pointer text-nowrap select-none scrollbar-hide">
+    <ul className="flex w-full overflow-auto divide-x cursor-pointer select-none text-nowrap scrollbar-hide">
       {LAYER_LIST.map((item) => (
         <li
           key={item.layer}
           className={classNames(
-            'w-full text-center py-1 px-4 font-medium text-sm first:rounded-l last:rounded-r border-y first:border-l last:!border-r transition-colors ease-in-out',
-            item.layer === layer ? 'bg-orange-400 text-white' : 'text-gray-500',
+            'w-full text-center py-1 px-4 font-medium text-sm first:rounded-l last:rounded-r border-y first:border-l last:!border-r transition-colors',
+            item.layer === layer
+              ? 'bg-orange-400 text-white dark:bg-orange-400/80 '
+              : 'text-gray-500 dark:text-white/80 dark:bg-zinc-600 hover:bg-orange-400/40',
           )}
           onClick={() => onClick(item.layer)}
         >
