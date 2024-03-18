@@ -15,7 +15,7 @@ const Element = ({
   return (
     <button
       className={classNames(
-        'h-10 text-sm font-semibold rounded-lg w-36',
+        'h-10 text-sm font-semibold rounded-lg w-36 dark:text-gray-800/80',
         elementColors[color],
         className,
       )}

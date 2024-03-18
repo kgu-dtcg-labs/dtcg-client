@@ -32,35 +32,32 @@ const HomePage = () => {
         </Button>
       </div>
       <LayerHeader layer={layer} onClick={handleLayerClick} />
-      <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 scrollbar-hide">
+      <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
         <ElementTree data={treeParser(layer)} />
       </div>
-
-      <div className="mt-6 flex gap-2 justify-center">
+      <div className="flex justify-center gap-2 mt-6">
         <Button
           color="black"
-          className="flex items-center justify-center gap-1 font-semibold w-28 h-10"
+          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
         >
           <IoShuffle />
           <span>랜덤 생성</span>
         </Button>
         <Button
           color="black"
-          className="flex items-center gap-1 font-semibold justify-center w-28 h-10"
+          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
         >
           <IoCheckmarkDone />
           <span>선택 생성</span>
         </Button>
       </div>
-
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
         <ResultTable />
       </div>
-
-      <div className="mt-6 flex justify-center">
+      <div className="flex justify-center mt-6">
         <Button
           color="black"
-          className="flex items-center gap-1 font-semibold justify-center w-28 h-10"
+          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
         >
           <IoArrowDownCircle />
           <span>저장하기</span>
