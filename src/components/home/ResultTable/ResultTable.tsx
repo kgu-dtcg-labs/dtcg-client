@@ -2,11 +2,11 @@ import { TABLE_HEADER } from '@constants/header';
 
 const ResultTable = () => {
   return (
-    <table className="table-fixed border text-center font-semibold select-none">
+    <table className="text-center table-fixed select-none">
       <thead>
-        <tr>
+        <tr className="font-medium border-b divide-x">
           {TABLE_HEADER.map((item, index) => (
-            <td key={index} className="min-w-32 py-4 border bg-gray-50">
+            <td key={index} className="py-4 min-w-32">
               {item.name}
             </td>
           ))}
@@ -14,7 +14,9 @@ const ResultTable = () => {
       </thead>
       <tbody>
         <tr>
-          <td className="py-2 border"></td>
+          <td className="px-4 py-2 text-left" colSpan={99}>
+            현재 생성된 데이터가 없습니다.
+          </td>
         </tr>
       </tbody>
     </table>
