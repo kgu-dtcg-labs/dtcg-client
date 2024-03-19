@@ -2,10 +2,13 @@ import classNames from 'classnames';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import ElementLine from '../ElementLine/ElementLine';
 import Element from '../Element/Element';
+import { ElementType } from '@type/element';
 
-interface CaseElementProps extends PropsWithChildren {}
+interface CaseElementProps extends PropsWithChildren {
+  data: ElementType;
+}
 
-const CaseElement = ({ children }: CaseElementProps) => {
+const CaseElement = ({ data }: CaseElementProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const handleIsSelected = useCallback(() => {
@@ -13,7 +16,7 @@ const CaseElement = ({ children }: CaseElementProps) => {
   }, []);
 
   return (
-    <div id={`case-${children}`} className="relative flex items-center">
+    <div id={`case-${data.name}`} className="relative flex items-center">
       <ElementLine />
       <Element
         color="case"
@@ -22,7 +25,7 @@ const CaseElement = ({ children }: CaseElementProps) => {
         })}
         onClick={handleIsSelected}
       >
-        {children}
+        {data.name}
       </Element>
     </div>
   );

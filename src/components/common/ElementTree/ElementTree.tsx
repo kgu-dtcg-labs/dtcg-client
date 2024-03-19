@@ -33,9 +33,11 @@ const ElementTree = ({ isLast = false, data }: ElementProps) => {
   return (
     <ul className="flex border-l border-black dark:border-white/80 first:border-none last:border-none">
       <li className="inline-block" onClick={handleOpen}>
-        <RenderElement isLast={isLast} length={data.children.length}>
-          {data.name}
-        </RenderElement>
+        <RenderElement
+          data={data}
+          isLast={isLast}
+          length={data.children.length}
+        />
       </li>
       <li className="inline-block space-y-4">
         {open &&
