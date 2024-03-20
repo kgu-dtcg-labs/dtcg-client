@@ -26,7 +26,10 @@ const ResultTable = ({ result }: ResultProps) => {
           ) : (
             <>
               {result?.map((item, index) => (
-                <td key={index} className="px-4 py-1 text-center border">
+                <td
+                  key={index}
+                  className="px-4 py-1 text-center border bg-white dark:bg-gray-400"
+                >
                   {item.name}
                 </td>
               ))}
