@@ -4,6 +4,7 @@ import Element from '../Element/Element';
 import ElementLine from '../ElementLine/ElementLine';
 
 interface LayerElementProps extends PropsWithChildren {
+  isFirst: boolean;
   isLast?: boolean;
   length?: number;
   data: ElementType;

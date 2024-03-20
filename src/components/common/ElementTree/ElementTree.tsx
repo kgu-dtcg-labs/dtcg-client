@@ -5,11 +5,16 @@ import GroupElement from '../GroupElement/GroupElement';
 import CaseElement from '../CaseElement/CaseElement';
 
 interface ElementProps {
+  isFirst: boolean;
   isLast?: boolean;
   data: ElementWithChildrenType;
 }
 
-const ElementTree = ({ isLast = false, data }: ElementProps) => {
+const ElementTree = ({
+  isFirst = false,
+  isLast = false,
+  data,
+}: ElementProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const handleOpen = useCallback(() => {
@@ -34,6 +39,7 @@ const ElementTree = ({ isLast = false, data }: ElementProps) => {
     <ul className="flex border-l border-black dark:border-white/80 first:border-none last:border-none">
       <li className="inline-block" onClick={handleOpen}>
         <RenderElement
+          isFirst={isFirst}
           data={data}
           isLast={isLast}
           length={data.children.length}
@@ -47,6 +53,7 @@ const ElementTree = ({ isLast = false, data }: ElementProps) => {
               key={child.id}
               data={child}
               isLast={data.children.length === index + 1}
+              isFirst={index === 0}
             />
           ))}
       </li>
