@@ -3,17 +3,20 @@ import type { ElementWithChildrenType } from '@type/element';
 import LayerElement from '../LayerElement/LayerElement';
 import GroupElement from '../GroupElement/GroupElement';
 import CaseElement from '../CaseElement/CaseElement';
+import classNames from 'classnames';
 
 interface ElementProps {
   isFirst: boolean;
   isLast?: boolean;
   data: ElementWithChildrenType;
+  className?: string;
 }
 
 const ElementTree = ({
   isFirst = false,
   isLast = false,
   data,
+  className,
 }: ElementProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
@@ -36,7 +39,12 @@ const ElementTree = ({
   }
 
   return (
-    <ul className="flex border-l border-black dark:border-white/80 first:border-none last:border-none">
+    <ul
+      className={classNames(
+        'flex border-l border-black dark:border-white/80 first:border-none last:border-none',
+        className,
+      )}
+    >
       <li className="inline-block" onClick={handleOpen}>
         <RenderElement
           isFirst={isFirst}

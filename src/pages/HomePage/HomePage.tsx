@@ -39,10 +39,19 @@ const HomePage = () => {
           <span>초기화</span>
         </Button>
       </div>
+
       <LayerHeader layer={layer} onClick={handleLayerClick} />
+
       <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
-        <ElementTree data={treeParser(layer)} />
+        {[1, 2, 3, 4, 5, 6, 7].map((layerNumber) => (
+          <ElementTree
+            key={layerNumber}
+            data={treeParser(layerNumber)}
+            className={`${layer === layerNumber ? '' : 'hidden'}`}
+          />
+        ))}
       </div>
+
       <div className="flex justify-center gap-2 mt-6">
         <Button
           color="black"
@@ -60,9 +69,11 @@ const HomePage = () => {
           <span>선택 생성</span>
         </Button>
       </div>
+
       <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
         <ResultTable result={result} />
       </div>
+
       <div className="flex justify-center mt-6">
         <Button
           color="black"
