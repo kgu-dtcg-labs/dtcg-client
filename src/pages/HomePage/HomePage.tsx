@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import ElementTree from '@components/common/ElementTree/ElementTree';
-import { treeParser } from '@utils/element';
+import { createOneScenario, treeParser } from '@utils/element';
 import {
   IoReload,
   IoClose,
@@ -11,13 +11,21 @@ import {
 import { Button } from '@components/common/Button/Button';
 import LayerHeader from '@components/home/LayerHeader/LayerHeader';
 import ResultTable from '@components/home/ResultTable/ResultTable';
+import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
+import { ElementType } from '@type/element';
 
 const HomePage = () => {
+  const { selectedCase } = useContext(SelectedCaseContext);
   const [layer, setLayer] = useState<number>(1);
+  const [result, setResult] = useState<ElementType[]>([]);
 
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(layer);
   }, []);
+
+  const handleRandomCreate = () => {
+    setResult(createOneScenario(selectedCase));
+  };
 
   return (
     <div className="py-10">
@@ -46,13 +54,14 @@ const HomePage = () => {
         <Button
           color="black"
           className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
+          onClick={handleRandomCreate}
         >
           <IoCheckmarkDone />
           <span>선택 생성</span>
         </Button>
       </div>
-      <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
-        <ResultTable />
+      <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
+        <ResultTable result={result} />
       </div>
       <div className="flex justify-center mt-6">
         <Button
