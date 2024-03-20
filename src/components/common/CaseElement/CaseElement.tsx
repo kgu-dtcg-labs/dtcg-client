@@ -17,8 +17,18 @@ interface CaseElementProps extends PropsWithChildren {
 }
 
 const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
-  const { setSelectedCase } = useContext(SelectedCaseContext);
+  const { setSelectedCase, setAllCases } = useContext(SelectedCaseContext);
   const [isSelected, setIsSelected] = useState<boolean>(isFirst);
+
+  useEffect(() => {
+    setAllCases((prevAllCases) => {
+      const exists = prevAllCases.some((item) => item.id === data.id);
+      if (!exists) {
+        return [...prevAllCases, data];
+      }
+      return prevAllCases;
+    });
+  }, [data, setAllCases]);
 
   useEffect(() => {
     if (isFirst) {

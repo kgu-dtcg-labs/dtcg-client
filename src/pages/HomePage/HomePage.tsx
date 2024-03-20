@@ -1,6 +1,10 @@
 import { useCallback, useContext, useState } from 'react';
 import ElementTree from '@components/common/ElementTree/ElementTree';
-import { createOneScenario, treeParser } from '@utils/element';
+import {
+  createMultipleScenarios,
+  createOneScenario,
+  treeParser,
+} from '@utils/element';
 import {
   IoReload,
   IoClose,
@@ -13,18 +17,34 @@ import LayerHeader from '@components/home/LayerHeader/LayerHeader';
 import ResultTable from '@components/home/ResultTable/ResultTable';
 import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
 import { ElementType } from '@type/element';
+import { Modal } from '@components/common/Modal/Modal';
 
 const HomePage = () => {
-  const { selectedCase } = useContext(SelectedCaseContext);
+  const { selectedCase, allCases } = useContext(SelectedCaseContext);
   const [layer, setLayer] = useState<number>(1);
-  const [result, setResult] = useState<ElementType[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [count, setCount] = useState<string>('0');
+  const [result, setResult] = useState<ElementType[][]>([]);
 
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(layer);
   }, []);
 
+  const handleOpenModal = () => {
+    setOpenModal((prev) => !prev);
+  };
+
+  const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(e.target.value);
+  };
+
   const handleRandomCreate = () => {
-    setResult(createOneScenario(selectedCase));
+    setResult(createMultipleScenarios(allCases, Number(count)));
+    handleOpenModal();
+  };
+
+  const handleSelectCreate = () => {
+    setResult([createOneScenario(selectedCase)]);
   };
 
   return (
@@ -56,6 +76,7 @@ const HomePage = () => {
         <Button
           color="black"
           className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
+          onClick={handleOpenModal}
         >
           <IoShuffle />
           <span>랜덤 생성</span>
@@ -63,7 +84,7 @@ const HomePage = () => {
         <Button
           color="black"
           className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
-          onClick={handleRandomCreate}
+          onClick={handleSelectCreate}
         >
           <IoCheckmarkDone />
           <span>선택 생성</span>
@@ -83,6 +104,26 @@ const HomePage = () => {
           <span>저장하기</span>
         </Button>
       </div>
+
+      {openModal && (
+        <Modal onClose={handleOpenModal}>
+          <div className="grid gap-2 items-center text-center">
+            <h1 className="font-semibold text-xl pb-4">랜덤 생성 개수 입력</h1>
+            <span>생성할 시나리오의 개수를 입력해주세요.</span>
+            <span>최대 0개까지 입력 가능</span>{' '}
+            {/**추후에 제한 수 입력 필요 (대략 3000개)**/}
+            <input
+              type="text"
+              value={count}
+              onChange={handleCountChange}
+              className="border p-2 outline-none"
+            />
+            <Button color="black" onClick={handleRandomCreate}>
+              생성하기
+            </Button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
