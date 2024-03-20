@@ -36,3 +36,16 @@ export const createOneScenario = (cases: ElementType[]) => {
   });
   return randomSelection;
 };
+
+export const createMultipleScenarios = (
+  cases: ElementType[],
+  numberOfScenarios: number,
+) => {
+  const scenarios = [];
+  for (let i = 0; i < numberOfScenarios; i++) {
+    const scenario = createOneScenario(cases);
+    scenarios.push(scenario);
+  }
+  console.log(scenarios);
+  return scenarios;
+};
