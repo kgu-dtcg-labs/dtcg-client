@@ -3,13 +3,21 @@ import type { ElementWithChildrenType } from '@type/element';
 import LayerElement from '../LayerElement/LayerElement';
 import GroupElement from '../GroupElement/GroupElement';
 import CaseElement from '../CaseElement/CaseElement';
+import classNames from 'classnames';
 
 interface ElementProps {
+  isFirst: boolean;
   isLast?: boolean;
   data: ElementWithChildrenType;
+  className?: string;
 }
 
-const ElementTree = ({ isLast = false, data }: ElementProps) => {
+const ElementTree = ({
+  isFirst = false,
+  isLast = false,
+  data,
+  className,
+}: ElementProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const handleOpen = useCallback(() => {
@@ -31,11 +39,19 @@ const ElementTree = ({ isLast = false, data }: ElementProps) => {
   }
 
   return (
-    <ul className="flex border-l border-black dark:border-white/80 first:border-none last:border-none">
+    <ul
+      className={classNames(
+        'flex border-l border-black dark:border-white/80 first:border-none last:border-none',
+        className,
+      )}
+    >
       <li className="inline-block" onClick={handleOpen}>
-        <RenderElement isLast={isLast} length={data.children.length}>
-          {data.name}
-        </RenderElement>
+        <RenderElement
+          isFirst={isFirst}
+          data={data}
+          isLast={isLast}
+          length={data.children.length}
+        />
       </li>
       <li className="inline-block space-y-4">
         {open &&
@@ -45,6 +61,7 @@ const ElementTree = ({ isLast = false, data }: ElementProps) => {
               key={child.id}
               data={child}
               isLast={data.children.length === index + 1}
+              isFirst={index === 0}
             />
           ))}
       </li>
