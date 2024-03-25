@@ -30,6 +30,10 @@ const HomePage = () => {
     setLayer(layer);
   }, []);
 
+  const onClickResetButton = () => {
+    location.reload();
+  };
+
   const handleOpenModal = () => {
     setOpenModal((prev) => !prev);
   };
@@ -54,7 +58,11 @@ const HomePage = () => {
           <IoClose />
           <span>전체 해제</span>
         </Button>
-        <Button color="blue" className="flex items-center gap-1 font-semibold">
+        <Button
+          color="blue"
+          onClick={onClickResetButton}
+          className="flex items-center gap-1 font-semibold"
+        >
           <IoReload />
           <span>초기화</span>
         </Button>
