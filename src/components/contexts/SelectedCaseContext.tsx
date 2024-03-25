@@ -14,9 +14,13 @@ interface SelectedCaseContextValue {
   setAllCases: Dispatch<SetStateAction<ElementType[]>>;
   selectedCase: ElementType[];
   setSelectedCase: Dispatch<SetStateAction<ElementType[]>>;
+  isClear: boolean;
+  setIsClear: Dispatch<SetStateAction<boolean>>;
 }
 
 export const SelectedCaseContext = createContext<SelectedCaseContextValue>({
+  isClear: false,
+  setIsClear: () => {},
   allCases: [],
   setAllCases: () => {},
   selectedCase: [],
@@ -26,10 +30,13 @@ export const SelectedCaseContext = createContext<SelectedCaseContextValue>({
 export const SelectedCaseProvider = ({
   children,
 }: SelectedCaseContextProps) => {
+  const [isClear, setIsClear] = useState<boolean>(false);
   const [selectedCase, setSelectedCase] = useState<ElementType[]>([]);
   const [allCases, setAllCases] = useState<ElementType[]>([]);
 
   const selectedCaseContextValue: SelectedCaseContextValue = {
+    isClear,
+    setIsClear,
     allCases,
     setAllCases,
     selectedCase,

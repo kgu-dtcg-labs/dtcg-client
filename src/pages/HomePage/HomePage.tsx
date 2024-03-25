@@ -20,7 +20,8 @@ import { ElementType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
 
 const HomePage = () => {
-  const { selectedCase, allCases } = useContext(SelectedCaseContext);
+  const { setIsClear, selectedCase, allCases } =
+    useContext(SelectedCaseContext);
   const [layer, setLayer] = useState<number>(1);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [count, setCount] = useState<string>('0');
@@ -29,6 +30,10 @@ const HomePage = () => {
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(layer);
   }, []);
+
+  const onClickRemoveAll = () => {
+    setIsClear(true);
+  };
 
   const onClickResetButton = () => {
     location.reload();
@@ -54,7 +59,10 @@ const HomePage = () => {
   return (
     <div className="py-10">
       <div className="flex items-center justify-between mb-10">
-        <Button className="flex items-center gap-1 font-semibold">
+        <Button
+          onClick={onClickRemoveAll}
+          className="flex items-center gap-1 font-semibold"
+        >
           <IoClose />
           <span>전체 해제</span>
         </Button>
