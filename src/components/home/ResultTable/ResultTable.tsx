@@ -10,7 +10,7 @@ const ResultTable = ({ result }: ResultProps) => {
   return (
     <table className="text-center table-fixed select-none">
       <thead>
-        <tr className="font-medium border-b divide-x">
+        <tr className="font-medium border-b divide-x bg-slate-100 dark:bg-gray-500">
           {TABLE_HEADER.map((item, index) => (
             <td key={index} className="py-4 min-w-32">
               {item.name}
@@ -19,7 +19,7 @@ const ResultTable = ({ result }: ResultProps) => {
         </tr>
       </thead>
       <tbody>
-        {result?.length === 0 ? (
+        {result.length === 0 ? (
           <tr>
             <td className="px-4 py-2 text-left">데이터 없음</td>
           </tr>
@@ -30,7 +30,7 @@ const ResultTable = ({ result }: ResultProps) => {
               {arr.map((item, index) => (
                 <td
                   key={index}
-                  className="px-4 py-1 text-center bg-white border dark:bg-gray-400"
+                  className="px-4 py-1 text-center bg-white border dark:bg-transparent"
                 >
                   {item.name}
                 </td>

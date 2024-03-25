@@ -122,16 +122,14 @@ const HomePage = () => {
       {openModal && (
         <Modal onClose={handleOpenModal}>
           <div className="grid items-center gap-2 text-center">
-            <h1 className="pb-4 text-xl font-semibold">랜덤 생성 개수 입력</h1>
+            <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
             <span>최대 1000개까지 입력 가능</span>
             {/** TODO 제한 수 지정 (대략 3000개)**/}
             <input
-              type="number"
-              inputMode="numeric"
               value={count}
               onChange={handleCountChange}
-              className="p-2 border outline-none"
+              className="p-2 border rounded outline-none dark:bg-zinc-800"
             />
             <Button color="black" onClick={handleRandomCreate}>
               생성하기
