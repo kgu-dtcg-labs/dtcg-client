@@ -12,11 +12,13 @@ export const Modal = ({ onClose, children }: ModalProps) => {
     }
   };
   return (
-    <section
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackgroundClick}
     >
-      <div className="bg-white rounded-md border py-4 px-8">{children}</div>
-    </section>
+      <div className="px-8 py-4 bg-white border rounded-md shadow-md dark:bg-zinc-700">
+        {children}
+      </div>
+    </div>
   );
 };

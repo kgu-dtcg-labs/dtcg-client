@@ -1,3 +1,6 @@
+# Lint
+.eslintcashe
+
 # Logs
 logs
 *.log

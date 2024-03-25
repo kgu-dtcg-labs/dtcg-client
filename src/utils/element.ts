@@ -6,13 +6,13 @@ import type { ElementType, ElementWithChildrenType } from '@type/element';
  * @param layer 레이어 ID
  * @returns 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
  */
-export const treeParser = (layer: number) => {
+export function treeParser(layer: number): ElementWithChildrenType {
   const findLayer = mocks.find((item) => item.id === layer);
 
   if (findLayer) {
     // Layer가 존재하다면 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
     const children = mocks.filter((item) => item.parentId === layer);
-    const result: ElementWithChildrenType = {
+    const result = {
       ...findLayer,
       children: children.map((item) => {
         return {
@@ -26,25 +26,41 @@ export const treeParser = (layer: number) => {
   }
 
   return {} as ElementWithChildrenType;
-};
+}
 
-export const createOneScenario = (cases: ElementType[]) => {
+/**
+ * 주어진 경우의 목록에서 각 고유한 parentId를 기준으로 하나의 시나리오를 생성합니다.
+ * 각 parentId에 대해 해당하는 경우들 중에서 하나를 랜덤으로 선택하여 시나리오를 구성합니다.
+ *
+ * @param {ElementType[]} cases - 시나리오를 생성하기 위한 경우들의 배열.
+ * 각 경우는 `parentId` 속성을 포함해야 합니다.
+ * @returns {ElementType[]} 랜덤으로 선택된 각 parentId에 대한 경우들의 배열.
+ */
+export function createOneScenario(cases: ElementType[]): ElementType[] {
   const parentIds = [...new Set(cases.map((c) => c.parentId))]; // 모든 고유 parentId 추출
   const randomSelection = parentIds.map((pid) => {
     const filteredCases = cases.filter((c) => c.parentId === pid);
     return filteredCases[Math.floor(Math.random() * filteredCases.length)]; // 각 parentId에 대해 랜덤 선택
   });
   return randomSelection;
-};
+}
 
-export const createMultipleScenarios = (
+/**
+ * 주어진 경우의 목록으로부터 여러 개의 시나리오를 생성합니다.
+ * 각 시나리오는 각 고유한 parentId에 대해 해당하는 경우들 중 하나를 랜덤으로 선택하여 구성됩니다.
+ *
+ * @param {ElementType[]} cases - 시나리오를 생성하기 위한 경우들의 배열.
+ * 각 경우는 `parentId` 속성을 포함해야 합니다.
+ * @param {number} numberOfScenarios - 생성할 시나리오의 수.
+ * @returns {ElementType[][]} 생성된 시나리오들의 배열. 각 시나리오는 ElementType 배열입니다.
+ */
+export function createMultipleScenarios(
   cases: ElementType[],
   numberOfScenarios: number,
-) => {
+): ElementType[][] {
   const scenarios = [];
   for (let i = 0; i < numberOfScenarios; i++) {
-    const scenario = createOneScenario(cases);
-    scenarios.push(scenario);
+    scenarios.push(createOneScenario(cases));
   }
   return scenarios;
-};
+}

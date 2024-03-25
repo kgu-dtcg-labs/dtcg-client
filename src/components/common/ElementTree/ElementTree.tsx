@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { PropsWithChildren, useCallback, useState } from 'react';
 import type { ElementWithChildrenType } from '@type/element';
 import LayerElement from '../LayerElement/LayerElement';
 import GroupElement from '../GroupElement/GroupElement';
@@ -6,7 +6,7 @@ import CaseElement from '../CaseElement/CaseElement';
 import classNames from 'classnames';
 
 interface ElementProps {
-  isFirst: boolean;
+  isFirst?: boolean;
   isLast?: boolean;
   data: ElementWithChildrenType;
   className?: string;
@@ -41,7 +41,7 @@ const ElementTree = ({
   return (
     <ul
       className={classNames(
-        'flex border-l border-black dark:border-white/80 first:border-none last:border-none',
+        'flex border-black dark:border-white/80 first:border-none last:border-none',
         className,
       )}
     >
@@ -68,5 +68,11 @@ const ElementTree = ({
     </ul>
   );
 };
+
+ElementTree.Wrapper = ({ children }: PropsWithChildren) => (
+  <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
+    {children}
+  </div>
+);
 
 export default ElementTree;

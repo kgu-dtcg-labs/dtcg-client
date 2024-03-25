@@ -18,122 +18,118 @@ import ResultTable from '@components/home/ResultTable/ResultTable';
 import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
 import { ElementType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
+import classNames from 'classnames';
 
 const HomePage = () => {
-  const { setIsClear, selectedCase, allCases } =
-    useContext(SelectedCaseContext);
-  const [layer, setLayer] = useState<number>(1);
+  const { selectedCase, setSelectedCase } = useContext(SelectedCaseContext);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openAlert, setOpenAlert] = useState<boolean>(false);
-  const [count, setCount] = useState<string>('0');
+  const [layer, setLayer] = useState<number>(1);
+  const [count, setCount] = useState<number>(1);
   const [result, setResult] = useState<ElementType[][]>([]);
 
   const handleLayerClick = useCallback((layer: number) => {
-    setLayer(layer);
+    setLayer(Math.min(Math.max(layer, 1), 7));
   }, []);
 
-  const handleOpenModal = () => {
+  const handleCountChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCount(+e.target.value);
+    },
+    [],
+  );
+
+  const handleOpenModal = useCallback(() => {
     if (selectedCase.length === 0) {
-      setOpenAlert((prev) => !prev);
-    } else {
-      setOpenModal((prev) => !prev);
+      return setOpenAlert((prev) => !prev);
     }
-  };
+    setOpenModal((prev) => !prev);
+  }, [selectedCase]);
 
-  const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(e.target.value);
-  };
-
+  // 랜덤생성
   const handleRandomCreate = () => {
-    setResult(createMultipleScenarios(allCases, Number(count)));
-    handleOpenModal();
+    setOpenModal(false);
+    setResult(createMultipleScenarios(selectedCase, count));
   };
 
+  // 선택생성
   const handleSelectCreate = () => {
     if (selectedCase.length === 0) {
-      setOpenAlert((prev) => !prev);
-    } else {
-      setResult([createOneScenario(selectedCase)]);
+      return setOpenAlert((prev) => !prev);
     }
+    setResult([createOneScenario(selectedCase)]);
   };
 
   return (
     <div className="py-10">
       <div className="flex items-center justify-between mb-10">
         <Button
-          onClick={() => setIsClear(true)}
           className="flex items-center gap-1 font-semibold"
+          icon={<IoClose />}
+          onClick={() => setSelectedCase([])}
         >
-          <IoClose />
-          <span>전체 해제</span>
+          전체 해제
         </Button>
         <Button
           color="blue"
-          onClick={() => location.reload()}
           className="flex items-center gap-1 font-semibold"
+          icon={<IoReload />}
+          onClick={() => location.reload()}
         >
-          <IoReload />
-          <span>초기화</span>
+          초기화
         </Button>
       </div>
-
       <LayerHeader layer={layer} onClick={handleLayerClick} />
-
-      <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
+      <ElementTree.Wrapper>
         {[1, 2, 3, 4, 5, 6, 7].map((layerNumber) => (
           <ElementTree
             key={layerNumber}
             data={treeParser(layerNumber)}
-            className={`${layer === layerNumber ? '' : 'hidden'}`}
+            className={classNames({ hidden: layer !== layerNumber })}
           />
         ))}
-      </div>
-
+      </ElementTree.Wrapper>
       <div className="flex justify-center gap-2 mt-6">
         <Button
           color="black"
-          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
+          className="h-10 font-semibold w-28"
+          icon={<IoShuffle />}
           onClick={handleOpenModal}
         >
-          <IoShuffle />
-          <span>랜덤 생성</span>
+          랜덤 생성
         </Button>
         <Button
           color="black"
-          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
+          className="h-10 font-semibold w-28"
+          icon={<IoCheckmarkDone />}
           onClick={handleSelectCreate}
         >
-          <IoCheckmarkDone />
-          <span>선택 생성</span>
+          선택 생성
         </Button>
       </div>
-
-      <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
+      <ResultTable.Wrapper>
         <ResultTable result={result} />
-      </div>
-
-      <div className="flex justify-center mt-6">
+      </ResultTable.Wrapper>
+      <div className="flex justify-center gap-2 mt-6">
         <Button
           color="black"
-          className="flex items-center justify-center h-10 gap-1 font-semibold w-28"
+          icon={<IoArrowDownCircle />}
+          className="h-10 font-semibold w-28"
         >
-          <IoArrowDownCircle />
-          <span>저장하기</span>
+          저장하기
         </Button>
       </div>
-
       {openModal && (
         <Modal onClose={handleOpenModal}>
-          <div className="grid gap-2 items-center text-center">
-            <h1 className="font-semibold text-xl pb-4">랜덤 생성 개수 입력</h1>
+          <div className="grid items-center gap-2 text-center">
+            <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
-            <span>최대 0개까지 입력 가능</span>{' '}
-            {/**추후에 제한 수 입력 필요 (대략 3000개)**/}
+            <span>최대 1000개까지 입력 가능</span>
+            {/** TODO 제한 수 지정 (대략 3000개)**/}
             <input
-              type="text"
               value={count}
               onChange={handleCountChange}
-              className="border p-2 outline-none"
+              className="p-2 border rounded outline-none dark:bg-zinc-800"
             />
             <Button color="black" onClick={handleRandomCreate}>
               생성하기
@@ -141,11 +137,10 @@ const HomePage = () => {
           </div>
         </Modal>
       )}
-
       {openAlert && (
         <Modal onClose={handleOpenModal}>
-          <div className="grid gap-2 items-center text-center">
-            <span className="py-3">케이스가 존재하지 않습니다</span>
+          <div className="grid items-center gap-2 text-center">
+            <span className="py-3">선택한 케이스가 없습니다.</span>
             <Button color="black" onClick={() => setOpenAlert(false)}>
               확인
             </Button>
