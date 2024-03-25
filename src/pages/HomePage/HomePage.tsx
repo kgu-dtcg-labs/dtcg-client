@@ -32,14 +32,6 @@ const HomePage = () => {
     setLayer(layer);
   }, []);
 
-  const onClickRemoveAll = () => {
-    setIsClear(true);
-  };
-
-  const onClickResetButton = () => {
-    location.reload();
-  };
-
   const handleOpenModal = () => {
     if (selectedCase.length === 0) {
       setOpenAlert((prev) => !prev);
@@ -69,7 +61,7 @@ const HomePage = () => {
     <div className="py-10">
       <div className="flex items-center justify-between mb-10">
         <Button
-          onClick={onClickRemoveAll}
+          onClick={() => setIsClear(true)}
           className="flex items-center gap-1 font-semibold"
         >
           <IoClose />
@@ -77,7 +69,7 @@ const HomePage = () => {
         </Button>
         <Button
           color="blue"
-          onClick={onClickResetButton}
+          onClick={() => location.reload()}
           className="flex items-center gap-1 font-semibold"
         >
           <IoReload />
