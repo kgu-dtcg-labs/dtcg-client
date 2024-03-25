@@ -24,6 +24,7 @@ const HomePage = () => {
     useContext(SelectedCaseContext);
   const [layer, setLayer] = useState<number>(1);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [count, setCount] = useState<string>('0');
   const [result, setResult] = useState<ElementType[][]>([]);
 
@@ -40,7 +41,11 @@ const HomePage = () => {
   };
 
   const handleOpenModal = () => {
-    setOpenModal((prev) => !prev);
+    if (selectedCase.length === 0) {
+      setOpenAlert((prev) => !prev);
+    } else {
+      setOpenModal((prev) => !prev);
+    }
   };
 
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +58,11 @@ const HomePage = () => {
   };
 
   const handleSelectCreate = () => {
-    setResult([createOneScenario(selectedCase)]);
+    if (selectedCase.length === 0) {
+      setOpenAlert((prev) => !prev);
+    } else {
+      setResult([createOneScenario(selectedCase)]);
+    }
   };
 
   return (
@@ -136,6 +145,17 @@ const HomePage = () => {
             />
             <Button color="black" onClick={handleRandomCreate}>
               생성하기
+            </Button>
+          </div>
+        </Modal>
+      )}
+
+      {openAlert && (
+        <Modal onClose={handleOpenModal}>
+          <div className="grid gap-2 items-center text-center">
+            <span className="py-3">케이스가 존재하지 않습니다</span>
+            <Button color="black" onClick={() => setOpenAlert(false)}>
+              확인
             </Button>
           </div>
         </Modal>
