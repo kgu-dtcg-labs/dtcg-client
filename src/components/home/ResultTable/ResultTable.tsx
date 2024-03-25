@@ -1,8 +1,9 @@
 import { TABLE_HEADER } from '@constants/header';
 import { ElementType } from '@type/element';
+import { PropsWithChildren } from 'react';
 
 interface ResultProps {
-  result: ElementType[][] | null;
+  result: ElementType[][];
 }
 
 const ResultTable = ({ result }: ResultProps) => {
@@ -23,24 +24,28 @@ const ResultTable = ({ result }: ResultProps) => {
             <td className="px-4 py-2 text-left">데이터 없음</td>
           </tr>
         ) : (
-          <>
-            {result?.map((arr, index) => (
-              <tr key={index}>
-                {arr.map((item, index) => (
-                  <td
-                    key={index}
-                    className="px-4 py-1 text-center border bg-white dark:bg-gray-400"
-                  >
-                    {item.name}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </>
+          // TODO: 페이지네이션 구현
+          result.slice(0, 100).map((arr, index) => (
+            <tr key={index}>
+              {arr.map((item, index) => (
+                <td
+                  key={index}
+                  className="px-4 py-1 text-center bg-white border dark:bg-gray-400"
+                >
+                  {item.name}
+                </td>
+              ))}
+            </tr>
+          ))
         )}
       </tbody>
     </table>
   );
 };
 
+ResultTable.Wrapper = ({ children }: PropsWithChildren) => (
+  <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
+    {children}
+  </div>
+);
 export default ResultTable;
