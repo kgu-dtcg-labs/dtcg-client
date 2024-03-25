@@ -46,6 +46,5 @@ export const createMultipleScenarios = (
     const scenario = createOneScenario(cases);
     scenarios.push(scenario);
   }
-  console.log(scenarios);
   return scenarios;
 };

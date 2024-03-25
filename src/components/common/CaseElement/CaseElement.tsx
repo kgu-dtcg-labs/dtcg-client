@@ -17,8 +17,16 @@ interface CaseElementProps extends PropsWithChildren {
 }
 
 const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
-  const { setSelectedCase, setAllCases } = useContext(SelectedCaseContext);
+  const { setSelectedCase, setAllCases, isClear } =
+    useContext(SelectedCaseContext);
   const [isSelected, setIsSelected] = useState<boolean>(isFirst);
+
+  useEffect(() => {
+    if (isClear) {
+      setIsSelected(false);
+      setSelectedCase([]);
+    }
+  }, [isClear, setSelectedCase]);
 
   useEffect(() => {
     setAllCases((prevAllCases) => {
@@ -37,7 +45,7 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
           (item) => item.id === data.id,
         );
         // 이미 리스트에 요소가 없다면 추가합니다.
-        if (caseIndex === -1) {
+        if (caseIndex === -1 && isClear === false) {
           return [...prevSelectedCase, data];
         } else {
           // 이미 리스트에 요소가 있다면 기존 상태를 유지합니다.
@@ -45,7 +53,7 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
         }
       });
     }
-  }, [isFirst, data, setSelectedCase]);
+  }, [isFirst, data, setSelectedCase, isClear]);
 
   const handleIsSelected = useCallback(() => {
     setIsSelected((prev) => !prev);
