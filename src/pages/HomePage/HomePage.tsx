@@ -18,10 +18,12 @@ import ResultTable from '@components/home/ResultTable/ResultTable';
 import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
 import { ElementType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
+import { mocks } from '@mocks/mocks';
 import classNames from 'classnames';
 
 const HomePage = () => {
   const { selectedCase, setSelectedCase } = useContext(SelectedCaseContext);
+  const allCases = mocks.filter((item) => item.type === 'case');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [layer, setLayer] = useState<number>(1);
@@ -49,7 +51,7 @@ const HomePage = () => {
   // 랜덤생성
   const handleRandomCreate = () => {
     setOpenModal(false);
-    setResult(createMultipleScenarios(selectedCase, count));
+    setResult(createMultipleScenarios(allCases, count));
   };
 
   // 선택생성
