@@ -11,6 +11,7 @@ import {
   IoShuffle,
   IoCheckmarkDone,
   IoArrowDownCircle,
+  IoReaderOutline,
 } from 'react-icons/io5';
 import { Button } from '@components/common/Button/Button';
 import LayerHeader from '@components/home/LayerHeader/LayerHeader';
@@ -25,6 +26,8 @@ const HomePage = () => {
   const { selectedCase, setSelectedCase } = useContext(SelectedCaseContext);
   const allCases = mocks.filter((item) => item.type === 'case');
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openDataModal, setOpenDataModal] = useState<boolean>(false);
+  const [accidentData, setAccidentData] = useState<string>();
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [layer, setLayer] = useState<number>(1);
   const [count, setCount] = useState<number>(1);
@@ -41,12 +44,24 @@ const HomePage = () => {
     [],
   );
 
+  const handleOpenDataModal = useCallback(() => {
+    setAccidentData('');
+    setOpenDataModal((prev) => !prev);
+  }, [setOpenDataModal]);
+
   const handleOpenModal = useCallback(() => {
     if (selectedCase.length === 0) {
       return setOpenAlert((prev) => !prev);
     }
     setOpenModal((prev) => !prev);
   }, [selectedCase]);
+
+  const handleChangeData = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setAccidentData(e.target.value);
+    },
+    [],
+  );
 
   // 랜덤생성
   const handleRandomCreate = () => {
@@ -66,20 +81,30 @@ const HomePage = () => {
     <div className="py-10">
       <div className="flex items-center justify-between mb-10">
         <Button
-          className="flex items-center gap-1 font-semibold"
-          icon={<IoClose />}
-          onClick={() => setSelectedCase([])}
+          icon={<IoReaderOutline />}
+          onClick={handleOpenDataModal}
+          color="black"
+          className="font-semibold"
         >
-          전체 해제
+          사고 데이터 입력하기
         </Button>
-        <Button
-          color="blue"
-          className="flex items-center gap-1 font-semibold"
-          icon={<IoReload />}
-          onClick={() => location.reload()}
-        >
-          초기화
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            className="flex items-center gap-1 font-semibold"
+            icon={<IoClose />}
+            onClick={() => setSelectedCase([])}
+          >
+            전체 해제
+          </Button>
+          <Button
+            color="blue"
+            className="flex items-center gap-1 font-semibold"
+            icon={<IoReload />}
+            onClick={() => location.reload()}
+          >
+            초기화
+          </Button>
+        </div>
       </div>
       <LayerHeader layer={layer} onClick={handleLayerClick} />
       <ElementTree.Wrapper>
@@ -145,6 +170,28 @@ const HomePage = () => {
             <span className="py-3">선택한 케이스가 없습니다.</span>
             <Button color="black" onClick={() => setOpenAlert(false)}>
               확인
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {openDataModal && (
+        <Modal onClose={handleOpenDataModal}>
+          <div className="grid items-center gap-2 text-center">
+            <span className="py-3 text-xl">
+              아래 빈칸에 사고 데이터를 입력해주세요.
+            </span>
+            <textarea
+              placeholder="여기에 입력하세요"
+              value={accidentData}
+              onChange={handleChangeData}
+              className="resize-none w-[800px] min-h-[400px] border p-4 overflow-auto scrollbar-hide outline-none mb-5 rounded-md"
+            ></textarea>
+            <Button
+              color="black"
+              onClick={() => setOpenDataModal(false)}
+              className="py-3 font-semibold text-lg"
+            >
+              입력하기
             </Button>
           </div>
         </Modal>
