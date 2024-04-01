@@ -78,7 +78,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="py-10">
+    <div className="py-10 select-none">
       <div className="flex items-center justify-between mb-10">
         <Button
           icon={<IoReaderOutline />}
