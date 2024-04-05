@@ -1,34 +1,36 @@
 import { PropsWithChildren, useCallback, useState } from 'react';
-import type { ElementWithChildrenType } from '@type/element';
 import LayerElement from '../LayerElement/LayerElement';
 import GroupElement from '../GroupElement/GroupElement';
 import CaseElement from '../CaseElement/CaseElement';
 import classNames from 'classnames';
+import type { ElementWithChildrenType } from '@type/element';
 
 interface ElementProps {
   isFirst?: boolean;
   isLast?: boolean;
-  data: ElementWithChildrenType;
   className?: string;
+  data: ElementWithChildrenType;
 }
 
 const ElementTree = ({
   isFirst = false,
   isLast = false,
-  data,
   className,
+  data,
 }: ElementProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
-  const handleOpen = useCallback(() => {
+  const handleOpenClick = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
 
   let RenderElement = null;
+  let RenderElementStyle = '';
 
   switch (data.type) {
     case 'layer':
       RenderElement = LayerElement;
+      RenderElementStyle = 'border-none';
       break;
     case 'group':
       RenderElement = GroupElement;
@@ -41,11 +43,12 @@ const ElementTree = ({
   return (
     <ul
       className={classNames(
-        'flex border-black dark:border-white/80 first:border-none last:border-none',
+        'flex border-l dark:border-white/20',
+        RenderElementStyle,
         className,
       )}
     >
-      <li className="inline-block" onClick={handleOpen}>
+      <li className="inline-block" onClick={handleOpenClick}>
         <RenderElement
           isFirst={isFirst}
           data={data}
@@ -70,7 +73,7 @@ const ElementTree = ({
 };
 
 ElementTree.Wrapper = ({ children }: PropsWithChildren) => (
-  <div className="p-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
+  <div className="px-3.5 py-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
     {children}
   </div>
 );
