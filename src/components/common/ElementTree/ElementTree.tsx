@@ -73,7 +73,7 @@ const ElementTree = ({
 };
 
 ElementTree.Wrapper = ({ children }: PropsWithChildren) => (
-  <div className="px-3.5 py-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600 scrollbar-hide">
+  <div className="px-3.5 py-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
     {children}
   </div>
 );
