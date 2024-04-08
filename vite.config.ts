@@ -19,7 +19,17 @@ export default defineConfig({
       '@styles': resolve(__dirname, './src/styles'),
       '@type': resolve(__dirname, './src/types'),
       '@utils': resolve(__dirname, './src/utils'),
+      '@apis': resolve(__dirname, './stc/apis'),
       '@': resolve(__dirname, './src'),
+    },
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://seven.acryl.ai:39500/ner',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     },
   },
 });
