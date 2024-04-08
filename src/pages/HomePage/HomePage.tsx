@@ -20,6 +20,7 @@ import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
 import { ElementType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
 import { mocks } from '@mocks/mocks';
+import { postData } from '@/apis/api';
 import classNames from 'classnames';
 
 const HomePage = () => {
@@ -188,7 +189,7 @@ const HomePage = () => {
             ></textarea>
             <Button
               color="black"
-              onClick={() => setOpenDataModal(false)}
+              onClick={() => postData(accidentData)}
               className="py-3 font-semibold text-lg"
             >
               입력하기
