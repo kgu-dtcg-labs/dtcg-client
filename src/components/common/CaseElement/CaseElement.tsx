@@ -1,14 +1,9 @@
-import {
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import ElementLine from '../ElementLine/ElementLine';
 import Element from '../Element/Element';
 import { ElementType } from '@type/element';
-import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
+import { useSetCaseStore } from '@store/case';
+import { useSelectedCaseStore } from '@store/selected-case';
 
 interface CaseElementProps extends PropsWithChildren {
   data: ElementType;
@@ -16,7 +11,8 @@ interface CaseElementProps extends PropsWithChildren {
 }
 
 const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
-  const { selectedCase, setSelectedCase } = useContext(SelectedCaseContext);
+  const setCaseStore = useSetCaseStore();
+  const [selectedCase, setSelectedCase] = useSelectedCaseStore();
   const [isSelected, setIsSelected] = useState<boolean>(isFirst);
 
   const handleIsSelectedClick = useCallback(() => {
@@ -42,9 +38,8 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
   }, [data, selectedCase]);
 
   useEffect(function init() {
+    setCaseStore((prev) => [...prev, data]);
     if (isFirst) {
-      // 첫 번째 요소일 경우 기본값으로 지정
-      setIsSelected(true);
       setSelectedCase((prevSelectedCase) => {
         const isExistCase = prevSelectedCase.some(
           (item) => item.id === data.id,

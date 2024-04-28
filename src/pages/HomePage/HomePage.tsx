@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import ElementTree from '@components/common/ElementTree/ElementTree';
 import {
   createMultipleScenarios,
@@ -16,16 +16,16 @@ import {
 import { Button } from '@components/common/Button/Button';
 import LayerHeader from '@components/home/LayerHeader/LayerHeader';
 import ResultTable from '@components/home/ResultTable/ResultTable';
-import { SelectedCaseContext } from '@components/contexts/SelectedCaseContext';
 import { ElementType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
-import { mocks } from '@mocks/mocks';
 import { postData } from '@/apis/api';
 import classNames from 'classnames';
+import { useSelectedCaseStore } from '@store/selected-case';
+import { useGetCaseStore } from '@store/case';
 
 const HomePage = () => {
-  const { selectedCase, setSelectedCase } = useContext(SelectedCaseContext);
-  const allCases = mocks.filter((item) => item.type === 'case');
+  const defaultCase = useGetCaseStore();
+  const [selectedCase, setSelectedCase] = useSelectedCaseStore();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openDataModal, setOpenDataModal] = useState<boolean>(false);
   const [accidentData, setAccidentData] = useState<string>();
@@ -63,14 +63,18 @@ const HomePage = () => {
     },
     [],
   );
-
-  // 랜덤생성
-  const handleRandomCreate = () => {
+  /**
+   * 랜덤 생성
+   * 모든 케이스 중에서 랜덤으로 선택하여 시나리오를 생성합니다.
+   */
+  const handleRandomButtonClick = () => {
     setOpenModal(false);
-    setResult(createMultipleScenarios(allCases, count));
+    setResult(createMultipleScenarios(defaultCase, count));
   };
-
-  // 선택생성
+  /**
+   * 선택 생성
+   * 선택된 케이스로 시나리오를 생성합니다.
+   */
   const handleSelectCreate = () => {
     if (selectedCase.length === 0) {
       return setOpenAlert((prev) => !prev);
@@ -153,13 +157,12 @@ const HomePage = () => {
             <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
             <span>최대 1000개까지 입력 가능</span>
-            {/** TODO 제한 수 지정 (대략 3000개)**/}
             <input
               value={count}
               onChange={handleCountChange}
               className="p-2 border rounded outline-none dark:bg-zinc-800"
             />
-            <Button color="black" onClick={handleRandomCreate}>
+            <Button color="black" onClick={handleRandomButtonClick}>
               생성하기
             </Button>
           </div>
