@@ -293,13 +293,10 @@ export const mocks: ElementType[] = [
 
   { id: 208, type: 'group', name: '객체 종류', parentId: 195 },
 
-  { id: 210, type: 'case', name: 'X', parentId: 196 },
   { id: 209, type: 'group', name: 'O', parentId: 196 },
 
-  { id: 212, type: 'case', name: 'X', parentId: 197 },
   { id: 211, type: 'group', name: 'O', parentId: 197 },
 
-  { id: 214, type: 'case', name: 'X', parentId: 198 },
   { id: 213, type: 'group', name: 'O', parentId: 198 },
 
   { id: 215, type: 'group', name: 'SpeedAction Dynamics', parentId: 199 },
@@ -381,13 +378,10 @@ export const mocks: ElementType[] = [
   { id: 272, type: 'group', name: 'Dynamics Dimensions', parentId: 216 },
   { id: 273, type: 'group', name: 'value', parentId: 216 },
 
-  { id: 275, type: 'case', name: 'X', parentId: 217 },
   { id: 274, type: 'group', name: 'O', parentId: 217 },
 
-  { id: 277, type: 'case', name: 'X', parentId: 218 },
   { id: 276, type: 'group', name: 'O', parentId: 218 },
 
-  { id: 279, type: 'case', name: 'X', parentId: 219 },
   { id: 278, type: 'group', name: 'O', parentId: 219 },
 
   { id: 280, type: 'group', name: 'NPC1', parentId: 227 },
@@ -509,13 +503,10 @@ export const mocks: ElementType[] = [
   { id: 378, type: 'group', name: 'Lane Change Action', parentId: 278 },
   { id: 379, type: 'group', name: 'Target Lane Change Action', parentId: 278 },
 
-  { id: 381, type: 'case', name: 'X', parentId: 280 },
   { id: 380, type: 'group', name: 'O', parentId: 280 },
 
-  { id: 383, type: 'case', name: 'X', parentId: 281 },
   { id: 382, type: 'group', name: 'O', parentId: 281 },
 
-  { id: 385, type: 'case', name: 'X', parentId: 282 },
   { id: 384, type: 'group', name: 'O', parentId: 282 },
 
   { id: 386, type: 'case', name: 'N', parentId: 283 },
@@ -624,22 +615,16 @@ export const mocks: ElementType[] = [
   { id: 472, type: 'case', name: '-40', parentId: 384 },
   { id: 473, type: 'case', name: '-50', parentId: 384 },
 
-  { id: 475, type: 'case', name: 'X', parentId: 413 },
   { id: 474, type: 'group', name: 'O', parentId: 413 },
 
-  { id: 477, type: 'case', name: 'X', parentId: 414 },
   { id: 476, type: 'group', name: 'O', parentId: 414 },
 
-  { id: 479, type: 'case', name: 'X', parentId: 415 },
   { id: 478, type: 'group', name: 'O', parentId: 415 },
 
-  { id: 481, type: 'case', name: 'X', parentId: 416 },
   { id: 480, type: 'group', name: 'O', parentId: 416 },
 
-  { id: 483, type: 'case', name: 'X', parentId: 417 },
   { id: 482, type: 'group', name: 'O', parentId: 417 },
 
-  { id: 485, type: 'case', name: 'X', parentId: 418 },
   { id: 484, type: 'group', name: 'O', parentId: 418 },
 
   { id: 486, type: 'case', name: 'Linear', parentId: 426 },
@@ -855,58 +840,40 @@ export const mocks: ElementType[] = [
   { id: 655, type: 'case', name: '3', parentId: 569 },
   { id: 656, type: 'case', name: '4', parentId: 569 },
 
-  { id: 658, type: 'case', name: 'X', parentId: 636 },
   { id: 657, type: 'group', name: 'O', parentId: 636 },
 
-  { id: 660, type: 'case', name: 'X', parentId: 637 },
   { id: 659, type: 'group', name: 'O', parentId: 637 },
 
-  { id: 662, type: 'case', name: 'X', parentId: 638 },
   { id: 661, type: 'group', name: 'O', parentId: 638 },
 
-  { id: 664, type: 'case', name: 'X', parentId: 643 },
   { id: 663, type: 'group', name: 'O', parentId: 643 },
 
-  { id: 666, type: 'case', name: 'X', parentId: 644 },
   { id: 665, type: 'group', name: 'O', parentId: 644 },
 
-  { id: 668, type: 'case', name: 'X', parentId: 645 },
   { id: 667, type: 'group', name: 'O', parentId: 645 },
 
-  { id: 670, type: 'case', name: 'X', parentId: 650 },
   { id: 669, type: 'group', name: 'O', parentId: 650 },
 
-  { id: 672, type: 'case', name: 'X', parentId: 651 },
   { id: 671, type: 'group', name: 'O', parentId: 651 },
 
-  { id: 674, type: 'case', name: 'X', parentId: 652 },
   { id: 673, type: 'group', name: 'O', parentId: 652 },
 
-  { id: 676, type: 'case', name: 'X', parentId: 5682 },
   { id: 675, type: 'group', name: 'O', parentId: 5682 },
 
-  { id: 678, type: 'case', name: 'X', parentId: 5683 },
   { id: 677, type: 'group', name: 'O', parentId: 5683 },
 
-  { id: 680, type: 'case', name: 'X', parentId: 5684 },
   { id: 679, type: 'group', name: 'O', parentId: 5684 },
 
-  { id: 682, type: 'case', name: 'X', parentId: 5122 },
   { id: 681, type: 'group', name: 'O', parentId: 5122 },
 
-  { id: 684, type: 'case', name: 'X', parentId: 5123 },
   { id: 683, type: 'group', name: 'O', parentId: 5123 },
 
-  { id: 686, type: 'case', name: 'X', parentId: 5124 },
   { id: 685, type: 'group', name: 'O', parentId: 5124 },
 
-  { id: 688, type: 'case', name: 'X', parentId: 5402 },
   { id: 687, type: 'group', name: 'O', parentId: 5402 },
 
-  { id: 690, type: 'case', name: 'X', parentId: 5403 },
   { id: 689, type: 'group', name: 'O', parentId: 5403 },
 
-  { id: 692, type: 'case', name: 'X', parentId: 5404 },
   { id: 691, type: 'group', name: 'O', parentId: 5404 },
 
   { id: 693, type: 'case', name: '+50', parentId: 657 },
