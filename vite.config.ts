@@ -24,11 +24,13 @@ export default defineConfig({
     },
   },
   server: {
+    cors: false,
     proxy: {
       '/api': {
         target: 'http://seven.acryl.ai:39500/ner',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
       },
     },
   },
