@@ -10,3 +10,12 @@ export interface ElementType {
 export interface ElementWithChildrenType extends ElementType {
   children: ElementWithChildrenType[];
 }
+
+export interface responseDataType {
+  r: number;
+  result: {
+    [key: string]: {
+      [property: string]: string[];
+    };
+  };
+}

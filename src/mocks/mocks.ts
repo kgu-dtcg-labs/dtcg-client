@@ -180,7 +180,7 @@ export const mocks: ElementType[] = [
   { id: 130, type: 'case', name: '있음', parentId: 90 },
   { id: 131, type: 'case', name: '없음', parentId: 90 },
 
-  { id: 131, type: 'case', name: '있음', parentId: 91 },
+  { id: 1311, type: 'case', name: '있음', parentId: 91 },
   { id: 132, type: 'case', name: '없음', parentId: 91 },
 
   { id: 133, type: 'case', name: '녹색', parentId: 94 },

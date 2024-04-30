@@ -1,5 +1,10 @@
 import { mocks } from '@mocks/mocks';
-import type { ElementType, ElementWithChildrenType } from '@type/element';
+import type {
+  ElementType,
+  ElementWithChildrenType,
+  responseDataType,
+} from '@type/element';
+import { AxiosResponse } from 'axios';
 
 /**
  * 레이어 ID를 받아서 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환하는 함수
@@ -63,4 +68,30 @@ export function createMultipleScenarios(
     scenarios.push(createOneScenario(cases));
   }
   return scenarios;
+}
+
+export function matchingCaseWithResponse(
+  res: AxiosResponse<responseDataType>,
+): ElementType[] {
+  const result: ElementType[] = [];
+
+  // responseData에서 모든 값을 추출하여 배열로 변환
+  let searchValues: string[] = [];
+  Object.values(res.data.result).forEach((item) => {
+    Object.values(item).forEach((value) => {
+      if (Array.isArray(value) && value.length > 0) {
+        searchValues = [...searchValues, ...value];
+      }
+    });
+  });
+
+  // mocks 배열을 순회하며 name이 searchValues에 포함되는지 확인
+  mocks.forEach((mock) => {
+    if (searchValues.includes(mock.name) && mock.type === 'case') {
+      result.push(mock);
+    }
+  });
+
+  console.log(result);
+  return result;
 }
