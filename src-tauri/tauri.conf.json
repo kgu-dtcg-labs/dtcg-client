@@ -3,7 +3,7 @@
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:56320",
-    "distDir": "../build"
+    "distDir": "../dist"
   },
   "package": {
     "productName": "kgu-scenario-web GE",
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.road-scenario-generator.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -41,6 +41,9 @@
       "shortDescription": "",
       "targets": "all",
       "windows": {
+        "webviewInstallMode": {
+          "type": "offlineInstaller"
+        },
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": ""
