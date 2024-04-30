@@ -487,8 +487,8 @@ export const mocks: ElementType[] = [
   { id: 366, type: 'case', name: '150', parentId: 272 },
   { id: 367, type: 'case', name: '180', parentId: 272 },
   { id: 368, type: 'case', name: '210', parentId: 272 },
-  { id: 369, type: 'case', name: '140', parentId: 272 },
-  { id: 360, type: 'case', name: '170', parentId: 272 },
+  { id: 369, type: 'case', name: '240', parentId: 272 },
+  { id: 360, type: 'case', name: '270', parentId: 272 },
   { id: 371, type: 'case', name: '300', parentId: 272 },
   { id: 372, type: 'group', name: '객체 간 거리', parentId: 272 },
 

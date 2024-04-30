@@ -12,29 +12,33 @@ const ResultTable = ({ result }: ResultProps) => {
       <thead>
         <tr className="font-medium border-b divide-x bg-slate-100 dark:bg-gray-500">
           {TABLE_HEADER.map(({ name }, index) => (
-            <td key={`${name}-${index}`} className="py-4 min-w-32">
+            <th key={`${name}-${index}`} className="py-4 min-w-32">
               {name}
-            </td>
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
         {result.length === 0 ? (
           <tr>
-            <td className="px-4 py-2 text-left">데이터 없음</td>
+            <td colSpan={TABLE_HEADER.length} className="px-4 py-2 text-center">
+              데이터 없음
+            </td>
           </tr>
         ) : (
-          // TODO: 페이지네이션 구현
-          result.slice(0, 100).map((arr, index) => (
-            <tr key={index}>
-              {arr.map(({ name }, index) => (
-                <td
-                  key={`${name}-${index}`}
-                  className="px-4 py-1 text-center bg-white border dark:bg-transparent"
-                >
-                  {name}
-                </td>
-              ))}
+          result.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {TABLE_HEADER.map((header) => {
+                const element = row.find((el) => el.parentId === header.id);
+                return (
+                  <td
+                    key={`${header.id}-${element ? element.name : 'X'}`}
+                    className="px-4 py-1 text-center bg-white border dark:bg-transparent"
+                  >
+                    {element ? element.name : ''}
+                  </td>
+                );
+              })}
             </tr>
           ))
         )}
