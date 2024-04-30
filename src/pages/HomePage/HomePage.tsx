@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import ElementTree from '@components/common/ElementTree/ElementTree';
 import {
   createMultipleScenarios,
-  createOneScenario,
   matchingCaseWithResponse,
   treeParser,
 } from '@utils/element';
@@ -29,6 +28,7 @@ const HomePage = () => {
   const defaultCase = useGetCaseStore();
   const [selectedCase, setSelectedCase] = useSelectedCaseStore();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openSelectModal, setOpenSelectModal] = useState<boolean>(false);
   const [openDataModal, setOpenDataModal] = useState<boolean>(false);
   const [accidentData, setAccidentData] = useState<string>();
   const [openAlert, setOpenAlert] = useState<boolean>(false);
@@ -59,31 +59,34 @@ const HomePage = () => {
     setOpenModal((prev) => !prev);
   }, [selectedCase]);
 
+  const handleOpenSelectModal = useCallback(() => {
+    if (selectedCase.length === 0) {
+      return setOpenAlert((prev) => !prev);
+    }
+    setOpenSelectModal((prev) => !prev);
+  }, [selectedCase]);
+
   const handleChangeData = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setAccidentData(e.target.value);
     },
     [],
   );
+
   /**
    * 랜덤 생성
    * 모든 케이스 중에서 랜덤으로 선택하여 시나리오를 생성합니다.
    */
-  const handleRandomButtonClick = () => {
+  const handleRandomButtonClick = (cases: ElementType[]) => {
     setOpenModal(false);
-    setResult(createMultipleScenarios(defaultCase, count));
-  };
-  /**
-   * 선택 생성
-   * 선택된 케이스로 시나리오를 생성합니다.
-   */
-  const handleSelectCreate = () => {
-    if (selectedCase.length === 0) {
-      return setOpenAlert((prev) => !prev);
-    }
-    setResult([createOneScenario(selectedCase)]);
+    setOpenSelectModal(false);
+    setResult(createMultipleScenarios(cases, count));
   };
 
+  /**
+   * 아크릴 api 통신
+   * 아크릴 api의 response값을 케이스에 적용시킵니다.
+   */
   const postAndMatchingData = async () => {
     setSelectedCase([]); // 선택된 케이스를 초기화합니다.
 
@@ -156,7 +159,7 @@ const HomePage = () => {
           color="black"
           className="h-10 font-semibold w-28"
           icon={<IoCheckmarkDone />}
-          onClick={handleSelectCreate}
+          onClick={handleOpenSelectModal}
         >
           선택 생성
         </Button>
@@ -178,13 +181,36 @@ const HomePage = () => {
           <div className="grid items-center gap-2 text-center">
             <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
-            <span>최대 1000개까지 입력 가능</span>
+            <span>최대 10000개까지 입력 가능</span>
             <input
               value={count}
               onChange={handleCountChange}
               className="p-2 border rounded outline-none dark:bg-zinc-800"
             />
-            <Button color="black" onClick={handleRandomButtonClick}>
+            <Button
+              color="black"
+              onClick={() => handleRandomButtonClick(defaultCase)}
+            >
+              생성하기
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {openSelectModal && (
+        <Modal onClose={handleOpenSelectModal}>
+          <div className="grid items-center gap-2 text-center">
+            <h1 className="pb-4 text-xl font-semibold ">선택 생성 개수 입력</h1>
+            <span>생성할 시나리오의 개수를 입력해주세요.</span>
+            <span>최대 10000개까지 입력 가능</span>
+            <input
+              value={count}
+              onChange={handleCountChange}
+              className="p-2 border rounded outline-none dark:bg-zinc-800"
+            />
+            <Button
+              color="black"
+              onClick={() => handleRandomButtonClick(selectedCase)}
+            >
               생성하기
             </Button>
           </div>
