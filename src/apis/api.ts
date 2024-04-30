@@ -15,7 +15,7 @@ export const postData = async (data: string | undefined) => {
         },
       },
     );
-
+    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
