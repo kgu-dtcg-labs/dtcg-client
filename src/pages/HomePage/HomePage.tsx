@@ -3,6 +3,7 @@ import ElementTree from '@components/common/ElementTree/ElementTree';
 import {
   createMultipleScenarios,
   createOneScenario,
+  matchingCaseWithResponse,
   treeParser,
 } from '@utils/element';
 import {
@@ -16,12 +17,13 @@ import {
 import { Button } from '@components/common/Button/Button';
 import LayerHeader from '@components/home/LayerHeader/LayerHeader';
 import ResultTable from '@components/home/ResultTable/ResultTable';
-import { ElementType } from '@type/element';
+import { ElementType, responseDataType } from '@type/element';
 import { Modal } from '@components/common/Modal/Modal';
-import { postData } from '@/apis/api';
 import classNames from 'classnames';
 import { useSelectedCaseStore } from '@store/selected-case';
 import { useGetCaseStore } from '@store/case';
+import { postData } from '@/apis/api';
+import { AxiosResponse } from 'axios';
 
 const HomePage = () => {
   const defaultCase = useGetCaseStore();
@@ -80,6 +82,26 @@ const HomePage = () => {
       return setOpenAlert((prev) => !prev);
     }
     setResult([createOneScenario(selectedCase)]);
+  };
+
+  const postAndMatchingData = async () => {
+    setSelectedCase([]); // 선택된 케이스를 초기화합니다.
+
+    try {
+      // postData 함수의 결과가 Promise이므로 await을 사용하여 결과를 기다립니다.
+      alert(
+        '잠시만 기다려주세요. 도중에 화면을 클릭할 경우 데이터 전송에 문제가 생길 수 있습니다',
+      );
+      const responseData = await postData(accidentData);
+      const processedData = matchingCaseWithResponse(
+        responseData as AxiosResponse<responseDataType>,
+      );
+      setSelectedCase(processedData);
+      alert('완료되었습니다.');
+      setOpenDataModal(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -192,8 +214,8 @@ const HomePage = () => {
             ></textarea>
             <Button
               color="black"
-              onClick={() => postData(accidentData)}
-              className="py-3 font-semibold text-lg"
+              onClick={postAndMatchingData}
+              className="py-3 text-lg font-semibold"
             >
               입력하기
             </Button>
