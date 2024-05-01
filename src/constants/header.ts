@@ -101,7 +101,7 @@ export const TABLE_HEADER: TableHeaderType[] = [
   { id: 687, name: 'ALA좌회전TLCAN1거리' },
   { id: 689, name: 'ALA좌회전TLCAN2거리' },
   { id: 691, name: 'ALA좌회전TLCAN3거리' },
-  { id: 569, name: 'ALA좌회전TLCA목표차선' },
+  { id: 541, name: 'ALA좌회전TLCA목표차선' },
   //
   { id: 436, name: 'ALA우회전LCADS' },
   { id: 437, name: 'ALA우회전LCADD' },
