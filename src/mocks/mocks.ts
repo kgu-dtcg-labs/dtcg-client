@@ -1190,4 +1190,28 @@ export const mocks: ElementType[] = [
   { id: 979, type: 'case', name: '0', parentId: 946 },
   { id: 980, type: 'case', name: '+', parentId: 946 },
   { id: 981, type: 'case', name: '++', parentId: 946 },
+
+  /* ------------------------------------------------------------------------------------------------------------------------------ */
+  /* ---------------------------------------------------------Layer 7-------------------------------------------------------------- */
+
+  { id: 982, type: 'case', name: '어린이', parentId: 7 },
+  { id: 983, type: 'case', name: '자전거', parentId: 7 },
+  { id: 984, type: 'case', name: '노인', parentId: 7 },
+  { id: 985, type: 'case', name: '승용차', parentId: 7 },
+  { id: 986, type: 'case', name: '자전거', parentId: 7 },
+  { id: 987, type: 'case', name: '보호자', parentId: 7 },
+  { id: 988, type: 'case', name: '과속', parentId: 7 },
+  { id: 989, type: 'case', name: '노약자', parentId: 7 },
+  { id: 990, type: 'case', name: '갓길주행', parentId: 7 },
+  { id: 991, type: 'case', name: '자율주행', parentId: 7 },
+  { id: 992, type: 'case', name: '음주운전', parentId: 7 },
+  { id: 993, type: 'case', name: '무면허', parentId: 7 },
+  { id: 994, type: 'case', name: '꼬리물기', parentId: 7 },
+  { id: 995, type: 'case', name: '신호위반', parentId: 7 },
+  { id: 996, type: 'case', name: '중앙선 침범', parentId: 7 },
+  { id: 997, type: 'case', name: '철길건널목', parentId: 7 },
+  { id: 998, type: 'case', name: '보행자', parentId: 7 },
+  { id: 999, type: 'case', name: '앞지르기', parentId: 7 },
+  { id: 1000, type: 'case', name: '끼어들기', parentId: 7 },
+  { id: 1001, type: 'case', name: '보도 침범', parentId: 7 },
 ];

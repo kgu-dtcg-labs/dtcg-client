@@ -137,4 +137,5 @@ export const TABLE_HEADER: TableHeaderType[] = [
   { id: 944, name: 'V2C' },
   { id: 945, name: 'GPS정보' },
   { id: 946, name: '전자지도정보' },
+  { id: 7, name: '법ㆍ규제' },
 ] as const;

@@ -23,6 +23,7 @@ import { useSelectedCaseStore } from '@store/selected-case';
 import { useGetCaseStore } from '@store/case';
 import { postData } from '@/apis/api';
 import { AxiosResponse } from 'axios';
+import { mocks } from '@mocks/mocks';
 
 const HomePage = () => {
   const defaultCase = useGetCaseStore();
@@ -30,7 +31,9 @@ const HomePage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openSelectModal, setOpenSelectModal] = useState<boolean>(false);
   const [openDataModal, setOpenDataModal] = useState<boolean>(false);
-  const [accidentData, setAccidentData] = useState<string>();
+  const [lawData, setLawData] = useState<string>('');
+  const [openLawModal, setOpenLawModal] = useState<boolean>(false);
+  const [accidentData, setAccidentData] = useState<string>('');
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [layer, setLayer] = useState<number>(1);
   const [count, setCount] = useState<number>(1);
@@ -52,6 +55,11 @@ const HomePage = () => {
     setOpenDataModal((prev) => !prev);
   }, [setOpenDataModal]);
 
+  const handleOpenLawModal = useCallback(() => {
+    setLawData('');
+    setOpenLawModal((prev) => !prev);
+  }, [setOpenLawModal]);
+
   const handleOpenModal = useCallback(() => {
     if (selectedCase.length === 0) {
       return setOpenAlert((prev) => !prev);
@@ -69,6 +77,13 @@ const HomePage = () => {
   const handleChangeData = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setAccidentData(e.target.value);
+    },
+    [],
+  );
+
+  const handleChangeLawData = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setLawData(e.target.value);
     },
     [],
   );
@@ -107,17 +122,39 @@ const HomePage = () => {
     }
   };
 
+  const matchingLawData = useCallback(
+    (keyword: string) => {
+      const filteredCases = mocks.filter(
+        (c) => c.parentId === 7 && c.name.includes(keyword),
+      );
+      setSelectedCase(filteredCases);
+      setOpenLawModal(false);
+    },
+    [setSelectedCase],
+  );
+
   return (
     <div className="py-10 select-none">
       <div className="flex items-center justify-between mb-10">
-        <Button
-          icon={<IoReaderOutline />}
-          onClick={handleOpenDataModal}
-          color="black"
-          className="font-semibold"
-        >
-          사고 데이터 입력하기
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button
+            icon={<IoReaderOutline />}
+            onClick={handleOpenDataModal}
+            color="black"
+            className="font-semibold"
+          >
+            사고 데이터 입력하기
+          </Button>
+          <Button
+            icon={<IoReaderOutline />}
+            onClick={handleOpenLawModal}
+            color="black"
+            className="font-semibold"
+          >
+            법률 키워드 검색
+          </Button>
+        </div>
+
         <div className="flex items-center gap-2">
           <Button
             className="flex items-center gap-1 font-semibold"
@@ -241,6 +278,28 @@ const HomePage = () => {
             <Button
               color="black"
               onClick={postAndMatchingData}
+              className="py-3 text-lg font-semibold"
+            >
+              입력하기
+            </Button>
+          </div>
+        </Modal>
+      )}
+      {openLawModal && (
+        <Modal onClose={handleOpenLawModal}>
+          <div className="grid items-center gap-2 text-center">
+            <span className="py-3 text-xl">
+              아래 빈칸에 법률 키워드를 입력해주세요.
+            </span>
+            <textarea
+              placeholder="여기에 입력하세요"
+              value={lawData}
+              onChange={handleChangeLawData}
+              className="resize-none w-[800px] min-h-[200px] border p-4 overflow-auto scrollbar-hide outline-none mb-5 rounded-md"
+            ></textarea>
+            <Button
+              color="black"
+              onClick={() => matchingLawData(lawData)}
               className="py-3 text-lg font-semibold"
             >
               입력하기
