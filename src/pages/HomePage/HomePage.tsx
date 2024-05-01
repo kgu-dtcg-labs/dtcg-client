@@ -5,13 +5,10 @@ import {
   matchingCaseWithResponse,
   treeParser,
 } from '@utils/element';
-import {
-  IoReload,
-  IoClose,
-  IoShuffle,
-  IoCheckmarkDone,
-  IoReaderOutline,
-} from 'react-icons/io5';
+import { IoReload, IoClose } from 'react-icons/io5';
+import { GiPerspectiveDiceSixFacesRandom } from 'react-icons/gi';
+import { PiSelectionAllFill, PiSirenFill } from 'react-icons/pi';
+import { FaBook } from 'react-icons/fa6';
 import { Button } from '@components/common/Button/Button';
 import LayerHeader from '@components/home/LayerHeader/LayerHeader';
 import ResultTable from '@components/home/ResultTable/ResultTable';
@@ -24,13 +21,12 @@ import { AxiosResponse } from 'axios';
 import { mocks } from '@mocks/mocks';
 import SaveButton from '@components/home/SaveButton/SaveButton';
 import { postAccidentData } from '@api/acryl';
-
-type Modal = '사고' | '법률' | '랜덤' | '선택' | '알림' | 'none';
+import type { Modal as ModalType } from '@type/common';
 
 const HomePage = () => {
   const defaultCase = useGetCaseStore();
   const [selectedCase, setSelectedCase] = useSelectedCaseStore();
-  const [openModal, setOpenModal] = useState<Modal>('none');
+  const [openModal, setOpenModal] = useState<ModalType>('none');
   const [lawData, setLawData] = useState<string>('');
   const [accidentData, setAccidentData] = useState<string>('');
   const [layer, setLayer] = useState<number>(1);
@@ -122,18 +118,15 @@ const HomePage = () => {
   const matchingLawData = useCallback(
     (keyword: string) => {
       setSelectedCase((prevSelectedCase) => {
+        setOpenModal('none');
         // parentId가 7인 항목들 중 name 속성이 키워드를 포함하는 항목들을 필터링
         const filteredItems = mocks.filter(
           (item) => item.parentId === 7 && item.value?.includes(keyword),
         );
-
         // 이미 selectedCase에 존재하는지 확인하고, 없는 항목들만 추가
-        const newItems = filteredItems.filter(
-          (filteredItem) =>
-            !prevSelectedCase.some((item) => item.id === filteredItem.id),
+        const newItems = filteredItems.filter((filteredItem) =>
+          prevSelectedCase.some((item) => item.id === filteredItem.id),
         );
-
-        setOpenModal('none');
         return [...prevSelectedCase, ...newItems];
       });
     },
@@ -143,17 +136,17 @@ const HomePage = () => {
   return (
     <div className="py-10 select-none">
       <div className="flex items-center justify-between mb-10">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button
-            icon={<IoReaderOutline />}
+            icon={<PiSirenFill />}
             onClick={handleOpenDataModal}
             color="black"
             className="font-semibold"
           >
-            사고 데이터 입력하기
+            사고 데이터 입력
           </Button>
           <Button
-            icon={<IoReaderOutline />}
+            icon={<FaBook />}
             onClick={handleOpenLawModal}
             color="black"
             className="font-semibold"
@@ -161,7 +154,6 @@ const HomePage = () => {
             법률 키워드 검색
           </Button>
         </div>
-
         <div className="flex items-center gap-2">
           <Button
             className="flex items-center gap-1 font-semibold"
@@ -194,7 +186,7 @@ const HomePage = () => {
         <Button
           color="black"
           className="h-10 font-semibold w-28"
-          icon={<IoShuffle />}
+          icon={<GiPerspectiveDiceSixFacesRandom />}
           onClick={handleOpenModal}
         >
           랜덤 생성
@@ -202,18 +194,14 @@ const HomePage = () => {
         <Button
           color="black"
           className="h-10 font-semibold w-28"
-          icon={<IoCheckmarkDone />}
+          icon={<PiSelectionAllFill />}
           onClick={handleOpenSelectModal}
         >
           선택 생성
         </Button>
-      </div>
-      <ResultTable.Wrapper>
-        <ResultTable result={result} />
-      </ResultTable.Wrapper>
-      <div className="flex justify-center gap-2 mt-6">
         <SaveButton data={result} />
       </div>
+      <ResultTable result={result} />
       {openModal === '랜덤' && (
         <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">

@@ -15,7 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={classNames(
-          'border rounded py-1.5 px-2 transition-colors',
+          'border rounded py-1.5 px-2 transition-colors text-nowrap',
           { 'flex items-center justify-center gap-1': icon },
           buttonColors[color],
           className,

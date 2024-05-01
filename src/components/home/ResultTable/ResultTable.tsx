@@ -1,59 +1,99 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button } from '@components/common/Button/Button';
 import { TABLE_HEADER } from '@constants/header';
 import { ElementType } from '@type/element';
-import { PropsWithChildren } from 'react';
+import type { Step } from '@type/common';
 
 interface ResultProps {
   result: ElementType[][];
 }
 
+const limit = 20;
+
 const ResultTable = ({ result }: ResultProps) => {
+  const [page, setPage] = useState(0);
+
+  const currentPage = useMemo(
+    () => result.slice(page * limit, page * limit + limit),
+    [result, page],
+  );
+
+  const handlePageChange = useCallback(
+    (step: Step) => {
+      switch (step) {
+        case 'back':
+          setPage((prev) => Math.max(prev - 1, 0));
+          break;
+        case 'forward':
+          setPage((prev) =>
+            Math.min(prev + 1, Math.floor(result.length / limit)),
+          );
+          break;
+        default:
+          break;
+      }
+    },
+    [result],
+  );
+
+  useEffect(() => {
+    setPage(0);
+  }, [result]);
+
   return (
-    <table className="text-center table-fixed select-none">
-      <thead>
-        <tr className="font-medium border-b divide-x bg-slate-100 dark:bg-gray-500">
-          {TABLE_HEADER.map(({ name }, index) => (
-            <th key={`${name}-${index}`} className="py-4 min-w-32">
-              {name}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {result.length === 0 ? (
-          <tr>
-            <td colSpan={TABLE_HEADER.length} className="px-4 py-2 text-center">
-              데이터 없음
-            </td>
-          </tr>
-        ) : (
-          result.slice(0, 1).map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {TABLE_HEADER.map((header) => {
-                const element = row.find((el) => el.parentId === header.id);
-                return (
-                  <td
-                    key={`${header.id}-${element ? element.name : 'X'}`}
-                    className="px-4 py-1 text-center bg-white border dark:bg-transparent"
-                  >
-                    {element ? element.name : ''}
-                  </td>
-                );
-              })}
+    <div className="space-y-2">
+      <p className="font-semibold text-right mr-1 text-lg">
+        생성된 테스트 케이스: {result.length}개
+      </p>
+      <div className="overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
+        <table className="text-center table-fixed select-none">
+          <thead>
+            <tr className="font-medium border-b divide-x bg-slate-100 dark:bg-gray-500">
+              {TABLE_HEADER.map(({ name }, index) => (
+                <th key={`${name}-${index}`} className="py-4 min-w-32">
+                  {name}
+                </th>
+              ))}
             </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            {result.length > 0 &&
+              currentPage.map((row, index) => (
+                <tr
+                  key={index}
+                  className="hover:dark:bg-zinc-700 hover:bg-gray-100 break-keep"
+                >
+                  {TABLE_HEADER.map((header) => {
+                    const element = row.find((el) => el.parentId === header.id);
+                    return (
+                      <td
+                        key={`${header.id}-${element?.name || ''}`}
+                        className="px-4 py-1 border"
+                      >
+                        {element?.name || ''}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+      {result.length > 0 && (
+        <div className="justify-center flex items-center gap-2">
+          <Button color="black" onClick={() => handlePageChange('back')}>
+            이전
+          </Button>
+          <p className="text-center font-semibold w-20">
+            {page + 1}/{Math.ceil(result.length / limit)}
+          </p>
+          <Button color="black" onClick={() => handlePageChange('forward')}>
+            다음
+          </Button>
+        </div>
+      )}
+    </div>
   );
 };
-
-const ResultTableWrapper = ({ children }: PropsWithChildren) => (
-  <div className="mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
-    {children}
-  </div>
-);
-ResultTableWrapper.displayName = 'ResultTableWrapper';
-
-ResultTable.Wrapper = ResultTableWrapper;
 
 export default ResultTable;
