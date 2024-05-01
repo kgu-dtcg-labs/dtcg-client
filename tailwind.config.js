@@ -4,14 +4,6 @@ import tailwindScrollbarHide from 'tailwind-scrollbar-hide';
 export default {
   content: ['index.html', './src/**/*.{html,js,jsx,ts,tsx,css}'],
   darkMode: 'selector',
-  theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        xl: '1280px',
-      },
-    },
-  },
+  theme: {},
   plugins: [tailwindScrollbarHide],
 };
