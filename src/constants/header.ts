@@ -77,7 +77,7 @@ export const TABLE_HEADER: TableHeaderType[] = [
   { id: 480, name: 'ALASATN1거리' },
   { id: 482, name: 'ALASATN2거리' },
   { id: 484, name: 'ALASATN3거리' },
-  { id: 273, name: 'ALASAT목표 속도' },
+  { id: 373, name: 'ALASAT목표 속도' },
   //
   { id: 426, name: 'ALA직진LCADS' },
   { id: 427, name: 'ALA직진LCADD' },
