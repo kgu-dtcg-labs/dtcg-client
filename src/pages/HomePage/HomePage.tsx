@@ -10,7 +10,6 @@ import {
   IoClose,
   IoShuffle,
   IoCheckmarkDone,
-  IoArrowDownCircle,
   IoReaderOutline,
 } from 'react-icons/io5';
 import { Button } from '@components/common/Button/Button';
@@ -21,20 +20,19 @@ import { Modal } from '@components/common/Modal/Modal';
 import classNames from 'classnames';
 import { useSelectedCaseStore } from '@store/selected-case';
 import { useGetCaseStore } from '@store/case';
-import { postData } from '@/apis/api';
 import { AxiosResponse } from 'axios';
 import { mocks } from '@mocks/mocks';
+import SaveButton from '@components/home/SaveButton/SaveButton';
+import { postAccidentData } from '@api/acryl';
+
+type Modal = '사고' | '법률' | '랜덤' | '선택' | '알림' | 'none';
 
 const HomePage = () => {
   const defaultCase = useGetCaseStore();
   const [selectedCase, setSelectedCase] = useSelectedCaseStore();
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openSelectModal, setOpenSelectModal] = useState<boolean>(false);
-  const [openDataModal, setOpenDataModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<Modal>('none');
   const [lawData, setLawData] = useState<string>('');
-  const [openLawModal, setOpenLawModal] = useState<boolean>(false);
   const [accidentData, setAccidentData] = useState<string>('');
-  const [openAlert, setOpenAlert] = useState<boolean>(false);
   const [layer, setLayer] = useState<number>(1);
   const [count, setCount] = useState<number>(1);
   const [result, setResult] = useState<ElementType[][]>([]);
@@ -45,33 +43,37 @@ const HomePage = () => {
 
   const handleCountChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCount(+e.target.value);
+      setCount(Number(e.target.value.replace(/\D/g, '')));
     },
     [],
   );
 
+  const handleOpenModalCloseClick = () => {
+    setOpenModal('none');
+  };
+
   const handleOpenDataModal = useCallback(() => {
     setAccidentData('');
-    setOpenDataModal((prev) => !prev);
-  }, [setOpenDataModal]);
+    setOpenModal('사고');
+  }, []);
 
   const handleOpenLawModal = useCallback(() => {
     setLawData('');
-    setOpenLawModal((prev) => !prev);
-  }, [setOpenLawModal]);
+    setOpenModal('법률');
+  }, []);
 
   const handleOpenModal = useCallback(() => {
     if (selectedCase.length === 0) {
-      return setOpenAlert((prev) => !prev);
+      return setOpenModal('알림');
     }
-    setOpenModal((prev) => !prev);
+    setOpenModal('랜덤');
   }, [selectedCase]);
 
   const handleOpenSelectModal = useCallback(() => {
     if (selectedCase.length === 0) {
-      return setOpenAlert((prev) => !prev);
+      return setOpenModal('알림');
     }
-    setOpenSelectModal((prev) => !prev);
+    setOpenModal('선택');
   }, [selectedCase]);
 
   const handleChangeData = useCallback(
@@ -93,8 +95,7 @@ const HomePage = () => {
    * 모든 케이스 중에서 랜덤으로 선택하여 시나리오를 생성합니다.
    */
   const handleRandomButtonClick = (cases: ElementType[]) => {
-    setOpenModal(false);
-    setOpenSelectModal(false);
+    setOpenModal('none');
     setResult(createMultipleScenarios(cases, count));
   };
 
@@ -107,16 +108,12 @@ const HomePage = () => {
 
     try {
       // postData 함수의 결과가 Promise이므로 await을 사용하여 결과를 기다립니다.
-      alert(
-        '잠시만 기다려주세요. 도중에 화면을 클릭할 경우 데이터 전송에 문제가 생길 수 있습니다',
-      );
-      const responseData = await postData(accidentData);
+      const responseData = await postAccidentData(accidentData);
       const processedData = matchingCaseWithResponse(
         responseData as AxiosResponse<responseDataType>,
       );
       setSelectedCase(processedData);
-      alert('완료되었습니다.');
-      setOpenDataModal(false);
+      setOpenModal('none');
     } catch (e) {
       console.error(e);
     }
@@ -136,7 +133,7 @@ const HomePage = () => {
             !prevSelectedCase.some((item) => item.id === filteredItem.id),
         );
 
-        setOpenLawModal(false);
+        setOpenModal('none');
         return [...prevSelectedCase, ...newItems];
       });
     },
@@ -215,20 +212,14 @@ const HomePage = () => {
         <ResultTable result={result} />
       </ResultTable.Wrapper>
       <div className="flex justify-center gap-2 mt-6">
-        <Button
-          color="black"
-          icon={<IoArrowDownCircle />}
-          className="h-10 font-semibold w-28"
-        >
-          저장하기
-        </Button>
+        <SaveButton data={result} />
       </div>
-      {openModal && (
-        <Modal onClose={handleOpenModal}>
+      {openModal === '랜덤' && (
+        <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">
             <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
-            <span>최대 10000개까지 입력 가능</span>
+            <span>최대 50,000개까지 입력 가능</span>
             <input
               value={count}
               onChange={handleCountChange}
@@ -243,12 +234,12 @@ const HomePage = () => {
           </div>
         </Modal>
       )}
-      {openSelectModal && (
-        <Modal onClose={handleOpenSelectModal}>
+      {openModal === '선택' && (
+        <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">
             <h1 className="pb-4 text-xl font-semibold ">선택 생성 개수 입력</h1>
             <span>생성할 시나리오의 개수를 입력해주세요.</span>
-            <span>최대 10000개까지 입력 가능</span>
+            <span>최대 50,000개까지 입력 가능</span>
             <input
               value={count}
               onChange={handleCountChange}
@@ -263,18 +254,18 @@ const HomePage = () => {
           </div>
         </Modal>
       )}
-      {openAlert && (
-        <Modal onClose={handleOpenModal}>
+      {openModal === '알림' && (
+        <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">
             <span className="py-3">선택한 케이스가 없습니다.</span>
-            <Button color="black" onClick={() => setOpenAlert(false)}>
+            <Button color="black" onClick={() => setOpenModal('none')}>
               확인
             </Button>
           </div>
         </Modal>
       )}
-      {openDataModal && (
-        <Modal onClose={handleOpenDataModal}>
+      {openModal === '사고' && (
+        <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">
             <span className="py-3 text-xl">
               아래 빈칸에 사고 데이터를 입력해주세요.
@@ -295,8 +286,8 @@ const HomePage = () => {
           </div>
         </Modal>
       )}
-      {openLawModal && (
-        <Modal onClose={handleOpenLawModal}>
+      {openModal === '법률' && (
+        <Modal onClose={handleOpenModalCloseClick}>
           <div className="grid items-center gap-2 text-center">
             <span className="py-3 text-xl">
               아래 빈칸에 법률 키워드를 입력해주세요.

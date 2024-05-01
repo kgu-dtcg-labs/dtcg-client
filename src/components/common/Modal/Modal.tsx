@@ -1,5 +1,5 @@
 interface ModalProps {
-  onClose: () => void;
+  onClose?: () => void;
   children: React.ReactNode;
 }
 
@@ -8,7 +8,7 @@ export const Modal = ({ onClose, children }: ModalProps) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      onClose && onClose();
     }
   };
   return (

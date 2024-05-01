@@ -1,4 +1,4 @@
-import { mocks } from '@mocks/mocks';
+import { memoCases, mocks } from '@mocks/mocks';
 import type {
   ElementType,
   ElementWithChildrenType,
@@ -42,9 +42,9 @@ export function treeParser(layer: number): ElementWithChildrenType {
  * @returns {ElementType[]} 랜덤으로 선택된 각 parentId에 대한 경우들의 배열.
  */
 export function createOneScenario(cases: ElementType[]): ElementType[] {
-  const parentIds = [...new Set(cases.map((c) => c.parentId))]; // 모든 고유 parentId 추출
+  const parentIds = [...new Set(cases.map((c) => c.parentId as number))]; // 모든 고유 parentId 추출
   const randomSelection = parentIds.map((pid) => {
-    const filteredCases = cases.filter((c) => c.parentId === pid);
+    const filteredCases = memoCases[pid];
     return filteredCases[Math.floor(Math.random() * filteredCases.length)]; // 각 parentId에 대해 랜덤 선택
   });
   return randomSelection;
