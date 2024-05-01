@@ -127,7 +127,7 @@ const HomePage = () => {
       setSelectedCase((prevSelectedCase) => {
         // parentId가 7인 항목들 중 name 속성이 키워드를 포함하는 항목들을 필터링
         const filteredItems = mocks.filter(
-          (item) => item.parentId === 7 && item.name.includes(keyword),
+          (item) => item.parentId === 7 && item.value?.includes(keyword),
         );
 
         // 이미 selectedCase에 존재하는지 확인하고, 없는 항목들만 추가
