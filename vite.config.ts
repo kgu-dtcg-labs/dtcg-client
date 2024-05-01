@@ -19,7 +19,6 @@ export default defineConfig({
       '@styles': resolve(__dirname, './src/styles'),
       '@type': resolve(__dirname, './src/types'),
       '@utils': resolve(__dirname, './src/utils'),
-      '@apis': resolve(__dirname, './stc/apis'),
       '@': resolve(__dirname, './src'),
     },
   },
@@ -30,6 +29,13 @@ export default defineConfig({
         target: 'http://seven.acryl.ai:39500/ner',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+      },
+      '/save': {
+        target:
+          'http://ec2-52-78-74-89.ap-northeast-2.compute.amazonaws.com:9999/save_scenarios',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/save/, ''),
         secure: false,
       },
     },
