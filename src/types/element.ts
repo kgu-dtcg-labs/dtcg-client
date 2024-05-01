@@ -5,6 +5,7 @@ export interface ElementType {
   type: ElementTypeType;
   name: string;
   parentId: number | null;
+  value?: string | undefined;
 }
 
 export interface ElementWithChildrenType extends ElementType {

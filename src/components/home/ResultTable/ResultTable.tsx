@@ -26,7 +26,7 @@ const ResultTable = ({ result }: ResultProps) => {
             </td>
           </tr>
         ) : (
-          result.map((row, rowIndex) => (
+          result.slice(0, 1).map((row, rowIndex) => (
             <tr key={rowIndex}>
               {TABLE_HEADER.map((header) => {
                 const element = row.find((el) => el.parentId === header.id);
