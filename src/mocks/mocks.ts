@@ -1344,3 +1344,18 @@ export const mocks: ElementType[] = [
     value: '모든 차 또는 노면전차의 운전자는 각 호의 사항을 지켜야 함',
   },
 ];
+/**
+ * 케이스의 부모에 대한 메모이제이션
+ */
+const cases = mocks.filter((mock) => mock.type === 'case');
+export const memoCases: { [key: number]: ElementType[] } = {};
+
+for (const mock of cases) {
+  const parentId = mock.parentId;
+  if (parentId) {
+    if (!memoCases[parentId]) {
+      memoCases[parentId] = [];
+    }
+    memoCases[parentId].push(mock);
+  }
+}
