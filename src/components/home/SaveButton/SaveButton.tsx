@@ -1,9 +1,9 @@
 import { postSaveScenarios } from '@api/scenario';
 import { Button } from '@components/common/Button/Button';
 import { TABLE_HEADER } from '@constants/header';
-import type { ElementType } from '@type/element';
+import { BsDatabaseFillAdd } from 'react-icons/bs';
 
-import { IoArrowDownCircle } from 'react-icons/io5';
+import type { ElementType } from '@type/element';
 
 interface SaveButtonProps {
   data: ElementType[][];
@@ -11,6 +11,8 @@ interface SaveButtonProps {
 
 const SaveButton = ({ data }: SaveButtonProps) => {
   const handleSaveButtonClick = async () => {
+    if (data.length === 0) return;
+
     const newData = data
       .map((row) =>
         row
@@ -28,11 +30,11 @@ const SaveButton = ({ data }: SaveButtonProps) => {
   return (
     <Button
       color="black"
-      icon={<IoArrowDownCircle />}
-      className="h-10 font-semibold w-28"
+      icon={<BsDatabaseFillAdd />}
+      className="font-semibold"
       onClick={handleSaveButtonClick}
     >
-      저장하기
+      데이터베이스에 저장하기
     </Button>
   );
 };
