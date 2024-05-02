@@ -21,7 +21,7 @@ import { AxiosResponse } from 'axios';
 import { mocks } from '@mocks/mocks';
 import SaveButton from '@components/home/SaveButton/SaveButton';
 import { postAccidentData } from '@api/acryl';
-import type { Modal as ModalType } from '@type/common';
+import type { Modal as ModalType, RandomType } from '@type/common';
 
 const HomePage = () => {
   const defaultCase = useGetCaseStore();
@@ -90,9 +90,9 @@ const HomePage = () => {
    * 랜덤 생성
    * 모든 케이스 중에서 랜덤으로 선택하여 시나리오를 생성합니다.
    */
-  const handleRandomButtonClick = (cases: ElementType[]) => {
+  const handleRandomButtonClick = (cases: ElementType[], type: RandomType) => {
     setOpenModal('none');
-    setResult(createMultipleScenarios(cases, count));
+    setResult(createMultipleScenarios(cases, count, type));
   };
 
   /**
@@ -215,7 +215,7 @@ const HomePage = () => {
             />
             <Button
               color="black"
-              onClick={() => handleRandomButtonClick(defaultCase)}
+              onClick={() => handleRandomButtonClick(defaultCase, '랜덤')}
             >
               생성하기
             </Button>
@@ -235,7 +235,7 @@ const HomePage = () => {
             />
             <Button
               color="black"
-              onClick={() => handleRandomButtonClick(selectedCase)}
+              onClick={() => handleRandomButtonClick(selectedCase, '선택')}
             >
               생성하기
             </Button>

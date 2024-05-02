@@ -1,4 +1,5 @@
 import { memoCases, mocks } from '@mocks/mocks';
+import { RandomType } from '@type/common';
 import type {
   ElementType,
   ElementWithChildrenType,
@@ -41,10 +42,16 @@ export function treeParser(layer: number): ElementWithChildrenType {
  * 각 경우는 `parentId` 속성을 포함해야 합니다.
  * @returns {ElementType[]} 랜덤으로 선택된 각 parentId에 대한 경우들의 배열.
  */
-export function createOneScenario(cases: ElementType[]): ElementType[] {
+export function createOneScenario(
+  cases: ElementType[],
+  type: RandomType,
+): ElementType[] {
   const parentIds = [...new Set(cases.map((c) => c.parentId as number))]; // 모든 고유 parentId 추출
   const randomSelection = parentIds.map((pid) => {
-    const filteredCases = memoCases[pid];
+    const filteredCases =
+      type === '랜덤'
+        ? memoCases[pid]
+        : cases.filter((c) => c.parentId === pid);
     return filteredCases[Math.floor(Math.random() * filteredCases.length)]; // 각 parentId에 대해 랜덤 선택
   });
   return randomSelection;
@@ -62,10 +69,11 @@ export function createOneScenario(cases: ElementType[]): ElementType[] {
 export function createMultipleScenarios(
   cases: ElementType[],
   numberOfScenarios: number,
+  type: RandomType,
 ): ElementType[][] {
   const scenarios = [];
   for (let i = 0; i < numberOfScenarios; i++) {
-    scenarios.push(createOneScenario(cases));
+    scenarios.push(createOneScenario(cases, type));
   }
   return scenarios;
 }
