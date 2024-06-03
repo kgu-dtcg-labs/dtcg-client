@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import { useSelectedCaseStore } from '@store/selected-case';
 import { useGetCaseStore } from '@store/case';
 import { AxiosResponse } from 'axios';
-import { mocks } from '@mocks/mocks';
+import { elementData } from '@mocks/elementData';
 import SaveButton from '@components/home/SaveButton/SaveButton';
 import { postAccidentData } from '@api/acryl';
 import type { Modal as ModalType, RandomType } from '@type/common';
@@ -119,7 +119,7 @@ const HomePage = () => {
     (keyword: string) => {
       setSelectedCase((prevSelectedCase) => {
         // parentId가 7인 항목들 중 name 속성이 키워드를 포함하는 항목들을 필터링
-        const filteredItems = mocks.filter(
+        const filteredItems = elementData.filter(
           (item) => item.parentId === 7 && item.value?.includes(keyword),
         );
 
