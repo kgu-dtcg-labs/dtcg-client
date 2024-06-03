@@ -1,4 +1,4 @@
-import { memoCases, mocks } from '@mocks/mocks';
+import { elementData, memoCases } from '@mocks/elementData';
 import { RandomType } from '@type/common';
 import type {
   ElementType,
@@ -13,11 +13,11 @@ import { AxiosResponse } from 'axios';
  * @returns 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
  */
 export function treeParser(layer: number): ElementWithChildrenType {
-  const findLayer = mocks.find((item) => item.id === layer);
+  const findLayer = elementData.find((item) => item.id === layer);
 
   if (findLayer) {
     // Layer가 존재하다면 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
-    const children = mocks.filter((item) => item.parentId === layer);
+    const children = elementData.filter((item) => item.parentId === layer);
     const result = {
       ...findLayer,
       children: children.map((item) => {
@@ -94,9 +94,9 @@ export function matchingCaseWithResponse(
   });
 
   // mocks 배열을 순회하며 name이 searchValues에 포함되는지 확인
-  mocks.forEach((mock) => {
-    if (searchValues.includes(mock.name) && mock.type === 'case') {
-      result.push(mock);
+  elementData.forEach((item) => {
+    if (searchValues.includes(item.name) && item.type === 'case') {
+      result.push(item);
     }
   });
 
