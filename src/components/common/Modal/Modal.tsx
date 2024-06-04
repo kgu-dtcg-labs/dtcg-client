@@ -1,6 +1,8 @@
-interface ModalProps {
+import { PropsWithChildren } from 'react';
+import { createPortal } from 'react-dom';
+
+interface ModalProps extends PropsWithChildren {
   onClose?: () => void;
-  children: React.ReactNode;
 }
 
 export const Modal = ({ onClose, children }: ModalProps) => {
@@ -11,7 +13,7 @@ export const Modal = ({ onClose, children }: ModalProps) => {
       onClose && onClose();
     }
   };
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackgroundClick}
@@ -19,6 +21,7 @@ export const Modal = ({ onClose, children }: ModalProps) => {
       <div className="px-8 py-4 bg-white border rounded-md shadow-md dark:bg-zinc-700">
         {children}
       </div>
-    </div>
+    </div>,
+    document.getElementById('modal-root')!,
   );
 };
