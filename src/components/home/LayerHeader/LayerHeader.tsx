@@ -1,7 +1,7 @@
 import { LAYER_LIST } from '@constants/element';
 import classNames from 'classnames';
 
-interface LayerHeaderProps {
+export interface LayerHeaderProps {
   layer: number;
   onClick: (layer: number) => void;
 }
