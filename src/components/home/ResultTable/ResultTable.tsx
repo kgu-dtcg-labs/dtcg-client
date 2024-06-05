@@ -4,7 +4,7 @@ import { TABLE_HEADER } from '@constants/header';
 import { ElementType } from '@type/element';
 import type { Step } from '@type/common';
 
-interface ResultProps {
+export interface ResultProps {
   result: ElementType[][];
 }
 
@@ -42,7 +42,7 @@ const ResultTable = ({ result }: ResultProps) => {
 
   return (
     <div className="space-y-2">
-      <p className="font-semibold text-right mr-1 text-lg">
+      <p className="mr-1 text-lg font-semibold text-right">
         생성된 테스트 케이스: {result.length}개
       </p>
       <div className="overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
@@ -80,11 +80,11 @@ const ResultTable = ({ result }: ResultProps) => {
         </table>
       </div>
       {result.length > 0 && (
-        <div className="justify-center flex items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           <Button color="black" onClick={() => handlePageChange('back')}>
             이전
           </Button>
-          <p className="text-center font-semibold w-20">
+          <p className="w-20 font-semibold text-center">
             {page + 1}/{Math.ceil(result.length / limit)}
           </p>
           <Button color="black" onClick={() => handlePageChange('forward')}>

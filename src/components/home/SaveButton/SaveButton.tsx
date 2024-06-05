@@ -5,7 +5,7 @@ import { BsDatabaseFillAdd } from 'react-icons/bs';
 
 import type { ElementType } from '@type/element';
 
-interface SaveButtonProps {
+export interface SaveButtonProps {
   data: ElementType[][];
 }
 
