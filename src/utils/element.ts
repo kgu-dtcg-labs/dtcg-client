@@ -78,6 +78,33 @@ export function createMultipleScenarios(
   return scenarios;
 }
 
+/**
+ * 주어진 경우의 목록에서 각 고유한 parentId를 기준으로 여러 개의 시나리오를 생성합니다.
+ * 각 시나리오는 각 고유한 parentId에 대해 해당하는 경우들 중 하나를 랜덤으로 선택하여 구성됩니다.
+ *
+ * @param {ElementType[]} cases - 시나리오를 생성하기 위한 경우들의 배열. 각 경우는 `parentId` 속성을 포함해야 합니다.
+ * @param {number} numberOfScenarios - 생성할 시나리오의 수. 기본값은 1입니다.
+ * @param {RandomType} type - 랜덤 선택 방식 ('랜덤' 또는 다른 값).
+ * @returns {ElementType[][]} 생성된 시나리오들의 배열. 각 시나리오는 ElementType 배열입니다.
+ */
+export function createScenarios(
+  cases: ElementType[],
+  numberOfScenarios: number = 1,
+  type: RandomType,
+): ElementType[][] {
+  const parentIds = [...new Set(cases.map((c) => c.parentId))];
+
+  return Array.from({ length: numberOfScenarios }, () =>
+    parentIds.map((pid) => {
+      const filteredCases =
+        type === '랜덤'
+          ? memoCases[pid!]
+          : cases.filter((c) => c.parentId === pid);
+      return filteredCases[Math.floor(Math.random() * filteredCases.length)];
+    }),
+  );
+}
+
 export function matchingCaseWithResponse(
   res: AxiosResponse<responseDataType>,
 ): ElementType[] {

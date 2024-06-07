@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Modal } from './Modal';
 import { Button } from '../Button/Button';
-import { createMultipleScenarios } from '@utils/element';
+import { createScenarios } from '@utils/element';
 import { RandomType } from '@type/common';
 import { useGetSelectedCaseStore } from '@store/selected-case';
 import { useSetSelectedModalStore } from '@store/modal-type';
@@ -23,7 +23,7 @@ const SelectedRandomModal = () => {
 
   const handleRandomButtonClick = (cases: ElementType[], type: RandomType) => {
     setModal('none');
-    setResult(createMultipleScenarios(cases, count, type));
+    setResult(createScenarios(cases, count, type));
   };
 
   return (
