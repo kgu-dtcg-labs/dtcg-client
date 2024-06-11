@@ -2,10 +2,12 @@ export type ElementTypeType = 'layer' | 'group' | 'case';
 
 export interface ElementType {
   id: number;
+  layer?: number;
   type: ElementTypeType;
-  name: string;
+  name?: string;
   parentId: number | null;
-  value?: string | undefined;
+  value: string;
+  content?: string | undefined;
 }
 
 export interface ElementWithChildrenType extends ElementType {
