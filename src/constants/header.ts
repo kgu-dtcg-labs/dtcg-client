@@ -85,6 +85,8 @@ export const TABLE_HEADER: TableHeaderType[] = [
   { id: 220, name: 'NPC4 객체행동(동작)' },
   { id: 221, name: 'NPC4 Trigger(동작)' },
 
+  { id: 180, name: '교통상황(LOS)' },
+
   { id: 181, name: '자율주행차 객체종류' },
   { id: 182, name: '자율주행차 객체위치-차로' },
   { id: 183, name: '자율주행차 객체속도' },
