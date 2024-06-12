@@ -4,4 +4,5 @@ export const buttonColors = {
   blue: 'border-blue-500 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-500/20',
   black:
     'border-black bg-black text-white hover:bg-gray-900 dark:text-white/80 dark:hover:bg-gray-900',
+  disabled: 'border bg-gray-200 text-white cursor-not-allowed',
 };
