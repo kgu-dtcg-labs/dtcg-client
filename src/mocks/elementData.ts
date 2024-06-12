@@ -535,6 +535,7 @@ export const elementData: ElementType[] = [
     value: '어린이 보호구역',
     parentId: 78,
     name: '보호구역',
+    layer: 2,
   },
   {
     id: 113,
@@ -954,7 +955,14 @@ export const elementData: ElementType[] = [
     layer: 2,
   },
 
-  { id: 163, type: 'case', value: '없음', parentId: 111, layer: 2 },
+  {
+    id: 163,
+    type: 'case',
+    value: '없음',
+    parentId: 111,
+    layer: 2,
+    name: '최저제한속도',
+  },
 
   /* -----------------------------------------------------Layer 2 end----------------------------------------------------------- */
   /* -----------------------------------------------------Layer 3 start----------------------------------------------------------- */
@@ -1822,8 +1830,22 @@ export const elementData: ElementType[] = [
     layer: 4,
   },
 
-  { id: 314, type: 'case', value: '정지', parentId: 193, layer: 4 },
-  { id: 315, type: 'case', value: '직진', parentId: 193, layer: 4 },
+  {
+    id: 314,
+    type: 'case',
+    value: '정지',
+    parentId: 193,
+    layer: 4,
+    name: 'NPC1 객체행동(동작)',
+  },
+  {
+    id: 315,
+    type: 'case',
+    value: '직진',
+    parentId: 193,
+    layer: 4,
+    name: 'NPC1 객체행동(동작)',
+  },
   {
     id: 316,
     type: 'case',
