@@ -67,10 +67,10 @@ const ResultTable = ({ result }: ResultProps) => {
                     const element = row.find((el) => el.parentId === header.id);
                     return (
                       <td
-                        key={`${header.id}-${element?.name || ''}`}
+                        key={`${header.id}-${element?.value || ''}`}
                         className="px-4 py-1 border"
                       >
-                        {element?.name || ''}
+                        {element?.value || ''}
                       </td>
                     );
                   })}

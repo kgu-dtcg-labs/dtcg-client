@@ -12,8 +12,8 @@ interface LayerElementProps extends PropsWithChildren {
 
 const LayerElement = ({ data }: LayerElementProps) => {
   return (
-    <div id={`layer-${data.name}`} className="flex items-center">
-      <Element color="layer">{data.name}</Element>
+    <div id={`layer-${data.value}`} className="flex items-center">
+      <Element color="layer">{data.value}</Element>
       <ElementLine />
     </div>
   );

@@ -3,7 +3,7 @@ import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button/Button';
 import { useSetResultStore } from '@store/result';
-import { createMultipleScenarios } from '@utils/element';
+import { createScenarios } from '@utils/element';
 import { ElementType } from '@type/element';
 import { RandomType } from '@type/common';
 import { useGetCaseStore } from '@store/case';
@@ -27,7 +27,7 @@ const RandomModal = () => {
    */
   const handleRandomButtonClick = (cases: ElementType[], type: RandomType) => {
     setModal('none');
-    setResult(createMultipleScenarios(cases, count, type));
+    setResult(createScenarios(cases, count, type));
   };
 
   return (

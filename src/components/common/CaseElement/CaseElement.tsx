@@ -56,10 +56,10 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
   }, []);
 
   return (
-    <div id={`case-${data.name}`} className="relative flex items-center">
+    <div id={`case-${data.value}`} className="relative flex items-center">
       <ElementLine />
       <Element selected={isSelected} onClick={handleIsSelectedClick}>
-        {data.name}
+        {data.value}
       </Element>
     </div>
   );
