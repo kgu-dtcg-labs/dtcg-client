@@ -21,6 +21,11 @@ const SelectedRandomModal = () => {
     [],
   );
 
+  /**
+   * @description 선택된 케이스들에 한해 시나리오를 랜덤 생성합니다.
+   * @param cases 선택된 케이스들
+   * @param type 선택 생성 타입
+   */
   const handleRandomButtonClick = (cases: ElementType[], type: RandomType) => {
     setModal('none');
     setResult(createScenarios(cases, count, type));

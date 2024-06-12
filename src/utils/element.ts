@@ -106,6 +106,9 @@ export function createScenarios(
   );
 }
 
+/**
+ * 입력받은 데이터를 아크릴 측으로 전송합니다
+ */
 export function matchingCaseWithResponse(
   res: AxiosResponse<responseDataType>,
 ): ElementType[] {

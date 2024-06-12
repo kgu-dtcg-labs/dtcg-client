@@ -22,8 +22,7 @@ const RandomModal = () => {
   );
 
   /**
-   * 랜덤 생성
-   * 모든 케이스 중에서 랜덤으로 선택하여 시나리오를 생성합니다.
+   * @description 전체 케이스에서 시나리오를 랜덤으로 생성합니다.
    */
   const handleRandomButtonClick = (cases: ElementType[], type: RandomType) => {
     setModal('none');

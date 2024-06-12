@@ -15,6 +15,9 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
   const [selectedCase, setSelectedCase] = useSelectedCaseStore();
   const [isSelected, setIsSelected] = useState<boolean>(isFirst);
 
+  /**
+   * @description 케이스를 클릭하여 선택/삭제합니다.
+   */
   const handleIsSelectedClick = useCallback(() => {
     setIsSelected((prev) => !prev);
     setSelectedCase((prevSelectedCase) => {
