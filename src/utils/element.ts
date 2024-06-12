@@ -137,9 +137,7 @@ export function matchingCaseWithResponse(
  * @param {ElementType[][]} scenarios - 각 요소가 layer, name, value를 포함하는 2차원 배열.
  * @returns {ParsedScenarioLayer} - 레이어 번호를 키로 갖는 객체, 각 레이어는 시나리오 데이터를 포함하는 배열을 포함합니다.
  */
-export function parseScenariosByLayer(
-  scenarios: ElementType[][],
-): ParsedScenarioLayer {
+export function parseScenariosByLayer(scenarios: ElementType[][]): string {
   const result: ParsedScenarioLayer = {};
 
   for (let i = 0; i < scenarios.length; i++) {
@@ -163,7 +161,6 @@ export function parseScenariosByLayer(
   }
 
   const resultJson = JSON.stringify(result, null, 2);
-  console.log(resultJson);
 
-  return result;
+  return resultJson;
 }

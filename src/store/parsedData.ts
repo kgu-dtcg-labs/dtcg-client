@@ -1,4 +1,3 @@
-import { ParsedScenarioLayer } from '@type/element';
 import {
   atom,
   useRecoilState,
@@ -6,9 +5,9 @@ import {
   useSetRecoilState,
 } from 'recoil';
 
-export const parsedDataState = atom<ParsedScenarioLayer>({
+export const parsedDataState = atom<string>({
   key: 'parsed-data',
-  default: {},
+  default: '',
 });
 
 export const useParsedDataStore = () => useRecoilState(parsedDataState);
