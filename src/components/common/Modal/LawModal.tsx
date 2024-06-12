@@ -17,6 +17,9 @@ const LawModal = () => {
     [],
   );
 
+  /**
+   * @description 법률 중 입력받은 데이터와 일치하는 케이스들을 리턴합니다.
+   */
   const matchingLawData = useCallback(() => {
     setSelectedCase((prevSelectedCase) => {
       // parentId가 7인 항목들 중 content 속성이 키워드를 포함하는 항목들을 필터링

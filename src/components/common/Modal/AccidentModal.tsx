@@ -21,8 +21,7 @@ const AccidentModal = () => {
   );
 
   /**
-   * 아크릴 api 통신
-   * 아크릴 api의 response값을 케이스에 적용시킵니다.
+   * @description 입력받은 사고 데이터를 acryl api를 통해 전송해 일치하는 케이스들을 리턴합니다.
    */
   const postAndMatchingData = async () => {
     setSelectedCase([]); // 선택된 케이스를 초기화합니다.
