@@ -19,9 +19,9 @@ const LawModal = () => {
 
   const matchingLawData = useCallback(() => {
     setSelectedCase((prevSelectedCase) => {
-      // parentId가 7인 항목들 중 name 속성이 키워드를 포함하는 항목들을 필터링
+      // parentId가 7인 항목들 중 content 속성이 키워드를 포함하는 항목들을 필터링
       const filteredItems = elementData.filter(
-        (item) => item.parentId === 7 && item.value?.includes(lawData),
+        (item) => item.parentId === 7 && item.content?.includes(lawData),
       );
 
       // 이미 selectedCase에 존재하는지 확인하고, 없는 항목들만 추가
