@@ -55,7 +55,7 @@ Layer.TreeWrapper = ({ children }: PropsWithChildren) => (
  */
 Layer.HandleScenarioButtons = ({ data }: SaveButtonProps) => {
   return (
-    <div className="flex flex-col items-center w-full gap-3">
+    <div className="flex flex-col items-center w-full gap-10">
       <div className="flex justify-center gap-2 mt-6">
         <CreateRandomButton />
         <CreateSelectRandomButton />
