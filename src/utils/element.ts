@@ -3,6 +3,7 @@ import { RandomType } from '@type/common';
 import type {
   ElementType,
   ElementWithChildrenType,
+  ParsedScenarioLayer,
   responseDataType,
 } from '@type/element';
 import { AxiosResponse } from 'axios';
@@ -122,11 +123,47 @@ export function matchingCaseWithResponse(
 
   // mocks 배열을 순회하며 name이 searchValues에 포함되는지 확인
   elementData.forEach((item) => {
-    if (searchValues.includes(item.name) && item.type === 'case') {
+    if (searchValues.includes(item.value) && item.type === 'case') {
       result.push(item);
     }
   });
 
   console.log(result);
+  return result;
+}
+
+/**
+ * @description 시나리오를 Layer 별로, Layer 내에서는 시나리오 별로 파싱하는 함수입니다.
+ * @param {ElementType[][]} scenarios - 각 요소가 layer, name, value를 포함하는 2차원 배열.
+ * @returns {ParsedScenarioLayer} - 레이어 번호를 키로 갖는 객체, 각 레이어는 시나리오 데이터를 포함하는 배열을 포함합니다.
+ */
+export function parseScenariosByLayer(
+  scenarios: ElementType[][],
+): ParsedScenarioLayer {
+  const result: ParsedScenarioLayer = {};
+
+  for (let i = 0; i < scenarios.length; i++) {
+    const scenario = scenarios[i];
+
+    for (let j = 0; j < scenario.length; j++) {
+      const element = scenario[j];
+      const layer = element.layer;
+
+      if (layer !== undefined) {
+        const layerKey = `layer${layer}DTOs`;
+        if (!result[layerKey]) {
+          result[layerKey] = [];
+        }
+        if (!result[layerKey][i]) {
+          result[layerKey][i] = {};
+        }
+        result[layerKey][i][element.name || '-'] = element.value || '-';
+      }
+    }
+  }
+
+  const resultJson = JSON.stringify(result, null, 2);
+  console.log(resultJson);
+
   return result;
 }

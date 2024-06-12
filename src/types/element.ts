@@ -22,3 +22,9 @@ export interface responseDataType {
     };
   };
 }
+
+export interface ParsedElement {
+  [key: string]: string | number;
+}
+
+export type ParsedScenarioLayer = Record<string, ParsedElement[]>;
