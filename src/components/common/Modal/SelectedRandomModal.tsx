@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
 import { Modal } from './Modal';
 import { Button } from '../Button/Button';
-import { createTestCases } from '@utils/element';
+import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { useGetSelectedCaseStore } from '@store/selected-case';
 import { useSetSelectedModalStore } from '@store/modal-type';
-import { useSetResultStore } from '@store/result';
+import { useResultStore } from '@store/result';
 import { ElementType } from '@type/element';
 import Input from '../Input/Input';
+import { useSetParsedDataStore } from '@store/parsedData';
 
 const SelectedRandomModal = () => {
   const [count, setCount] = useState<number>(1);
@@ -14,7 +15,8 @@ const SelectedRandomModal = () => {
   const empty = count === 0 || description === '';
   const setModal = useSetSelectedModalStore();
   const selectedCase = useGetSelectedCaseStore();
-  const setResult = useSetResultStore();
+  const [result, setResult] = useResultStore();
+  const setParsedData = useSetParsedDataStore();
 
   const handleCountChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,9 +38,10 @@ const SelectedRandomModal = () => {
    * @param type 선택 생성 타입
    */
   const handleRandomButtonClick = async (cases: ElementType[]) => {
-    setModal('none');
-    const testCases = await createTestCases(cases, count, '선택', description);
+    const testCases = await createTestCases(cases, count, '랜덤', description);
     setResult(testCases);
+    setParsedData(parseTestCasesByLayer(result));
+    setModal('none');
   };
 
   return (

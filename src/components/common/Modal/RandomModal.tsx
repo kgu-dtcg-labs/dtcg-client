@@ -2,19 +2,21 @@ import { useCallback, useState } from 'react';
 import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button/Button';
-import { useSetResultStore } from '@store/result';
-import { createTestCases } from '@utils/element';
+import { useResultStore } from '@store/result';
+import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { ElementType } from '@type/element';
 import { useGetCaseStore } from '@store/case';
 import Input from '../Input/Input';
+import { useSetParsedDataStore } from '@store/parsedData';
 
 const RandomModal = () => {
   const [count, setCount] = useState<number>(0);
   const [description, setDescription] = useState<string>('');
   const empty = count === 0 || description === '';
   const setModal = useSetSelectedModalStore();
-  const setResult = useSetResultStore();
+  const [result, setResult] = useResultStore();
   const defaultCase = useGetCaseStore();
+  const setParsedData = useSetParsedDataStore();
 
   const handleCountChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,9 +36,10 @@ const RandomModal = () => {
    * @description 전체 케이스에서 시나리오를 랜덤으로 생성합니다.
    */
   const handleRandomButtonClick = async (cases: ElementType[]) => {
-    setModal('none');
     const testCases = await createTestCases(cases, count, '랜덤', description);
     setResult(testCases);
+    setParsedData(parseTestCasesByLayer(result));
+    setModal('none');
   };
 
   return (
