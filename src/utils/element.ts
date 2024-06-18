@@ -145,7 +145,6 @@ export function parseTestCasesByLayer(scenarios: TestCase): string {
   }
 
   const resultJson = JSON.stringify(result, null, 2);
-  console.log(resultJson);
 
   return resultJson;
 }
