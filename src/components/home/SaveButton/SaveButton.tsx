@@ -8,9 +8,10 @@ import { useGetResultStore } from '@store/result';
 const SaveButton = () => {
   const parsedData = useGetParsedDataStore();
   const testCases = useGetResultStore().cases;
+  const isEmpty = testCases.length === 0;
 
   const handleSaveButtonClick = async () => {
-    if (testCases.length === 0) {
+    if (isEmpty) {
       alert('생성된 시나리오가 없습니다.');
     }
 
@@ -21,18 +22,14 @@ const SaveButton = () => {
   return (
     <div className="flex flex-col items-center gap-1">
       <Button
-        color="black"
+        color={`${isEmpty ? 'disabled' : 'black'}`}
         icon={<BsDatabaseFillAdd />}
         className="font-semibold w-[352px]"
         onClick={handleSaveButtonClick}
+        disabled={testCases.length === 0}
       >
         데이터베이스에 저장하기
       </Button>
-      <p className="font-bold">
-        <span className="text-red-600">*</span> DB에 저장하기 전, 반드시
-        "정제하기" 버튼을 클릭해주시고, 8~10초간 대기해주세요.
-        <span className="text-red-600">*</span>
-      </p>
     </div>
   );
 };

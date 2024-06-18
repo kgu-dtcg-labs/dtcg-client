@@ -18,7 +18,7 @@ const CreateSelectRandomButton = () => {
   return (
     <Button
       color="black"
-      className="h-10 font-semibold w-28"
+      className="w-1/2 h-10 font-semibold"
       icon={<PiSelectionAllFill />}
       onClick={handleOpenSelectModal}
     >

@@ -17,7 +17,7 @@ const CreateRandomButton = () => {
   return (
     <Button
       color="black"
-      className="h-10 font-semibold w-28"
+      className="w-1/2 h-10 font-semibold "
       icon={<GiPerspectiveDiceSixFacesRandom />}
       onClick={handleOpenModal}
     >
