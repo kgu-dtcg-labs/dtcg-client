@@ -1,21 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from '@components/common/Button/Button';
 import { TABLE_HEADER } from '@constants/header';
-import { ElementType } from '@type/element';
+import { TestCase } from '@type/element';
 import type { Step } from '@type/common';
+import { useGetResultStore } from '@store/result';
 
 export interface ResultProps {
-  result: ElementType[][];
+  result: TestCase;
 }
 
 const limit = 20;
 
-const ResultTable = ({ result }: ResultProps) => {
+const ResultTable = () => {
   const [page, setPage] = useState(0);
+  const cases = useGetResultStore().cases;
 
   const currentPage = useMemo(
-    () => result.slice(page * limit, page * limit + limit),
-    [result, page],
+    () => cases.slice(page * limit, page * limit + limit),
+    [cases, page],
   );
 
   const handlePageChange = useCallback(
@@ -26,24 +28,24 @@ const ResultTable = ({ result }: ResultProps) => {
           break;
         case 'forward':
           setPage((prev) =>
-            Math.min(prev + 1, Math.floor(result.length / limit)),
+            Math.min(prev + 1, Math.floor(cases.length / limit)),
           );
           break;
         default:
           break;
       }
     },
-    [result],
+    [cases],
   );
 
   useEffect(() => {
     setPage(0);
-  }, [result]);
+  }, [cases]);
 
   return (
     <div className="space-y-2">
       <p className="mr-1 text-lg font-semibold text-right">
-        생성된 테스트 케이스: {result.length}개
+        생성된 테스트 케이스: {cases.length}개
       </p>
       <div className="overflow-auto border rounded bg-gray-50 dark:bg-zinc-600">
         <table className="text-center table-fixed select-none">
@@ -57,7 +59,7 @@ const ResultTable = ({ result }: ResultProps) => {
             </tr>
           </thead>
           <tbody>
-            {result.length > 0 &&
+            {cases.length > 0 &&
               currentPage.map((row, index) => (
                 <tr
                   key={index}
@@ -79,13 +81,13 @@ const ResultTable = ({ result }: ResultProps) => {
           </tbody>
         </table>
       </div>
-      {result.length > 0 && (
+      {cases.length > 0 && (
         <div className="flex items-center justify-center gap-2">
           <Button color="black" onClick={() => handlePageChange('back')}>
             이전
           </Button>
           <p className="w-20 font-semibold text-center">
-            {page + 1}/{Math.ceil(result.length / limit)}
+            {page + 1}/{Math.ceil(cases.length / limit)}
           </p>
           <Button color="black" onClick={() => handlePageChange('forward')}>
             다음

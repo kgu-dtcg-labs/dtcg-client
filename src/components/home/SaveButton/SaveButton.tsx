@@ -2,18 +2,15 @@ import { postSaveScenarios } from '@api/scenario';
 import { Button } from '@components/common/Button/Button';
 import { BsDatabaseFillAdd } from 'react-icons/bs';
 
-import type { ElementType } from '@type/element';
 import { useGetParsedDataStore } from '@store/parsedData';
+import { useGetResultStore } from '@store/result';
 
-export interface SaveButtonProps {
-  data: ElementType[][];
-}
-
-const SaveButton = ({ data }: SaveButtonProps) => {
+const SaveButton = () => {
   const parsedData = useGetParsedDataStore();
+  const testCases = useGetResultStore().cases;
 
   const handleSaveButtonClick = async () => {
-    if (data.length === 0) {
+    if (testCases.length === 0) {
       alert('생성된 시나리오가 없습니다.');
     }
 
