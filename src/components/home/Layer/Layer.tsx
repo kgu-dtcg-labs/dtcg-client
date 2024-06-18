@@ -6,8 +6,8 @@ import {
   ElementTree,
   ElementTreeWrapper,
 } from '@components/common/ElementTree/ElementTree';
-import ResultTable, { ResultProps } from '../ResultTable/ResultTable';
-import SaveButton, { SaveButtonProps } from '../SaveButton/SaveButton';
+import ResultTable from '../ResultTable/ResultTable';
+import SaveButton from '../SaveButton/SaveButton';
 import CreateRandomButton from '../HandleScenarioButtons/CreateRandomButton';
 import CreateSelectRandomButton from '../HandleScenarioButtons/CreateSelectRandomButton';
 import ParsingScenarioButton from '../HandleScenarioButtons/ParsingScenarioButton';
@@ -53,7 +53,7 @@ Layer.TreeWrapper = ({ children }: PropsWithChildren) => (
 /**
  * 트리 하단의 랜덤생성, 선택 생성, DB에 저장하기 버튼입니다.
  */
-Layer.HandleScenarioButtons = ({ data }: SaveButtonProps) => {
+Layer.HandleScenarioButtons = () => {
   return (
     <div className="flex flex-col items-center w-full gap-10">
       <div className="flex justify-center gap-2 mt-6">
@@ -61,7 +61,7 @@ Layer.HandleScenarioButtons = ({ data }: SaveButtonProps) => {
         <CreateSelectRandomButton />
         <ParsingScenarioButton />
       </div>
-      <SaveButton data={data} />
+      <SaveButton />
     </div>
   );
 };
@@ -69,6 +69,6 @@ Layer.HandleScenarioButtons = ({ data }: SaveButtonProps) => {
 /**
  * 시나리오 생성 결과 테이블입니다.
  */
-Layer.Result = ({ result }: ResultProps) => <ResultTable result={result} />;
+Layer.Result = () => <ResultTable />;
 
 export default Layer;

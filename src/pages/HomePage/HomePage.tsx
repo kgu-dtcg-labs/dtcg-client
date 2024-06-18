@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { useGetSelectedModalStore } from '@store/modal-type';
-import { useGetResultStore } from '@store/result';
 import Modals from '@components/home/Modals/Modals';
 import TopControlPanel from '@components/home/TopControlPanel/TopControlPanel';
 import { treeParser } from '@utils/element';
@@ -10,7 +9,6 @@ import Layer from '@components/home/Layer/Layer';
 const HomePage = () => {
   const modalType = useGetSelectedModalStore();
   const [layer, setLayer] = useState<number>(1);
-  const result = useGetResultStore();
 
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(Math.min(Math.max(layer, 1), 7));
@@ -35,8 +33,8 @@ const HomePage = () => {
             />
           ))}
         </Layer.TreeWrapper>
-        <Layer.HandleScenarioButtons data={result} />
-        <Layer.Result result={result} />
+        <Layer.HandleScenarioButtons />
+        <Layer.Result />
       </Layer>
     </div>
   );
