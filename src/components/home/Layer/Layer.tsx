@@ -10,7 +10,6 @@ import ResultTable from '../ResultTable/ResultTable';
 import SaveButton from '../SaveButton/SaveButton';
 import CreateRandomButton from '../HandleScenarioButtons/CreateRandomButton';
 import CreateSelectRandomButton from '../HandleScenarioButtons/CreateSelectRandomButton';
-import ParsingScenarioButton from '../HandleScenarioButtons/ParsingScenarioButton';
 
 interface LayerProps {
   className?: string;
@@ -55,11 +54,10 @@ Layer.TreeWrapper = ({ children }: PropsWithChildren) => (
  */
 Layer.HandleScenarioButtons = () => {
   return (
-    <div className="flex flex-col items-center w-full gap-10">
-      <div className="flex justify-center gap-2 mt-6">
+    <div className="flex flex-col items-center w-full gap-5">
+      <div className="flex justify-center w-[352px] gap-2 mt-6">
         <CreateRandomButton />
         <CreateSelectRandomButton />
-        <ParsingScenarioButton />
       </div>
       <SaveButton />
     </div>
