@@ -25,6 +25,8 @@ const AccidentModal = () => {
    */
   const postAndMatchingData = async () => {
     setSelectedCase([]); // 선택된 케이스를 초기화합니다.
+    alert('잠시만 기다려주세요...');
+    setModal('none');
 
     try {
       // postData 함수의 결과가 Promise이므로 await을 사용하여 결과를 기다립니다.
@@ -37,12 +39,13 @@ const AccidentModal = () => {
     } catch (e) {
       console.error(e);
     }
+    alert('완료되었습니다.');
   };
 
   return (
     <Modal onClose={() => setModal('none')}>
       <div className="grid items-center gap-2 text-center">
-        <span className="py-3 text-xl">
+        <span className="py-3 text-xl dark:text-white">
           아래 빈칸에 사고 데이터를 입력해주세요.
         </span>
         <textarea

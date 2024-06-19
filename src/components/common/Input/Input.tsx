@@ -9,15 +9,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, onChange, className, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-1">
-        <p className="text-start">{label}</p>
+        <p className="text-start dark:text-white">{label}</p>
         <input
           ref={ref}
           onChange={onChange}
           {...props}
-          className={classNames(
-            'p-2 border rounded outline-none dark:bg-zinc-800',
-            className,
-          )}
+          className={classNames('p-2 border rounded outline-none ', className)}
         />
       </div>
     );
