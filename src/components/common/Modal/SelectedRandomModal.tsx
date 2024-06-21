@@ -8,6 +8,7 @@ import { useResultStore } from '@store/result';
 import { ElementType } from '@type/element';
 import Input from '../Input/Input';
 import { useSetParsedDataStore } from '@store/parsedData';
+import { useSetLoadingStateStore } from '@store/loading';
 
 const SelectedRandomModal = () => {
   const [count, setCount] = useState<number>(1);
@@ -17,6 +18,7 @@ const SelectedRandomModal = () => {
   const selectedCase = useGetSelectedCaseStore();
   const [result, setResult] = useResultStore();
   const setParsedData = useSetParsedDataStore();
+  const setIsLoading = useSetLoadingStateStore();
 
   const handleCountChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +40,17 @@ const SelectedRandomModal = () => {
    * @param type 선택 생성 타입
    */
   const handleRandomButtonClick = async (cases: ElementType[]) => {
-    const testCases = await createTestCases(cases, count, '랜덤', description);
+    setIsLoading(true);
+    setModal('none');
+    await new Promise<void>((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, 50),
+    );
+    const testCases = await createTestCases(cases, count, '선택', description);
     setResult(testCases);
     setParsedData(parseTestCasesByLayer(result));
-    setModal('none');
+    setIsLoading(false);
   };
 
   return (

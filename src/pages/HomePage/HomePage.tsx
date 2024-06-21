@@ -1,14 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useGetSelectedModalStore } from '@store/modal-type';
 import Modals from '@components/home/Modals/Modals';
 import TopControlPanel from '@components/home/TopControlPanel/TopControlPanel';
 import { treeParser } from '@utils/element';
 import classNames from 'classnames';
 import Layer from '@components/home/Layer/Layer';
+import Spinner from '@components/common/Spinner/Spinner';
+import { useGetLoadingStateStore } from '@store/loading';
 
 const HomePage = () => {
   const modalType = useGetSelectedModalStore();
   const [layer, setLayer] = useState<number>(1);
+  const isLoading = useGetLoadingStateStore();
+
+  useEffect(() => console.log(isLoading), [isLoading]);
 
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(Math.min(Math.max(layer, 1), 7));
@@ -16,6 +21,7 @@ const HomePage = () => {
 
   return (
     <div className="py-10 select-none">
+      {isLoading && <Spinner />}
       {/* 사고, 법률, 랜덤, 선택랜덤, 알림 등의 모달 */}
       <Modals modalType={modalType} />
 
