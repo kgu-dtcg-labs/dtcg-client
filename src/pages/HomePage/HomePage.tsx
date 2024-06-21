@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useGetSelectedModalStore } from '@store/modal-type';
 import Modals from '@components/home/Modals/Modals';
 import TopControlPanel from '@components/home/TopControlPanel/TopControlPanel';
@@ -12,8 +12,6 @@ const HomePage = () => {
   const modalType = useGetSelectedModalStore();
   const [layer, setLayer] = useState<number>(1);
   const isLoading = useGetLoadingStateStore();
-
-  useEffect(() => console.log(isLoading), [isLoading]);
 
   const handleLayerClick = useCallback((layer: number) => {
     setLayer(Math.min(Math.max(layer, 1), 7));
