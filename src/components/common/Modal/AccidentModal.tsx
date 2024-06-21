@@ -7,11 +7,13 @@ import { useSetSelectedCaseStore } from '@store/selected-case';
 import { matchingCaseWithResponse } from '@utils/element';
 import { AxiosResponse } from 'axios';
 import { responseDataType } from '@type/element';
+import { useSetLoadingStateStore } from '@store/loading';
 
 const AccidentModal = () => {
   const setModal = useSetSelectedModalStore();
   const setSelectedCase = useSetSelectedCaseStore();
   const [accidentData, setAccidentData] = useState<string>('');
+  const setIsLoading = useSetLoadingStateStore();
 
   const handleChangeData = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -25,7 +27,7 @@ const AccidentModal = () => {
    */
   const postAndMatchingData = async () => {
     setSelectedCase([]); // 선택된 케이스를 초기화합니다.
-    alert('잠시만 기다려주세요...');
+    setIsLoading(true);
     setModal('none');
 
     try {
@@ -39,7 +41,7 @@ const AccidentModal = () => {
     } catch (e) {
       console.error(e);
     }
-    alert('완료되었습니다.');
+    setIsLoading(false);
   };
 
   return (
