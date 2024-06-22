@@ -8,6 +8,7 @@ import { matchingCaseWithResponse } from '@utils/element';
 import { AxiosResponse } from 'axios';
 import { responseDataType } from '@type/element';
 import { useSetLoadingStateStore } from '@store/loading';
+import { message } from '@utils/toast';
 
 const AccidentModal = () => {
   const setModal = useSetSelectedModalStore();
@@ -38,10 +39,11 @@ const AccidentModal = () => {
       );
       setModal('none');
       setSelectedCase(processedData);
+      setIsLoading(false);
+      message('완료되었습니다!');
     } catch (e) {
-      console.error(e);
+      message('오류가 발생했습니다.');
     }
-    setIsLoading(false);
   };
 
   return (

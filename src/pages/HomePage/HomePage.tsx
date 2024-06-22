@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import Layer from '@components/home/Layer/Layer';
 import Spinner from '@components/common/Spinner/Spinner';
 import { useGetLoadingStateStore } from '@store/loading';
+import { Toaster } from 'react-hot-toast';
 
 const HomePage = () => {
   const modalType = useGetSelectedModalStore();
@@ -20,6 +21,8 @@ const HomePage = () => {
   return (
     <div className="py-10 select-none">
       {isLoading && <Spinner />}
+      <Toaster />
+
       {/* 사고, 법률, 랜덤, 선택랜덤, 알림 등의 모달 */}
       <Modals modalType={modalType} />
 

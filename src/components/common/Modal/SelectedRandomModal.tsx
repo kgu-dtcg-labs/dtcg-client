@@ -9,6 +9,7 @@ import { ElementType } from '@type/element';
 import Input from '../Input/Input';
 import { useSetParsedDataStore } from '@store/parsedData';
 import { useSetLoadingStateStore } from '@store/loading';
+import { message } from '@utils/toast';
 
 const SelectedRandomModal = () => {
   const [count, setCount] = useState<number>(1);
@@ -51,6 +52,7 @@ const SelectedRandomModal = () => {
     setResult(testCases);
     setParsedData(parseTestCasesByLayer(result));
     setIsLoading(false);
+    message('생성이 완료되었습니다!');
   };
 
   return (
