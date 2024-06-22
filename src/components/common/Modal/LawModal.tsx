@@ -4,6 +4,7 @@ import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { elementData } from '@mocks/elementData';
 import { useSetSelectedCaseStore } from '@store/selected-case';
+import { message } from '@utils/toast';
 
 const LawModal = () => {
   const setModal = useSetSelectedModalStore();
@@ -36,6 +37,7 @@ const LawModal = () => {
       return [...prevSelectedCase, ...newItems];
     });
     setModal('none');
+    message('검색이 완료되었습니다!');
   }, [setSelectedCase, setModal, lawData]);
 
   return (

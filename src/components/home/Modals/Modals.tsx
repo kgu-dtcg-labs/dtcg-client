@@ -1,5 +1,4 @@
 import AccidentModal from '@components/common/Modal/AccidentModal';
-import AlertModal from '@components/common/Modal/AlertModal';
 import LawModal from '@components/common/Modal/LawModal';
 import RandomModal from '@components/common/Modal/RandomModal';
 import SelectedRandomModal from '@components/common/Modal/SelectedRandomModal';
@@ -14,7 +13,6 @@ const Modals = ({ modalType }: ModalsProps) => {
     <>
       {modalType === '랜덤' && <RandomModal />}
       {modalType === '선택' && <SelectedRandomModal />}
-      {modalType === '알림' && <AlertModal />}
       {modalType === '사고' && <AccidentModal />}
       {modalType === '법률' && <LawModal />}
     </>

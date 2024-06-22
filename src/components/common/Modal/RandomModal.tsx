@@ -9,6 +9,7 @@ import { useGetCaseStore } from '@store/case';
 import Input from '../Input/Input';
 import { useSetParsedDataStore } from '@store/parsedData';
 import { useSetLoadingStateStore } from '@store/loading';
+import { message } from '@utils/toast';
 
 const RandomModal = () => {
   const [count, setCount] = useState<number>(0);
@@ -49,6 +50,7 @@ const RandomModal = () => {
     setResult(testCases);
     setParsedData(parseTestCasesByLayer(result));
     setIsLoading(false);
+    message('생성이 완료되었습니다!');
   };
 
   return (
