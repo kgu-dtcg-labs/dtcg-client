@@ -95,6 +95,14 @@ export const elementData: ElementType[] = [
     layer: 1,
   },
   {
+    id: 2701,
+    type: 'case',
+    value: '단속류-회전교차로',
+    parentId: 12,
+    name: '도로유형',
+    layer: 1,
+  },
+  {
     id: 28,
     type: 'case',
     value: '단속류-기타',
