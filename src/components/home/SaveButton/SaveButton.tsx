@@ -4,6 +4,7 @@ import { BsDatabaseFillAdd } from 'react-icons/bs';
 
 import { useGetParsedDataStore } from '@store/parsedData';
 import { useGetResultStore } from '@store/result';
+import { message } from '@utils/toast';
 
 const SaveButton = () => {
   const parsedData = useGetParsedDataStore();
@@ -15,8 +16,12 @@ const SaveButton = () => {
       alert('생성된 시나리오가 없습니다.');
     }
 
-    const res = await postSaveScenarios(parsedData);
-    console.log(res);
+    try {
+      await postSaveScenarios(parsedData);
+      message('완료되었습니다!');
+    } catch (e) {
+      message('오류가 발생했습니다.');
+    }
   };
 
   return (
