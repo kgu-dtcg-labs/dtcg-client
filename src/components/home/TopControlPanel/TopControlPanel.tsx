@@ -1,4 +1,5 @@
 import {
+  ApplyPresetButton,
   ClearAllButton,
   InputAccidentModalButton,
   InputLawModalButton,
@@ -11,6 +12,7 @@ const TopControlPanel = () => {
       <div className="flex items-center gap-2">
         <InputAccidentModalButton />
         <InputLawModalButton />
+        <ApplyPresetButton />
       </div>
 
       <div className="flex items-center gap-2">

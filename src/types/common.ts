@@ -2,7 +2,14 @@
  * @description
  * 메인화면 Modal 상태
  */
-export type Modal = '사고' | '법률' | '랜덤' | '선택' | '알림' | 'none';
+export type Modal =
+  | '사고'
+  | '법률'
+  | '랜덤'
+  | '선택'
+  | '알림'
+  | '프리셋'
+  | 'none';
 
 /**
  * @description

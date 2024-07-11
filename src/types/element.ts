@@ -51,3 +51,12 @@ export interface ParsedElement {
  * @description 시나리오 결과를 파싱할 때, 전체 요소
  */
 export type ParsedTestCasesLayer = Record<string, ParsedElement[] | string>;
+
+/**
+ * @description 프리셋의 요소들
+ */
+export interface Preset {
+  id: number;
+  name: string;
+  removalElements: ElementType[];
+}

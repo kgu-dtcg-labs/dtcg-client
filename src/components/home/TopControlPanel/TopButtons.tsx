@@ -1,5 +1,5 @@
 import { Button } from '@components/common/Button/Button';
-import { PiSirenFill } from 'react-icons/pi';
+import { PiCircuitry, PiSirenFill } from 'react-icons/pi';
 import { FaBook } from 'react-icons/fa6';
 import { IoClose, IoReload } from 'react-icons/io5';
 import { useCallback } from 'react';
@@ -42,6 +42,23 @@ const InputLawModalButton = () => {
   );
 };
 
+const ApplyPresetButton = () => {
+  const setModal = useSetSelectedModalStore();
+  const handleOpenPresetModal = useCallback(() => {
+    setModal('프리셋');
+  }, [setModal]);
+  return (
+    <Button
+      icon={<PiCircuitry />}
+      onClick={handleOpenPresetModal}
+      color="black"
+      className="font-semibold"
+    >
+      프리셋 적용하기
+    </Button>
+  );
+};
+
 const ClearAllButton = () => {
   const setSelectedCase = useSetSelectedCaseStore();
   return (
@@ -69,6 +86,7 @@ const ReloadButton = () => (
 export {
   InputAccidentModalButton,
   InputLawModalButton,
+  ApplyPresetButton,
   ClearAllButton,
   ReloadButton,
 };
