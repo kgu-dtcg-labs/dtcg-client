@@ -4,7 +4,7 @@ import { Button } from '../Button/Button';
 import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { useGetSelectedCaseStore } from '@store/selected-case';
 import { useSetSelectedModalStore } from '@store/modal-type';
-import { useResultStore } from '@store/result';
+import { useSetResultStore } from '@store/result';
 import { ElementType } from '@type/element';
 import Input from '../Input/Input';
 import { useSetParsedDataStore } from '@store/parsedData';
@@ -17,7 +17,7 @@ const SelectedRandomModal = () => {
   const empty = count === 0 || description === '';
   const setModal = useSetSelectedModalStore();
   const selectedCase = useGetSelectedCaseStore();
-  const [result, setResult] = useResultStore();
+  const setResult = useSetResultStore();
   const setParsedData = useSetParsedDataStore();
   const setIsLoading = useSetLoadingStateStore();
 
@@ -50,7 +50,8 @@ const SelectedRandomModal = () => {
     );
     const testCases = await createTestCases(cases, count, '선택', description);
     setResult(testCases);
-    setParsedData(parseTestCasesByLayer(result));
+    const parsedData = parseTestCasesByLayer(testCases);
+    setParsedData(parsedData);
     setIsLoading(false);
     message('생성이 완료되었습니다!');
   };

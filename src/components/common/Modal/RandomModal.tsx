@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button/Button';
-import { useResultStore } from '@store/result';
+import { useSetResultStore } from '@store/result';
 import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { ElementType } from '@type/element';
 import { useGetCaseStore } from '@store/case';
@@ -16,7 +16,7 @@ const RandomModal = () => {
   const [description, setDescription] = useState<string>('');
   const empty = count === 0 || description === '';
   const setModal = useSetSelectedModalStore();
-  const [result, setResult] = useResultStore();
+  const setResult = useSetResultStore();
   const defaultCase = useGetCaseStore();
   const setParsedData = useSetParsedDataStore();
   const setIsLoading = useSetLoadingStateStore();
@@ -48,7 +48,8 @@ const RandomModal = () => {
     );
     const testCases = await createTestCases(cases, count, '랜덤', description);
     setResult(testCases);
-    setParsedData(parseTestCasesByLayer(result));
+    const parsedData = parseTestCasesByLayer(testCases);
+    setParsedData(parsedData);
     setIsLoading(false);
     message('생성이 완료되었습니다!');
   };
