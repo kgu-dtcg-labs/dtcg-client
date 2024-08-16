@@ -14,6 +14,22 @@ export const PRE_SET: Preset[] = [
         layer: 2,
       },
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 266,
         type: 'case',
         value: '자전거',
@@ -265,6 +281,22 @@ export const PRE_SET: Preset[] = [
         value: '직진 금지',
         parentId: 93,
         name: '통행제한',
+        layer: 2,
+      },
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
         layer: 2,
       },
       {
@@ -559,6 +591,22 @@ export const PRE_SET: Preset[] = [
         value: '실선',
         parentId: 73,
         name: '차선',
+        layer: 2,
+      },
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
         layer: 2,
       },
       {
@@ -917,6 +965,22 @@ export const PRE_SET: Preset[] = [
         value: '직진 금지',
         parentId: 93,
         name: '통행제한',
+        layer: 2,
+      },
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
         layer: 2,
       },
       {
@@ -1350,6 +1414,22 @@ export const PRE_SET: Preset[] = [
         layer: 2,
       },
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 255,
         type: 'case',
         value: '정지',
@@ -1395,6 +1475,22 @@ export const PRE_SET: Preset[] = [
     id: 6,
     name: '좌회전',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 13,
         type: 'case',
@@ -1562,6 +1658,22 @@ export const PRE_SET: Preset[] = [
     name: '비보호 우회전',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 13,
         type: 'case',
         value: '주간선도로',
@@ -1639,6 +1751,22 @@ export const PRE_SET: Preset[] = [
     id: 8,
     name: '우회전 신호',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 13,
         type: 'case',
@@ -1734,6 +1862,22 @@ export const PRE_SET: Preset[] = [
     name: '비보호 우회전(3지교차로)',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 24,
         type: 'case',
         value: '연속류도로',
@@ -1827,6 +1971,22 @@ export const PRE_SET: Preset[] = [
     id: 10,
     name: '보행자 무단횡단',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 13,
         type: 'case',
@@ -2114,6 +2274,22 @@ export const PRE_SET: Preset[] = [
     name: '보행자(자전거 회피)',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 13,
         type: 'case',
         value: '주간선도로',
@@ -2399,6 +2575,22 @@ export const PRE_SET: Preset[] = [
     id: 12,
     name: '불법주차 회피',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 13,
         type: 'case',
@@ -2870,6 +3062,22 @@ export const PRE_SET: Preset[] = [
     name: '사고차량 회피',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 170,
         type: 'case',
         value: '선행사고 있음',
@@ -3268,6 +3476,22 @@ export const PRE_SET: Preset[] = [
     id: 14,
     name: '고속도로 진출(연속류 제어권 전환)',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 25,
         type: 'case',
@@ -3890,6 +4114,14 @@ export const PRE_SET: Preset[] = [
     id: 15,
     name: '연속류 톨게이트',
     removalElements: [
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 14,
         type: 'case',
@@ -4625,6 +4857,22 @@ export const PRE_SET: Preset[] = [
     name: '공사 구간',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 169,
         type: 'case',
         value: '공사 없음',
@@ -4662,6 +4910,22 @@ export const PRE_SET: Preset[] = [
     id: 17,
     name: '사고 발생',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 266,
         type: 'case',
@@ -4814,6 +5078,22 @@ export const PRE_SET: Preset[] = [
     name: '차량 고장',
     removalElements: [
       {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
         id: 256,
         type: 'case',
         value: '직진',
@@ -4859,6 +5139,22 @@ export const PRE_SET: Preset[] = [
     id: 19,
     name: '회전교차로',
     removalElements: [
+      {
+        id: 161,
+        type: 'case',
+        value: '30',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 49,
         type: 'case',
@@ -5868,6 +6164,14 @@ export const PRE_SET: Preset[] = [
     id: 20,
     name: '어린이 보호구역',
     removalElements: [
+      {
+        id: 162,
+        type: 'case',
+        value: '50',
+        parentId: 110,
+        name: '최고제한속도',
+        layer: 2,
+      },
       {
         id: 156,
         type: 'case',
