@@ -1,1 +1,1 @@
-export type ButtonColorType = 'default' | 'blue' | 'black' | 'disabled';
+export type ButtonColorType = 'default' | 'blue' | 'black' | 'disabled' | 'red';
