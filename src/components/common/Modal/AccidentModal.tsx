@@ -5,10 +5,10 @@ import { useCallback, useState } from 'react';
 import { postAccidentData } from '@api/acryl';
 import { useSetSelectedCaseStore } from '@store/selected-case';
 import { matchingCaseWithResponse } from '@utils/element';
-import { AxiosResponse } from 'axios';
 import { responseDataType } from '@type/element';
 import { useSetLoadingStateStore } from '@store/loading';
 import { message } from '@utils/toast';
+import { Response } from '@tauri-apps/api/http';
 
 const AccidentModal = () => {
   const setModal = useSetSelectedModalStore();
@@ -35,7 +35,7 @@ const AccidentModal = () => {
       // postData 함수의 결과가 Promise이므로 await을 사용하여 결과를 기다립니다.
       const responseData = await postAccidentData(accidentData);
       const processedData = matchingCaseWithResponse(
-        responseData as AxiosResponse<responseDataType>,
+        responseData as Response<responseDataType>,
       );
       setModal('none');
       setSelectedCase(processedData);
