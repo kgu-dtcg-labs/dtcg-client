@@ -13,7 +13,11 @@
     "allowlist": {
       "http": {
         "all": true,
-        "request": true
+        "request": true,
+        "scope": [
+          "http://118.67.131.212:9999/scenarios",
+          "http://localhost:56320"
+        ]
       }
     },
     "bundle": {
@@ -45,7 +49,7 @@
       "targets": "all",
       "windows": {
         "webviewInstallMode": {
-          "type": "offlineInstaller"
+          "type": "embedBootstrapper"
         },
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",

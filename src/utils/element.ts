@@ -1,3 +1,4 @@
+import { Response } from '@tauri-apps/api/http';
 import { ParsedElement } from './../types/element';
 import { elementData, memoCases } from '@mocks/elementData';
 import { RandomType } from '@type/common';
@@ -8,7 +9,6 @@ import type {
   TestCase,
   responseDataType,
 } from '@type/element';
-import { AxiosResponse } from 'axios';
 
 /**
  * 레이어 ID를 받아서 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환하는 함수
@@ -81,7 +81,7 @@ export async function createTestCases(
  * 입력받은 데이터를 아크릴 측으로 전송합니다
  */
 export function matchingCaseWithResponse(
-  res: AxiosResponse<responseDataType>,
+  res: Response<responseDataType>,
 ): ElementType[] {
   const result: ElementType[] = [];
 
