@@ -13,7 +13,7 @@ const SaveButton = () => {
 
   const handleSaveButtonClick = async () => {
     if (isEmpty) {
-      alert('생성된 시나리오가 없습니다.');
+      message('생성된 시나리오가 없습니다.');
     }
 
     try {
