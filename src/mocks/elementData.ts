@@ -691,7 +691,7 @@ export const elementData: ElementType[] = [
   {
     id: 130,
     type: 'case',
-    value: '신호 영향 없음',
+    value: '우회전',
     parentId: 87,
     name: '차량신호',
     layer: 2,
