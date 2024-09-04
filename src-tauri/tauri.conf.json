@@ -15,7 +15,7 @@
         "all": true,
         "request": true,
         "scope": [
-          "http://118.67.131.212:9999/scenarios",
+          "http://114.205.56.208:8080/scenarios",
           "http://localhost:56320"
         ]
       }
