@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from '@components/common/Button/Button';
 import { TABLE_HEADER } from '@constants/header';
-import { TestCase } from '@type/element';
+import { ElementType, TestCase } from '@type/element';
 import type { Step } from '@type/common';
 import { useGetResultStore } from '@store/result';
+import ExtractCasesModal from '@components/common/Modal/ExtractCasesModal';
 
 export interface ResultProps {
   result: TestCase;
@@ -14,6 +15,8 @@ const limit = 20;
 const ResultTable = () => {
   const [page, setPage] = useState(0);
   const cases = useGetResultStore().cases;
+  const [selectedRow, setSelectedRow] = useState<ElementType[] | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const currentPage = useMemo(
     () => cases.slice(page * limit, page * limit + limit),
@@ -42,6 +45,11 @@ const ResultTable = () => {
     setPage(0);
   }, [cases]);
 
+  const handleRowClick = (row: ElementType[]) => {
+    setSelectedRow(row);
+    setIsOpen(true);
+  };
+
   return (
     <div className="space-y-2">
       <p className="mr-1 text-lg font-semibold text-right">
@@ -61,22 +69,27 @@ const ResultTable = () => {
           <tbody>
             {cases.length > 0 &&
               currentPage.map((row, index) => (
-                <tr
-                  key={index}
-                  className="hover:dark:bg-zinc-700 hover:bg-gray-100 break-keep"
-                >
-                  {TABLE_HEADER.map((header) => {
-                    const element = row.find((el) => el.parentId === header.id);
-                    return (
-                      <td
-                        key={`${header.id}-${element?.value || ''}`}
-                        className="px-4 py-1 border"
-                      >
-                        {element?.value || ''}
-                      </td>
-                    );
-                  })}
-                </tr>
+                <>
+                  <tr
+                    key={index}
+                    className="cursor-pointer hover:dark:bg-zinc-700 hover:bg-gray-100 break-keep"
+                    onClick={() => handleRowClick(row)}
+                  >
+                    {TABLE_HEADER.map((header) => {
+                      const element = row.find(
+                        (el) => el.parentId === header.id,
+                      );
+                      return (
+                        <td
+                          key={`${header.id}-${element?.value || ''}`}
+                          className="px-4 py-1 border"
+                        >
+                          {element?.value || '없음'}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                </>
               ))}
           </tbody>
         </table>
@@ -93,6 +106,12 @@ const ResultTable = () => {
             다음
           </Button>
         </div>
+      )}
+      {isOpen && selectedRow && (
+        <ExtractCasesModal
+          onClose={() => setIsOpen(false)}
+          cases={selectedRow}
+        />
       )}
     </div>
   );

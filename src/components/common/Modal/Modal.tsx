@@ -18,7 +18,7 @@ export const Modal = ({ onClose, children }: ModalProps) => {
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackgroundClick}
     >
-      <div className="px-8 py-4 bg-white border rounded-md shadow-md dark:bg-zinc-700">
+      <div className="px-8 py-4 overflow-y-scroll max-h-[85vh] bg-white border rounded-md shadow-md dark:bg-zinc-700 scrollbar-hide">
         {children}
       </div>
     </div>,
