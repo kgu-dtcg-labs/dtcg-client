@@ -14,7 +14,9 @@ import { formatDate } from '@utils/date';
 
 const RandomModal = () => {
   const [count, setCount] = useState(10000);
-  const [description, setDescription] = useState(formatDate(new Date()));
+  const [description, setDescription] = useState(
+    formatDate(new Date()) + ', Random auto generate',
+  );
   const setModal = useSetSelectedModalStore();
   const setResult = useSetResultStore();
   const defaultCase = useGetCaseStore();
