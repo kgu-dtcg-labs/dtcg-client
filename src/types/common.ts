@@ -9,6 +9,7 @@ export type Modal =
   | '선택'
   | '알림'
   | '프리셋'
+  | '추출'
   | 'none';
 
 /**
