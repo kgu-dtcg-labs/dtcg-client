@@ -111,22 +111,22 @@ export function matchingCaseWithResponse(
  * @param {TestCase} scenarios - 각 요소가 layer, name, value를 포함하는 2차원 배열.
  * @returns {ParsedScenarioLayer} - 레이어 번호를 키로 갖는 객체, 각 레이어는 시나리오 데이터를 포함하는 배열을 포함합니다.
  */
-export function parseTestCasesByLayer(scenarios: TestCase): string {
+export function parseTestCasesByLayer(
+  scenarios: TestCase,
+  type: 'random' | 'select',
+): string {
   const result: ParsedTestCasesLayer = {};
 
   const descriptionKey = 'tc_description';
 
   if (scenarios.description) {
-    result[descriptionKey] = scenarios.description;
+    result[descriptionKey] = `${scenarios.description} ${type} auto generate`;
   } else {
     result[descriptionKey] = '설명 없음';
   }
 
-  for (let i = 0; i < scenarios.cases.length; i++) {
-    const scenario = scenarios.cases[i];
-
-    for (let j = 0; j < scenario.length; j++) {
-      const element = scenario[j];
+  scenarios.cases.forEach((scenario, i) => {
+    for (const element of scenario) {
       const layer = element.layer;
 
       if (layer !== undefined) {
@@ -139,10 +139,10 @@ export function parseTestCasesByLayer(scenarios: TestCase): string {
         if (!result[layerKey][i]) {
           layerArray[i] = {};
         }
-        layerArray[i][element.name || '-'] = element.value || '-';
+        layerArray[i][element.name ?? '-'] = element.value ?? '-';
       }
     }
-  }
+  });
 
   const resultJson = JSON.stringify(result, null, 2);
 
