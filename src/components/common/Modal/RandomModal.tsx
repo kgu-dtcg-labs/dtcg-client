@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button/Button';
@@ -10,37 +10,31 @@ import Input from '../Input/Input';
 import { useSetParsedDataStore } from '@store/parsedData';
 import { useSetLoadingStateStore } from '@store/loading';
 import { message } from '@utils/toast';
+import { formatDate } from '@utils/date';
 
 const RandomModal = () => {
-  const [count, setCount] = useState<number>(0);
-  const [description, setDescription] = useState<string>('');
-  const empty = count === 0 || description === '';
+  const [count, setCount] = useState(10000);
+  const [description, setDescription] = useState(formatDate(new Date()));
   const setModal = useSetSelectedModalStore();
   const setResult = useSetResultStore();
   const defaultCase = useGetCaseStore();
   const setParsedData = useSetParsedDataStore();
   const setIsLoading = useSetLoadingStateStore();
 
-  const handleCountChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCount(Number(e.target.value.replace(/\D/g, '')));
-    },
-    [],
-  );
+  const empty = count === 0 || description === '';
 
-  const handleDescriptionChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setDescription(e.target.value);
-    },
-    [],
-  );
+  const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(Number(e.target.value));
+  };
 
-  /**
-   * @description 전체 케이스에서 시나리오를 랜덤으로 생성합니다.
-   */
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
+
   const handleRandomButtonClick = async (cases: ElementType[]) => {
     setIsLoading(true);
     setModal('none');
+    // TO-DO remove this
     await new Promise<void>((resolve) =>
       setTimeout(() => {
         resolve();
@@ -48,10 +42,10 @@ const RandomModal = () => {
     );
     const testCases = await createTestCases(cases, count, '랜덤', description);
     setResult(testCases);
-    const parsedData = parseTestCasesByLayer(testCases);
+    const parsedData = parseTestCasesByLayer(testCases, 'random');
     setParsedData(parsedData);
     setIsLoading(false);
-    message('생성이 완료되었습니다!');
+    message('랜덤 생성이 완료되었습니다!');
   };
 
   return (
@@ -62,13 +56,12 @@ const RandomModal = () => {
           <span>생성할 시나리오의 개수와 설명을 입력해주세요.</span>
           <span>최대 50,000개까지 입력 가능</span>
         </div>
-
         <div className="flex flex-col gap-4">
           <Input
+            type="number"
             label="테스트 케이스 개수"
             value={count}
             onChange={handleCountChange}
-            placeholder="생성할 테스트 케이스의 개수를 입력하세요"
           />
           <Input
             label="설명"
@@ -77,7 +70,6 @@ const RandomModal = () => {
             placeholder="테스트 케이스에 대한 설명을 작성해주세요"
           />
         </div>
-
         <Button
           color={`${empty ? 'disabled' : 'black'}`}
           onClick={() => handleRandomButtonClick(defaultCase)}
