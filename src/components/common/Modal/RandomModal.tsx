@@ -45,7 +45,7 @@ const RandomModal = () => {
     const parsedData = parseTestCasesByLayer(testCases, 'random');
     setParsedData(parsedData);
     setIsLoading(false);
-    message('램덤 생성이 완료되었습니다!');
+    message('랜덤 생성이 완료되었습니다!');
   };
 
   return (
