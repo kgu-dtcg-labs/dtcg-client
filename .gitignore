@@ -27,11 +27,9 @@ dist-ssr
 *.sw?
 
 #yarn berry
-.pnp.*
 .yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
 !.yarn/releases
+!.yarn/plugins
 !.yarn/sdks
-!.yarn/version
+!.yarn/versions
+.pnp.*

@@ -27,7 +27,7 @@ const Navbar = () => {
           <img src="/logo.svg" alt="logo" className="max-w-[80px]" />
           <div className="text-nowrap">
             <h1 className="text-xs font-semibold">경기대학교 교통계획연구실</h1>
-            <h1 className="text-xl font-bold">테스트 케이스 생성기</h1>
+            <h1 className="text-xl font-bold">주행 테스트 케이스 생성기</h1>
           </div>
         </div>
         <button onClick={toggleDarkMode}>
