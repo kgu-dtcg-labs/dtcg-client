@@ -1,18 +1,37 @@
 import { ElementType } from '@type/element';
 import { Modal } from './Modal';
+import classNames from 'classnames';
+import { LAYER_LIST } from '@constants/element';
 
 interface ExtractCasesModalProps {
   cases: ElementType[];
   onClose: () => void;
 }
 
+const LayerTableData = ({
+  layer,
+  className,
+  rowSpan,
+}: {
+  layer: number;
+  className: string;
+  rowSpan: number;
+}) => {
+  return (
+    <td rowSpan={rowSpan} className={classNames('py-1 border', className)}>
+      {`Layer${layer}`}
+      <br />({LAYER_LIST[layer - 1].name})
+    </td>
+  );
+};
+
 const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
   return (
     <Modal onClose={onClose}>
-      <div className="flex flex-col items-center gap-3 w-[80vw]">
+      <div className="max-w-[1200px] flex flex-col items-center gap-3 w-[80vw]">
         <h2 className="text-2xl font-bold">추출 결과</h2>
         <div className="flex w-full">
-          <table className="w-full text-center border border-collapse">
+          <table className="table break-keep w-full text-center border border-collapse">
             <colgroup>
               <col className="w-1/4" />
               <col className="w-1/4" />
@@ -28,11 +47,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               </tr>
               {/* LAYER 1 시작 */}
               <tr>
-                <td className="py-1 border bg-red-50" rowSpan={9}>
-                  Layer1
-                  <br />
-                  (도로정보)
-                </td>
+                <LayerTableData layer={1} rowSpan={9} className="bg-red-50" />
                 <td className="py-1 border bg-red-50" colSpan={3}>
                   도로 기능과 등급
                 </td>
@@ -90,11 +105,11 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 2 시작 */}
 
               <tr>
-                <td rowSpan={25} className="bg-orange-50">
-                  Layer2
-                  <br />
-                  (도로교통시설)
-                </td>
+                <LayerTableData
+                  layer={2}
+                  rowSpan={25}
+                  className="bg-orange-50"
+                />
                 <td className="py-1 border bg-orange-50" rowSpan={6}>
                   도로안전시설
                 </td>
@@ -221,11 +236,11 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 3 시작 */}
 
               <tr>
-                <td className="py-1 border bg-yellow-50" rowSpan={4}>
-                  Layer3
-                  <br />
-                  (일시적 사건)
-                </td>
+                <LayerTableData
+                  layer={3}
+                  rowSpan={4}
+                  className="bg-yellow-50"
+                />
                 <td className="py-1 border bg-yellow-50" rowSpan={4}>
                   도로점용
                 </td>
@@ -249,11 +264,11 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 4 시작 */}
 
               <tr>
-                <td className="py-1 border bg-green-50" rowSpan={46}>
-                  Layer4
-                  <br />
-                  (동적 객체)
-                </td>
+                <LayerTableData
+                  layer={4}
+                  rowSpan={46}
+                  className="bg-green-50"
+                />
                 <td className="py-1 border bg-green-50" rowSpan={41}>
                   주변 객체
                 </td>
@@ -421,11 +436,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 5 시작 */}
 
               <tr>
-                <td className="py-1 border bg-blue-50" rowSpan={5}>
-                  Layer5
-                  <br />
-                  (주행 환경)
-                </td>
+                <LayerTableData layer={5} rowSpan={5} className="bg-blue-50" />
                 <td className="py-1 border bg-blue-50" rowSpan={2}>
                   시간
                 </td>
@@ -460,11 +471,11 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 6 시작 */}
 
               <tr>
-                <td className="py-1 border bg-indigo-50" rowSpan={10}>
-                  Layer6
-                  <br />
-                  (디지털)
-                </td>
+                <LayerTableData
+                  layer={6}
+                  rowSpan={10}
+                  className="bg-indigo-50"
+                />
                 <td className="py-1 border bg-indigo-50" rowSpan={3}>
                   센싱정보
                 </td>
@@ -527,11 +538,11 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 6 시작 */}
 
               <tr>
-                <td className="py-1 border bg-purple-50">
-                  Layer7
-                  <br />
-                  (법 · 규제)
-                </td>
+                <LayerTableData
+                  layer={7}
+                  rowSpan={1}
+                  className="bg-purple-50"
+                />
                 <td className="py-1 border bg-purple-50" colSpan={3}>
                   법 · 규제
                 </td>
@@ -546,7 +557,10 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
             {cases.map((item, index) => (
               <div
                 key={item.id}
-                className={`text-center border-b border-r ${index === cases.length - 1 ? 'py-4' : 'py-1'}`}
+                className={classNames(
+                  'text-center border-b border-r',
+                  index === cases.length - 1 ? 'py-4' : 'py-1',
+                )}
               >
                 {item.value ? item.value : '-'}
               </div>
