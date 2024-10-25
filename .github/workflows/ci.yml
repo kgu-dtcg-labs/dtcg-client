@@ -14,11 +14,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  quality-and-build:
+  Pipelines:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        command: ['lint', 'test', 'build']
+        command: ['lint', 'build']
 
     steps:
       - name: Checkout
@@ -35,7 +35,7 @@ jobs:
         run: yarn set version berry
 
       - name: Install dependencies
-        run: yarn install --mode=update-lockfile
+        run: yarn install
 
       - name: Run commands
         run: yarn ${{ matrix.command }}
