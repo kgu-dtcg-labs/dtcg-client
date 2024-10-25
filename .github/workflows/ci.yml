@@ -1,0 +1,41 @@
+name: CI
+
+env:
+  HUSKY: 0
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-and-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command: ['lint', 'test', 'build']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Enable Yarn Berry
+        run: yarn set version berry
+
+      - name: Install dependencies
+        run: yarn install --mode=update-lockfile
+
+      - name: Run commands
+        run: yarn ${{ matrix.command }}
