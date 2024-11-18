@@ -3,6 +3,7 @@ import {
   ClearAllButton,
   InputAccidentModalButton,
   InputLawModalButton,
+  RegexButton,
   ReloadButton,
 } from './TopButtons';
 
@@ -13,6 +14,7 @@ const TopControlPanel = () => {
         <InputAccidentModalButton />
         <InputLawModalButton />
         <ApplyPresetButton />
+        <RegexButton />
       </div>
 
       <div className="flex items-center gap-2">

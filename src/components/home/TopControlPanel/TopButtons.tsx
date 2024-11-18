@@ -1,7 +1,7 @@
 import { Button } from '@components/common/Button/Button';
 import { PiCircuitry, PiSirenFill } from 'react-icons/pi';
 import { FaBook } from 'react-icons/fa6';
-import { IoClose, IoReload } from 'react-icons/io5';
+import { IoClose, IoFilter, IoReload } from 'react-icons/io5';
 import { useCallback } from 'react';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { useSetSelectedCaseStore } from '@store/selected-case';
@@ -83,10 +83,19 @@ const ReloadButton = () => (
   </Button>
 );
 
+const RegexButton = () => {
+  return (
+    <Button icon={<IoFilter />} color="black" className="font-semibold">
+      Regex 필터
+    </Button>
+  );
+};
+
 export {
   InputAccidentModalButton,
   InputLawModalButton,
   ApplyPresetButton,
   ClearAllButton,
   ReloadButton,
+  RegexButton,
 };
