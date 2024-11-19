@@ -8,12 +8,12 @@ export type ElementTypeType = 'layer' | 'group' | 'case';
  */
 export interface ElementType {
   id: number;
-  layer?: number;
   type: ElementTypeType;
-  name?: string;
   parentId: number | null;
   value: string;
-  content?: string | undefined;
+  name?: string;
+  layer?: number;
+  content?: string;
 }
 
 /**
@@ -31,7 +31,7 @@ export type TestCase = { description: string; cases: ElementType[][] };
 /**
  * @description 아크릴 통신에 사용되는 response의 형식
  */
-export interface responseDataType {
+export interface ResponseDataType {
   r: number;
   result: {
     [key: string]: {
@@ -51,12 +51,3 @@ export interface ParsedElement {
  * @description 시나리오 결과를 파싱할 때, 전체 요소
  */
 export type ParsedTestCasesLayer = Record<string, ParsedElement[] | string>;
-
-/**
- * @description 프리셋의 요소들
- */
-export interface Preset {
-  id: number;
-  name: string;
-  removalElements: ElementType[];
-}

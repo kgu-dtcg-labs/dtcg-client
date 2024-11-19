@@ -1,6 +1,12 @@
-import { Preset } from '@type/element';
+import { ElementType } from '@type/element';
 
-export const PRE_SET: Preset[] = [
+interface Preset {
+  id: number;
+  name: string;
+  removalElements: ElementType[];
+}
+
+export const PRESET: Preset[] = [
   {
     id: 1,
     name: '차선유지(선행차X)',

@@ -1,12 +1,11 @@
-import toast from 'react-hot-toast';
+import reactHotToast from 'react-hot-toast';
 
-export const message = (text: string) => {
-  toast(text, {
+export const toast = (message: string) => {
+  reactHotToast(message, {
     duration: 1500,
-    position: 'bottom-right',
+    position: 'top-right',
     style: {
       width: 280,
-      height: 160,
       fontSize: 18,
       fontWeight: 700,
     },

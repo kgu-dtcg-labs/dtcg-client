@@ -1,22 +1,22 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useGetSelectedModalStore } from '@store/modal-type';
-import Modals from '@components/home/Modals/Modals';
-import TopControlPanel from '@components/home/TopControlPanel/TopControlPanel';
+import Modals from '@pages/HomePage/components/Modals/Modals';
+import TopControlPanel from '@pages/HomePage/components/TopControlPanel/TopControlPanel';
 import { treeParser } from '@utils/element';
 import classNames from 'classnames';
-import Layer from '@components/home/Layer/Layer';
-import Spinner from '@components/common/Spinner/Spinner';
+import Layer from '@pages/HomePage/components/Layer/Layer';
+import Spinner from '@components/Spinner/Spinner';
 import { useGetLoadingStateStore } from '@store/loading';
 import { Toaster } from 'react-hot-toast';
 
-const HomePage = () => {
+export default function HomePage() {
   const modalType = useGetSelectedModalStore();
-  const [layer, setLayer] = useState<number>(1);
   const isLoading = useGetLoadingStateStore();
+  const [layer, setLayer] = useState(1);
 
-  const handleLayerClick = useCallback((layer: number) => {
+  const handleLayerClick = (layer: number) => {
     setLayer(Math.min(Math.max(layer, 1), 7));
-  }, []);
+  };
 
   return (
     <div className="py-10 select-none">
@@ -45,6 +45,4 @@ const HomePage = () => {
       </Layer>
     </div>
   );
-};
-
-export default HomePage;
+}

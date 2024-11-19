@@ -16,6 +16,6 @@ export const postAccidentData = async (data: string) => {
 
     return response;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };

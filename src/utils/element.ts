@@ -1,13 +1,13 @@
 import { Response } from '@tauri-apps/api/http';
 import { ParsedElement } from './../types/element';
-import { elementData, memoCases } from '@mocks/elementData';
+import { ELEMENT_DATA, MEMO_PARENT_CASES } from '@constants/element-data';
 import { RandomType } from '@type/common';
 import type {
   ElementType,
   ElementWithChildrenType,
   ParsedTestCasesLayer,
   TestCase,
-  responseDataType,
+  ResponseDataType,
 } from '@type/element';
 
 /**
@@ -16,11 +16,11 @@ import type {
  * @returns 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
  */
 export function treeParser(layer: number): ElementWithChildrenType {
-  const findLayer = elementData.find((item) => item.id === layer);
+  const findLayer = ELEMENT_DATA.find((item) => item.id === layer);
 
   if (findLayer) {
     // Layer가 존재하다면 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
-    const children = elementData.filter((item) => item.parentId === layer);
+    const children = ELEMENT_DATA.filter((item) => item.parentId === layer);
     const result = {
       ...findLayer,
       children: children.map((item) => {
@@ -62,7 +62,7 @@ export async function createTestCases(
         parentIds.map(async (pid) => {
           const filteredCases =
             type === '랜덤'
-              ? memoCases[pid!]
+              ? MEMO_PARENT_CASES[pid!]
               : cases.filter((c) => c.parentId === pid);
           return filteredCases[
             Math.floor(Math.random() * filteredCases.length)
@@ -81,7 +81,7 @@ export async function createTestCases(
  * 입력받은 데이터를 아크릴 측으로 전송합니다
  */
 export function matchingCaseWithResponse(
-  res: Response<responseDataType>,
+  res: Response<ResponseDataType>,
 ): ElementType[] {
   const result: ElementType[] = [];
 
@@ -96,7 +96,7 @@ export function matchingCaseWithResponse(
   });
 
   // mocks 배열을 순회하며 name이 searchValues에 포함되는지 확인
-  elementData.forEach((item) => {
+  ELEMENT_DATA.forEach((item) => {
     if (searchValues.includes(item.value) && item.type === 'case') {
       result.push(item);
     }

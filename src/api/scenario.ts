@@ -14,7 +14,7 @@ export const postSaveScenarios = async (data: string) => {
 
     return res;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -26,6 +26,6 @@ export const deleteScenarios = async () => {
 
     return res;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
