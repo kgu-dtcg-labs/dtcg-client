@@ -1,5 +1,5 @@
 import { LAYER_LIST } from '@constants/layer';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export interface LayerHeaderProps {
   layer: number;
@@ -12,7 +12,7 @@ const LayerHeader = ({ layer, onClick }: LayerHeaderProps) => {
       {LAYER_LIST.map((item) => (
         <li
           key={item.layer}
-          className={classNames(
+          className={clsx(
             'w-full text-center py-1 px-4 font-medium text-sm first:rounded-l last:rounded-r border-y first:border-l last:!border-r transition-colors',
             item.layer === layer
               ? 'bg-orange-400 text-white dark:bg-orange-400/80 '

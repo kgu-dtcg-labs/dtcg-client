@@ -1,4 +1,4 @@
-import { Button } from '@components/Button/Button';
+import { Button } from '@components/Button';
 import { PiCircuitry, PiSirenFill } from 'react-icons/pi';
 import { FaBook } from 'react-icons/fa6';
 import { IoClose, IoFilter, IoReload } from 'react-icons/io5';

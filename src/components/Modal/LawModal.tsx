@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Button } from '../Button/Button';
+import { Button } from '../Button';
 import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { ELEMENT_DATA } from '@constants/element-data';

@@ -1,23 +1,16 @@
 import { PropsWithChildren, useCallback, useState } from 'react';
-import LayerElement from '../LayerElement/LayerElement';
-import GroupElement from '../GroupElement/GroupElement';
-import CaseElement from '../CaseElement/CaseElement';
-import classNames from 'classnames';
+import LayerElement from './LayerElement';
+import GroupElement from './GroupElement';
+import CaseElement from './CaseElement';
+import clsx from 'clsx';
 import type { ElementWithChildrenType } from '@type/element';
 
 export interface ElementProps {
-  isFirst?: boolean;
-  isLast?: boolean;
   className?: string;
   data: ElementWithChildrenType;
 }
 
-const ElementTree = ({
-  isFirst = false,
-  isLast = false,
-  className,
-  data,
-}: ElementProps) => {
+const ElementTree = ({ className, data }: ElementProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const handleOpenClick = useCallback(() => {
@@ -42,30 +35,20 @@ const ElementTree = ({
 
   return (
     <ul
-      className={classNames(
+      className={clsx(
         'flex border-l dark:border-white/20',
         RenderElementStyle,
         className,
       )}
     >
       <li className="inline-block" onClick={handleOpenClick}>
-        <RenderElement
-          isFirst={isFirst}
-          data={data}
-          isLast={isLast}
-          length={data.children.length}
-        />
+        <RenderElement data={data} />
       </li>
       <li className="inline-block space-y-4">
         {open &&
           data.children.length > 0 &&
-          data.children.map((child, index) => (
-            <ElementTree
-              key={child.id}
-              data={child}
-              isLast={data.children.length === index + 1}
-              isFirst={index === 0}
-            />
+          data.children.map((child) => (
+            <ElementTree key={child.id} data={child} />
           ))}
       </li>
     </ul>

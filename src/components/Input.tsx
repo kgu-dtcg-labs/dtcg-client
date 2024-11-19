@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { forwardRef } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -14,7 +14,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           onChange={onChange}
           {...props}
-          className={classNames('p-2 border rounded outline-none ', className)}
+          className={clsx('p-2 border rounded outline-none ', className)}
         />
       </div>
     );

@@ -1,6 +1,6 @@
 import { PropsWithChildren, useCallback, useState } from 'react';
-import ElementLine from '../ElementLine/ElementLine';
-import Element from '../Element/Element';
+import ElementLine from './ElementLine';
+import Element from './Element';
 import { ElementType } from '@type/element';
 
 interface GroupElementProps extends PropsWithChildren {

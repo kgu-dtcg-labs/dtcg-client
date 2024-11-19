@@ -1,6 +1,6 @@
 import { PATH } from '@constants/path';
 import HomePage from '@pages/HomePage/HomePage';
-import SplashPage from '@pages/SplashPage';
+import SplashPage from '@pages/SplashPage/SplashPage';
 import Layout from '@/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {

@@ -1,16 +1,16 @@
 import { PropsWithChildren } from 'react';
-import classNames from 'classnames';
-import LayerHeader, { LayerHeaderProps } from '../LayerHeader/LayerHeader';
+import clsx from 'clsx';
+import LayerHeader, { LayerHeaderProps } from './LayerHeader';
 import {
   ElementProps,
   ElementTree,
   ElementTreeWrapper,
-} from '@components/ElementTree/ElementTree';
-import ResultTable from '../ResultTable/ResultTable';
-import SaveButton from '../SaveButton/SaveButton';
-import CreateRandomButton from '../HandleScenarioButtons/CreateRandomButton';
-import CreateSelectRandomButton from '../HandleScenarioButtons/CreateSelectRandomButton';
-import DeleteButton from '../HandleScenarioButtons/DeleteButton';
+} from '@components/ElementTree';
+import ResultTable from './ResultTable';
+import SaveButton from './SaveButton';
+import CreateRandomButton from './CreateRandomButton';
+import CreateSelectRandomButton from './CreateSelectRandomButton';
+import DeleteButton from './DeleteButton';
 
 interface LayerProps {
   className?: string;
@@ -18,7 +18,7 @@ interface LayerProps {
 
 const Layer = ({ children, className }: PropsWithChildren<LayerProps>) => (
   <div
-    className={classNames(
+    className={clsx(
       'px-3.5 py-10 mt-6 overflow-auto border rounded bg-gray-50 dark:bg-zinc-600',
       className,
     )}
@@ -37,13 +37,8 @@ Layer.Header = ({ layer, onClick }: LayerHeaderProps) => (
 /**
  * Layer 별 트리구조입니다.
  */
-Layer.Tree = ({ isFirst, isLast, className, data }: ElementProps) => (
-  <ElementTree
-    isFirst={isFirst}
-    isLast={isLast}
-    className={className}
-    data={data}
-  />
+Layer.Tree = ({ className, data }: ElementProps) => (
+  <ElementTree className={className} data={data} />
 );
 
 Layer.TreeWrapper = ({ children }: PropsWithChildren) => (

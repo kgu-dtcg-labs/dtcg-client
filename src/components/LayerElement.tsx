@@ -1,12 +1,9 @@
 import { PropsWithChildren } from 'react';
 import { ElementType } from '@type/element';
-import Element from '../Element/Element';
-import ElementLine from '../ElementLine/ElementLine';
+import Element from './Element';
+import ElementLine from './ElementLine';
 
 interface LayerElementProps extends PropsWithChildren {
-  isFirst: boolean;
-  isLast?: boolean;
-  length?: number;
   data: ElementType;
 }
 

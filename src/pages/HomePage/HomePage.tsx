@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useGetSelectedModalStore } from '@store/modal-type';
-import Modals from '@pages/HomePage/components/Modals/Modals';
-import TopControlPanel from '@pages/HomePage/components/TopControlPanel/TopControlPanel';
+import Modals from '@pages/HomePage/components/Modals';
+import TopControlPanel from '@pages/HomePage/components/TopControlPanel';
 import { treeParser } from '@utils/element';
-import classNames from 'classnames';
-import Layer from '@pages/HomePage/components/Layer/Layer';
-import Spinner from '@components/Spinner/Spinner';
+import Layer from '@pages/HomePage/components/Layer';
+import Spinner from '@components/Spinner';
 import { useGetLoadingStateStore } from '@store/loading';
 import { Toaster } from 'react-hot-toast';
+import { LAYER_LIST } from '@constants/layer';
+import clsx from 'clsx';
+
+const LAYER_RANGE = LAYER_LIST.map((layer) => layer.layer);
 
 export default function HomePage() {
   const modalType = useGetSelectedModalStore();
@@ -32,11 +35,11 @@ export default function HomePage() {
       <Layer>
         <Layer.Header layer={layer} onClick={handleLayerClick} />
         <Layer.TreeWrapper>
-          {[1, 2, 3, 4, 5, 6, 7].map((layerNumber) => (
+          {LAYER_RANGE.map((layerNumber) => (
             <Layer.Tree
               key={layerNumber}
               data={treeParser(layerNumber)}
-              className={classNames({ hidden: layer !== layerNumber })}
+              className={clsx({ hidden: layer !== layerNumber })}
             />
           ))}
         </Layer.TreeWrapper>

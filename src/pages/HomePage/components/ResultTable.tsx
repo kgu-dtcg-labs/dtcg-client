@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from '@components/Button/Button';
+import { Button } from '@components/Button';
 import { TABLE_HEADER } from '@constants/table-header';
 import type { ElementType } from '@type/element';
 import type { Step } from '@type/common';

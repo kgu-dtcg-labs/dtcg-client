@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Modal } from './Modal';
 import { useSetSelectedModalStore } from '@store/modal-type';
-import { Button } from '../Button/Button';
+import { Button } from '../Button';
 import { useSetResultStore } from '@store/result';
 import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { ElementType } from '@type/element';
 import { useGetCaseStore } from '@store/case';
-import Input from '../Input/Input';
+import Input from '../Input';
 import { useSetParsedDataStore } from '@store/parsedData';
 import { useSetLoadingStateStore } from '@store/loading';
 import { toast } from '@utils/toast';

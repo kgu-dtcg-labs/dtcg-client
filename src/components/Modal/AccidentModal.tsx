@@ -1,5 +1,5 @@
 import { useSetSelectedModalStore } from '@store/modal-type';
-import { Button } from '../Button/Button';
+import { Button } from '../Button';
 import { Modal } from './Modal';
 import { useCallback, useState } from 'react';
 import { postAccidentData } from '@api/acryl';

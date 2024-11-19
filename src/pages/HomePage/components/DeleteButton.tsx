@@ -1,9 +1,9 @@
 import { deleteScenarios } from '@api/scenario';
-import { Button } from '@components/Button/Button';
+import { Button } from '@components/Button';
 import { toast } from '@utils/toast';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useMutation } from '@tanstack/react-query';
-import Spinner from '@components/Spinner/Spinner';
+import Spinner from '@components/Spinner';
 
 const DeleteButton = () => {
   const mutation = useMutation({

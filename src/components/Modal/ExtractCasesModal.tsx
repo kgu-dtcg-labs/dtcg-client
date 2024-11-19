@@ -1,6 +1,6 @@
 import { ElementType } from '@type/element';
 import { Modal } from './Modal';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { LAYER_LIST } from '@constants/layer';
 
 interface ExtractCasesModalProps {
@@ -18,7 +18,7 @@ const LayerTableData = ({
   rowSpan: number;
 }) => {
   return (
-    <td rowSpan={rowSpan} className={classNames('py-1 border', className)}>
+    <td rowSpan={rowSpan} className={clsx('py-1 border', className)}>
       {`Layer${layer}`}
       <br />({LAYER_LIST[layer - 1].name})
     </td>
@@ -557,7 +557,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
             {cases.map((item, index) => (
               <div
                 key={item.id}
-                className={classNames(
+                className={clsx(
                   'text-center border-b border-r',
                   index === cases.length - 1 ? 'py-4' : 'py-1',
                 )}

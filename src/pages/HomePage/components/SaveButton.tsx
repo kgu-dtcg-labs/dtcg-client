@@ -1,11 +1,11 @@
 import { postSaveScenarios } from '@api/scenario';
-import { Button } from '@components/Button/Button';
+import { Button } from '@components/Button';
 import { BsDatabaseFillAdd } from 'react-icons/bs';
 import { useGetParsedDataStore } from '@store/parsedData';
 import { useGetResultStore } from '@store/result';
 import { toast } from '@utils/toast';
 import { useMutation } from '@tanstack/react-query';
-import Spinner from '@components/Spinner/Spinner';
+import Spinner from '@components/Spinner';
 
 const SaveButton = () => {
   const parsedData = useGetParsedDataStore();

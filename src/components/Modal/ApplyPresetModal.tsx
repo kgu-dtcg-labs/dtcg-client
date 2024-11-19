@@ -1,7 +1,7 @@
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Modal } from './Modal';
 import { PRESET } from '@constants/preset';
-import { Button } from '../Button/Button';
+import { Button } from '../Button';
 import { useState } from 'react';
 import { useSetSelectedCaseStore } from '@store/selected-case';
 import { useGetCaseStore } from '@store/case';

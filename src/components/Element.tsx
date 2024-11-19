@@ -1,9 +1,13 @@
-import classNames from 'classnames';
-import { elementColors } from './Element.style';
-import type { ElementColorType } from './Element.type';
+import clsx from 'clsx';
+
+const COLORS = {
+  layer: 'bg-sky-200 dark:bg-sky-200/80',
+  group: 'bg-gray-200 dark:bg-gray-200/80',
+  case: 'bg-white border-[1.5px] border-gray-300 dark:bg-white/80',
+} as const;
 
 interface ElementProps extends React.HTMLAttributes<HTMLButtonElement> {
-  color?: ElementColorType;
+  color?: 'layer' | 'group' | 'case';
   selected?: boolean;
 }
 
@@ -16,10 +20,10 @@ const Element = ({
 }: ElementProps) => {
   return (
     <button
-      className={classNames(
+      className={clsx(
         'h-10 text-sm font-semibold rounded-lg w-36 dark:text-gray-800/80',
         { '!border-orange-400 text-orange-400': selected },
-        elementColors[color],
+        COLORS[color],
         className,
       )}
       {...rest}

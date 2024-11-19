@@ -1,4 +1,4 @@
-import { Button } from '@components/Button/Button';
+import { Button } from '@components/Button';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { useGetSelectedCaseStore } from '@store/selected-case';
 import { useCallback } from 'react';
