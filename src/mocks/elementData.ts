@@ -965,7 +965,7 @@ export const elementData: ElementType[] = [
   {
     id: 1622,
     type: 'case',
-    value: '없음',
+    value: '0',
     parentId: 110,
     name: '최고제한속도',
     layer: 2,
