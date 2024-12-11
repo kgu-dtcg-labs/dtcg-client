@@ -1,7 +1,7 @@
-name: '🐞 Bug'
+name: 'Bug'
 description: '버그가 발생했나요?'
 title: '[Bug]: '
-labels: '🐞 bug'
+labels: 'bug'
 body:
   - type: textarea
     attributes:
@@ -29,5 +29,5 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: ETC
-      description: 더 전달할 내용이 있다면 여기에 작성해 주세요.
+      label: To Assignees
+      description: 담당자에게 전달할 내용이 있다면 여기에 작성해 주세요.
