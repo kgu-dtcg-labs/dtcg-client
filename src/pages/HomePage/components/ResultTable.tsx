@@ -1,50 +1,45 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from '@components/Button';
-import { TABLE_HEADER } from '@constants/table-header';
 import type { ElementType } from '@type/element';
-import type { Step } from '@type/common';
+import { useEffect, useMemo, useState } from 'react';
+import { Button } from '@components/Button';
 import { useGetResultStore } from '@store/result';
 import ExtractCasesModal from '@components/Modal/ExtractCasesModal';
+import { TABLE_HEADER } from '@/data/element';
 
-const limit = 20;
+const LIMIT = 20;
 
 const ResultTable = () => {
   const [page, setPage] = useState(0);
-  const cases = useGetResultStore().cases;
   const [selectedRow, setSelectedRow] = useState<ElementType[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  const cases = useGetResultStore().cases;
+
   const currentPage = useMemo(
-    () => cases.slice(page * limit, page * limit + limit),
+    () => cases.slice(page * LIMIT, page * LIMIT + LIMIT),
     [cases, page],
   );
 
-  const handlePageChange = useCallback(
-    (step: Step) => {
-      switch (step) {
-        case 'back':
-          setPage((prev) => Math.max(prev - 1, 0));
-          break;
-        case 'forward':
-          setPage((prev) =>
-            Math.min(prev + 1, Math.floor(cases.length / limit)),
-          );
-          break;
-        default:
-          break;
-      }
-    },
-    [cases],
-  );
-
-  useEffect(() => {
-    setPage(0);
-  }, [cases]);
+  const handlePageChange = (step: 'back' | 'forward') => {
+    switch (step) {
+      case 'back':
+        setPage((prev) => Math.max(prev - 1, 0));
+        break;
+      case 'forward':
+        setPage((prev) => Math.min(prev + 1, Math.floor(cases.length / LIMIT)));
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleRowClick = (row: ElementType[]) => {
     setSelectedRow(row);
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    setPage(0);
+  }, [cases]);
 
   return (
     <div className="space-y-2">
@@ -55,11 +50,31 @@ const ResultTable = () => {
         <table className="text-center table-fixed select-none">
           <thead>
             <tr className="font-medium border-b divide-x bg-slate-100 dark:bg-gray-500">
-              {TABLE_HEADER.map(({ name }, index) => (
-                <th key={`${name}-${index}`} className="py-4 min-w-32">
-                  {name}
-                </th>
-              ))}
+              {TABLE_HEADER.map((header) => {
+                switch (header.type) {
+                  case 'case':
+                    return (
+                      <th
+                        key={`${header.name}-${header.id}`}
+                        className="py-4 min-w-32 break-keep"
+                      >
+                        {header.name}
+                      </th>
+                    );
+                  case 'layer':
+                  case 'group':
+                    return (
+                      <th
+                        key={`${header.value}-${header.id}`}
+                        className="py-4 min-w-32 break-keep"
+                      >
+                        {header.value}
+                      </th>
+                    );
+                  default:
+                    break;
+                }
+              })}
             </tr>
           </thead>
           <tbody>
@@ -72,9 +87,10 @@ const ResultTable = () => {
                 >
                   {TABLE_HEADER.map((header) => {
                     const element = row.find((el) => el.parentId === header.id);
+
                     return (
                       <td
-                        key={`${header.id}-${element?.value || ''}`}
+                        key={`${header.id}-${element?.value || 'none'}`}
                         className="px-4 py-1 border"
                       >
                         {element?.value || '없음'}
@@ -92,7 +108,7 @@ const ResultTable = () => {
             이전
           </Button>
           <p className="w-20 font-semibold text-center">
-            {page + 1}/{Math.ceil(cases.length / limit)}
+            {page + 1}/{Math.ceil(cases.length / LIMIT)}
           </p>
           <Button color="black" onClick={() => handlePageChange('forward')}>
             다음

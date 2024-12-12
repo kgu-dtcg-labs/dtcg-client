@@ -1,48 +1,38 @@
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button';
 import { Modal } from './Modal';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { postAccidentData } from '@api/acryl';
 import { useSetSelectedCaseStore } from '@store/selected-case';
 import { matchingCaseWithResponse } from '@utils/element';
-import { ResponseDataType } from '@type/element';
 import { useSetLoadingStateStore } from '@store/loading';
 import { toast } from '@utils/toast';
-import { Response } from '@tauri-apps/api/http';
 
 const AccidentModal = () => {
   const setModal = useSetSelectedModalStore();
   const setSelectedCase = useSetSelectedCaseStore();
-  const [accidentData, setAccidentData] = useState<string>('');
   const setIsLoading = useSetLoadingStateStore();
+  const [accidentData, setAccidentData] = useState('');
 
-  const handleChangeData = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setAccidentData(e.target.value);
-    },
-    [],
-  );
+  const handleAccidentDataChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setAccidentData(e.target.value);
+  };
 
-  /**
-   * @description 입력받은 사고 데이터를 acryl api를 통해 전송해 일치하는 케이스들을 리턴합니다.
-   */
-  const postAndMatchingData = async () => {
-    setSelectedCase([]); // 선택된 케이스를 초기화합니다.
+  const handleAcylSearchClick = async () => {
     setIsLoading(true);
     setModal('none');
 
     try {
-      // postData 함수의 결과가 Promise이므로 await을 사용하여 결과를 기다립니다.
-      const responseData = await postAccidentData(accidentData);
-      const processedData = matchingCaseWithResponse(
-        responseData as Response<ResponseDataType>,
-      );
-      setModal('none');
-      setSelectedCase(processedData);
+      const response = await postAccidentData(accidentData);
+      const data = matchingCaseWithResponse(response);
+      setSelectedCase(data);
       setIsLoading(false);
       toast('완료되었습니다!');
-    } catch (e) {
+    } catch {
       toast('오류가 발생했습니다.');
+      setIsLoading(false);
     }
   };
 
@@ -55,12 +45,12 @@ const AccidentModal = () => {
         <textarea
           placeholder="여기에 입력하세요"
           value={accidentData}
-          onChange={handleChangeData}
+          onChange={handleAccidentDataChange}
           className="resize-none w-[800px] min-h-[400px] border p-4 overflow-auto scrollbar-hide outline-none mb-5 rounded-md"
-        ></textarea>
+        />
         <Button
           color="black"
-          onClick={postAndMatchingData}
+          onClick={handleAcylSearchClick}
           className="py-3 text-lg font-semibold"
         >
           입력하기

@@ -4,7 +4,7 @@ import { useSetSelectedModalStore } from '@store/modal-type';
 import { Button } from '../Button';
 import { useSetResultStore } from '@store/result';
 import { createTestCases, parseTestCasesByLayer } from '@utils/element';
-import { ElementType } from '@type/element';
+import type { ElementType } from '@type/element';
 import { useGetCaseStore } from '@store/case';
 import Input from '../Input';
 import { useSetParsedDataStore } from '@store/parsedData';
@@ -52,7 +52,7 @@ const RandomModal = () => {
     <Modal onClose={() => setModal('none')}>
       <div className="grid items-center gap-8">
         <div className="flex flex-col gap-2 text-center dark:text-white">
-          <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
+          <h2 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h2>
           <span>생성할 시나리오의 개수와 설명을 입력해주세요.</span>
           <span>최대 50,000개까지 입력 가능</span>
         </div>

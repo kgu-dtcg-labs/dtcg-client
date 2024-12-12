@@ -1,6 +1,6 @@
 import reactHotToast from 'react-hot-toast';
 
-export const toast = (message: string) => {
+export function toast(message: string) {
   reactHotToast(message, {
     duration: 1500,
     position: 'top-right',
@@ -10,4 +10,4 @@ export const toast = (message: string) => {
       fontWeight: 700,
     },
   });
-};
+}

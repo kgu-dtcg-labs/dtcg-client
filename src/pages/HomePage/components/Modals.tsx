@@ -3,13 +3,13 @@ import ApplyPresetModal from '@components/Modal/ApplyPresetModal';
 import LawModal from '@components/Modal/LawModal';
 import RandomModal from '@components/Modal/RandomModal';
 import SelectedRandomModal from '@components/Modal/SelectedRandomModal';
-import { Modal as ModalType } from '@type/common';
+import type { Modal as ModalType } from '@type/common';
 
-interface ModalsProps {
+interface Props {
   modalType: ModalType;
 }
 
-const Modals = ({ modalType }: ModalsProps) => {
+const Modals = ({ modalType }: Props) => {
   return (
     <>
       {modalType === '랜덤' && <RandomModal />}

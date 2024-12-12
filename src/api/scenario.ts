@@ -1,31 +1,16 @@
 import { END_POINT } from '@constants/api';
-import { fetch } from '@tauri-apps/api/http';
+import { http } from '@utils/http';
 
-export const postSaveScenarios = async (data: string) => {
-  try {
-    const parsedData = JSON.parse(data);
-    const res = await fetch(END_POINT.TEST_CASE, {
-      method: 'POST',
-      body: {
-        type: 'Json',
-        payload: parsedData,
-      },
-    });
+export function postSaveScenarios(data: string) {
+  return http.post(END_POINT.TEST_CASE, {
+    method: 'POST',
+    body: {
+      type: 'Json',
+      payload: JSON.parse(data),
+    },
+  });
+}
 
-    return res;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-export const deleteScenarios = async () => {
-  try {
-    const res = await fetch(END_POINT.TEST_CASE, {
-      method: 'DELETE',
-    });
-
-    return res;
-  } catch (e) {
-    console.error(e);
-  }
-};
+export function deleteScenarios() {
+  return http.delete(END_POINT.TEST_CASE);
+}

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import LayerElement from './LayerElement';
 import GroupElement from './GroupElement';
 import CaseElement from './CaseElement';
@@ -11,19 +11,17 @@ export interface ElementProps {
 }
 
 const ElementTree = ({ className, data }: ElementProps) => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState(true);
 
-  const handleOpenClick = useCallback(() => {
+  const handleOpenClick = () => {
     setOpen((prev) => !prev);
-  }, []);
+  };
 
   let RenderElement = null;
-  let RenderElementStyle = '';
 
   switch (data.type) {
     case 'layer':
       RenderElement = LayerElement;
-      RenderElementStyle = 'border-none';
       break;
     case 'group':
       RenderElement = GroupElement;
@@ -37,7 +35,7 @@ const ElementTree = ({ className, data }: ElementProps) => {
     <ul
       className={clsx(
         'flex border-l dark:border-white/20',
-        RenderElementStyle,
+        data.type === 'layer' && 'border-none',
         className,
       )}
     >

@@ -1,11 +1,11 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ElementLine from './ElementLine';
 import Element from './Element';
-import { ElementType } from '@type/element';
+import type { ElementType } from '@type/element';
 import { useSetCaseStore } from '@store/case';
 import { useSelectedCaseStore } from '@store/selected-case';
 
-interface CaseElementProps extends PropsWithChildren {
+interface CaseElementProps extends React.PropsWithChildren {
   data: ElementType;
   isFirst?: boolean;
 }
@@ -13,11 +13,8 @@ interface CaseElementProps extends PropsWithChildren {
 const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
   const setCaseStore = useSetCaseStore();
   const [selectedCase, setSelectedCase] = useSelectedCaseStore();
-  const [isSelected, setIsSelected] = useState<boolean>(isFirst);
+  const [isSelected, setIsSelected] = useState(isFirst);
 
-  /**
-   * @description 케이스를 클릭하여 선택/삭제합니다.
-   */
   const handleIsSelectedClick = useCallback(() => {
     setIsSelected((prev) => !prev);
     setSelectedCase((prevSelectedCase) => {
@@ -27,10 +24,9 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
       if (caseIndex === -1) {
         // 요소가 전역 리스트에 없을 경우 추가
         return [...prevSelectedCase, data];
-      } else {
-        // 요소가 전역 리스트에 있을 경우 제거
-        return prevSelectedCase.filter((_, index) => index !== caseIndex);
       }
+      // 요소가 전역 리스트에 있을 경우 제거
+      return prevSelectedCase.filter((_, index) => index !== caseIndex);
     });
   }, [data, setSelectedCase]);
 
@@ -40,7 +36,7 @@ const CaseElement = ({ data, isFirst = false }: CaseElementProps) => {
     setIsSelected(isExistCase !== -1); // 요소가 있을 경우 선택 상태로 변경
   }, [data, selectedCase]);
 
-  useEffect(function init() {
+  useEffect(() => {
     setCaseStore((prev) => [...prev, data]);
     if (isFirst) {
       setSelectedCase((prevSelectedCase) => {

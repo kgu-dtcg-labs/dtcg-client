@@ -6,7 +6,7 @@ const COLORS = {
   case: 'bg-white border-[1.5px] border-gray-300 dark:bg-white/80',
 } as const;
 
-interface ElementProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   color?: 'layer' | 'group' | 'case';
   selected?: boolean;
 }
@@ -16,8 +16,8 @@ const Element = ({
   className,
   children,
   selected = false,
-  ...rest
-}: ElementProps) => {
+  ...props
+}: Props) => {
   return (
     <button
       className={clsx(
@@ -26,7 +26,7 @@ const Element = ({
         COLORS[color],
         className,
       )}
-      {...rest}
+      {...props}
     >
       {children}
     </button>

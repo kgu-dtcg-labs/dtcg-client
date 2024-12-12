@@ -6,11 +6,10 @@ import { treeParser } from '@utils/element';
 import Layer from '@pages/HomePage/components/Layer';
 import Spinner from '@components/Spinner';
 import { useGetLoadingStateStore } from '@store/loading';
-import { Toaster } from 'react-hot-toast';
-import { LAYER_LIST } from '@constants/layer';
 import clsx from 'clsx';
+import { LAYER_LIST } from '@/data/element';
 
-const LAYER_RANGE = LAYER_LIST.map((layer) => layer.layer);
+const LAYER_RANGE = LAYER_LIST.map((layer) => layer.id);
 
 export default function HomePage() {
   const modalType = useGetSelectedModalStore();
@@ -24,22 +23,16 @@ export default function HomePage() {
   return (
     <div className="py-10 select-none">
       {isLoading && <Spinner />}
-      <Toaster />
-
-      {/* 사고, 법률, 랜덤, 선택랜덤, 알림 등의 모달 */}
       <Modals modalType={modalType} />
-
-      {/* 사고 데이터 입력, 법률 키워드 검색 / 전체 해제, 초기화 버튼들 */}
       <TopControlPanel />
-
       <Layer>
         <Layer.Header layer={layer} onClick={handleLayerClick} />
         <Layer.TreeWrapper>
-          {LAYER_RANGE.map((layerNumber) => (
+          {LAYER_RANGE.map((layerId) => (
             <Layer.Tree
-              key={layerNumber}
-              data={treeParser(layerNumber)}
-              className={clsx({ hidden: layer !== layerNumber })}
+              key={layerId}
+              data={treeParser(layerId)}
+              className={clsx({ hidden: layer !== layerId })}
             />
           ))}
         </Layer.TreeWrapper>

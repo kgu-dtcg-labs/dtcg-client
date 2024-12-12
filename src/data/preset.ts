@@ -1,12 +1,18 @@
-import { ElementType } from '@type/element';
+import type { ElementType } from '@type/element';
+
+type ElementTypeForPreset = Omit<ElementType, 'isIncludeResultTable'> & {
+  parentId: number;
+  name: string;
+  layer: number;
+};
 
 interface Preset {
   id: number;
   name: string;
-  removalElements: ElementType[];
+  removalElements: ElementTypeForPreset[];
 }
 
-export const PRESET: Preset[] = [
+export const PRESETS: Preset[] = [
   {
     id: 1,
     name: '차선유지(선행차X)',

@@ -16,7 +16,7 @@ const Navbar = () => {
     localStorage.setItem('theme', className);
   }, [darkMode]);
 
-  const toggleDarkMode = useCallback(() => {
+  const handleDarkModeClick = useCallback(() => {
     setDarkMode(!darkMode);
   }, [darkMode]);
 
@@ -30,7 +30,7 @@ const Navbar = () => {
             <h1 className="text-xl font-bold">주행 테스트 케이스 생성기</h1>
           </div>
         </div>
-        <button onClick={toggleDarkMode}>
+        <button type="button" onClick={handleDarkModeClick}>
           {darkMode ? <WiDaySunny size={32} /> : <WiNightClear size={32} />}
         </button>
       </div>

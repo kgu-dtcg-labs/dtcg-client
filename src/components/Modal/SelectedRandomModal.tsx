@@ -5,7 +5,7 @@ import { createTestCases, parseTestCasesByLayer } from '@utils/element';
 import { useGetSelectedCaseStore } from '@store/selected-case';
 import { useSetSelectedModalStore } from '@store/modal-type';
 import { useSetResultStore } from '@store/result';
-import { ElementType } from '@type/element';
+import type { ElementType } from '@type/element';
 import Input from '../Input';
 import { useSetParsedDataStore } from '@store/parsedData';
 import { useSetLoadingStateStore } from '@store/loading';
@@ -21,7 +21,7 @@ const SelectedRandomModal = () => {
   const setParsedData = useSetParsedDataStore();
   const setIsLoading = useSetLoadingStateStore();
 
-  const empty = count === 0 || description === '';
+  const isEmpty = count === 0 || description === '';
 
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCount(Number(e.target.value));
@@ -51,7 +51,7 @@ const SelectedRandomModal = () => {
     <Modal onClose={() => setModal('none')}>
       <div className="grid items-center gap-8">
         <div className="flex flex-col gap-2 text-center">
-          <h1 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h1>
+          <h2 className="pb-4 text-xl font-semibold ">랜덤 생성 개수 입력</h2>
           <span>생성할 시나리오의 개수와 설명을 입력해주세요.</span>
           <span>최대 50,000개까지 입력 가능</span>
         </div>
@@ -70,9 +70,9 @@ const SelectedRandomModal = () => {
           />
         </div>
         <Button
-          color={`${empty ? 'disabled' : 'black'}`}
+          color={isEmpty ? 'disabled' : 'black'}
           onClick={() => handleRandomButtonClick(selectedCase)}
-          disabled={empty}
+          disabled={isEmpty}
         >
           생성하기
         </Button>

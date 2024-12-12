@@ -1,14 +1,14 @@
-import { Response } from '@tauri-apps/api/http';
-import { ParsedElement } from './../types/element';
-import { ELEMENT_DATA, MEMO_PARENT_CASES } from '@constants/element-data';
-import { RandomType } from '@type/common';
+import type { Response } from '@tauri-apps/api/http';
+import type { ScenarioCreationMode } from '@type/common';
 import type {
   ElementType,
+  ParsedElement,
   ElementWithChildrenType,
   ParsedTestCasesLayer,
   TestCase,
   ResponseDataType,
 } from '@type/element';
+import { ELEMENT_DATA, MEMO_PARENT_CASES } from '@/data/element';
 
 /**
  * 레이어 ID를 받아서 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환하는 함수
@@ -48,12 +48,16 @@ export function treeParser(layer: number): ElementWithChildrenType {
  */
 export async function createTestCases(
   cases: ElementType[],
-  numberOfScenarios: number = 1,
-  type: RandomType,
+  numberOfScenarios: number,
+  type: ScenarioCreationMode,
   description: string,
 ): Promise<TestCase> {
   const parentIds = [
-    ...new Set(cases.filter((c) => c.parentId !== null).map((c) => c.parentId)),
+    ...new Set(
+      cases
+        .filter((c) => typeof c.parentId === 'number')
+        .map((c) => c.parentId),
+    ),
   ];
 
   const scenarios = await Promise.all(
@@ -62,7 +66,7 @@ export async function createTestCases(
         parentIds.map(async (pid) => {
           const filteredCases =
             type === '랜덤'
-              ? MEMO_PARENT_CASES[pid!]
+              ? MEMO_PARENT_CASES[pid]
               : cases.filter((c) => c.parentId === pid);
           return filteredCases[
             Math.floor(Math.random() * filteredCases.length)
@@ -102,7 +106,6 @@ export function matchingCaseWithResponse(
     }
   });
 
-  console.log(result);
   return result;
 }
 
@@ -124,11 +127,14 @@ export function parseTestCasesByLayer(
   } else {
     result[descriptionKey] = '설명 없음';
   }
-
+  // TODO: 성능 개선 필요 (O(n^2))
   scenarios.cases.forEach((scenario, i) => {
     for (const element of scenario) {
-      const layer = element.layer;
+      if (element.type !== 'case') {
+        continue;
+      }
 
+      const layer = element.layer;
       if (layer !== undefined) {
         const layerKey = `layer${layer}DTOs`;
         if (!result[layerKey]) {
@@ -139,7 +145,7 @@ export function parseTestCasesByLayer(
         if (!result[layerKey][i]) {
           layerArray[i] = {};
         }
-        layerArray[i][element.name ?? '-'] = element.value ?? '-';
+        layerArray[i][element.name] = element.value;
       }
     }
   });

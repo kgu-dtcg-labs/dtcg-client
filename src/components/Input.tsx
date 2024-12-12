@@ -1,20 +1,19 @@
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, onChange, className, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ label, className, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-1">
         <p className="text-start dark:text-white">{label}</p>
         <input
           ref={ref}
-          onChange={onChange}
-          {...props}
           className={clsx('p-2 border rounded outline-none ', className)}
+          {...props}
         />
       </div>
     );

@@ -14,6 +14,7 @@ const CreateRandomButton = () => {
     }
     setModal('랜덤');
   }, [selectedCase, setModal]);
+
   return (
     <Button
       color="black"

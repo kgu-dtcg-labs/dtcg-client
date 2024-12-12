@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import Spinner from '@components/Spinner';
 
 const DeleteButton = () => {
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: deleteScenarios,
     onSuccess: () => {
       toast('삭제가 완료되었습니다!');
@@ -17,21 +17,22 @@ const DeleteButton = () => {
   });
 
   const handleDeleteClick = () => {
-    mutation.mutate();
+    mutate();
   };
 
+  if (isPending) {
+    return <Spinner />;
+  }
+
   return (
-    <>
-      {mutation.isPending && <Spinner />}
-      <Button
-        icon={<IoTrashOutline />}
-        color="red"
-        className="w-[352px]"
-        onClick={handleDeleteClick}
-      >
-        삭제하기
-      </Button>
-    </>
+    <Button
+      icon={<IoTrashOutline />}
+      color="red"
+      className="w-[352px]"
+      onClick={handleDeleteClick}
+    >
+      삭제하기
+    </Button>
   );
 };
 

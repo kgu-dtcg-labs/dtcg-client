@@ -1,14 +1,14 @@
-import { ElementType } from '@type/element';
+import type { ElementType } from '@type/element';
 import { Modal } from './Modal';
 import clsx from 'clsx';
-import { LAYER_LIST } from '@constants/layer';
+import { LAYER_LIST } from '@/data/element';
 
-interface ExtractCasesModalProps {
+interface Props {
   cases: ElementType[];
   onClose: () => void;
 }
 
-const LayerTableData = ({
+const LayerHeader = ({
   layer,
   className,
   rowSpan,
@@ -20,12 +20,12 @@ const LayerTableData = ({
   return (
     <td rowSpan={rowSpan} className={clsx('py-1 border', className)}>
       {`Layer${layer}`}
-      <br />({LAYER_LIST[layer - 1].name})
+      <br />({LAYER_LIST[layer - 1].value})
     </td>
   );
 };
 
-const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
+const ExtractCasesModal = ({ cases, onClose }: Props) => {
   return (
     <Modal onClose={onClose}>
       <div className="max-w-[1200px] flex flex-col items-center gap-3 w-[80vw]">
@@ -47,7 +47,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               </tr>
               {/* LAYER 1 시작 */}
               <tr>
-                <LayerTableData layer={1} rowSpan={9} className="bg-red-50" />
+                <LayerHeader layer={1} rowSpan={9} className="bg-red-50" />
                 <td className="py-1 border bg-red-50" colSpan={3}>
                   도로 기능과 등급
                 </td>
@@ -105,11 +105,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 2 시작 */}
 
               <tr>
-                <LayerTableData
-                  layer={2}
-                  rowSpan={25}
-                  className="bg-orange-50"
-                />
+                <LayerHeader layer={2} rowSpan={25} className="bg-orange-50" />
                 <td className="py-1 border bg-orange-50" rowSpan={6}>
                   도로안전시설
                 </td>
@@ -236,11 +232,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 3 시작 */}
 
               <tr>
-                <LayerTableData
-                  layer={3}
-                  rowSpan={4}
-                  className="bg-yellow-50"
-                />
+                <LayerHeader layer={3} rowSpan={4} className="bg-yellow-50" />
                 <td className="py-1 border bg-yellow-50" rowSpan={4}>
                   도로점용
                 </td>
@@ -264,11 +256,7 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
               {/* LAYER 4 시작 */}
 
               <tr>
-                <LayerTableData
-                  layer={4}
-                  rowSpan={46}
-                  className="bg-green-50"
-                />
+                <LayerHeader layer={4} rowSpan={46} className="bg-green-50" />
                 <td className="py-1 border bg-green-50" rowSpan={41}>
                   주변 객체
                 </td>
@@ -432,11 +420,9 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
                   객체 행동(동작)
                 </td>
               </tr>
-
               {/* LAYER 5 시작 */}
-
               <tr>
-                <LayerTableData layer={5} rowSpan={5} className="bg-blue-50" />
+                <LayerHeader layer={5} rowSpan={5} className="bg-blue-50" />
                 <td className="py-1 border bg-blue-50" rowSpan={2}>
                   시간
                 </td>
@@ -467,15 +453,9 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
                   조도
                 </td>
               </tr>
-
               {/* LAYER 6 시작 */}
-
               <tr>
-                <LayerTableData
-                  layer={6}
-                  rowSpan={10}
-                  className="bg-indigo-50"
-                />
+                <LayerHeader layer={6} rowSpan={10} className="bg-indigo-50" />
                 <td className="py-1 border bg-indigo-50" rowSpan={3}>
                   센싱정보
                 </td>
@@ -534,22 +514,15 @@ const ExtractCasesModal = ({ cases, onClose }: ExtractCasesModalProps) => {
                   전자지도 정보
                 </td>
               </tr>
-
               {/* LAYER 6 시작 */}
-
               <tr>
-                <LayerTableData
-                  layer={7}
-                  rowSpan={1}
-                  className="bg-purple-50"
-                />
+                <LayerHeader layer={7} rowSpan={1} className="bg-purple-50" />
                 <td className="py-1 border bg-purple-50" colSpan={3}>
                   법 · 규제
                 </td>
               </tr>
             </tbody>
           </table>
-
           <div className="w-1/5">
             <div className="py-1 font-bold text-center border bg-slate-50">
               Depth4

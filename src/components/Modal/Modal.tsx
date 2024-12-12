@@ -1,18 +1,19 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 
-interface ModalProps extends PropsWithChildren {
+interface Props extends PropsWithChildren {
   onClose?: () => void;
 }
 
-export const Modal = ({ onClose, children }: ModalProps) => {
+export const Modal = ({ onClose, children }: Props) => {
   const handleBackgroundClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     if (e.target === e.currentTarget) {
-      onClose && onClose();
+      onClose?.();
     }
   };
+
   return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"

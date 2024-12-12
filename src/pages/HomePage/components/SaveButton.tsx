@@ -10,9 +10,7 @@ import Spinner from '@components/Spinner';
 const SaveButton = () => {
   const parsedData = useGetParsedDataStore();
   const testCases = useGetResultStore().cases;
-  const isEmpty = testCases.length === 0;
-
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: postSaveScenarios,
     onSuccess: () => {
       toast('저장이 완료되었습니다!');
@@ -22,24 +20,25 @@ const SaveButton = () => {
     },
   });
 
+  const isEmpty = testCases.length === 0;
+
   const handleSaveButtonClick = () => {
     if (isEmpty) {
       toast('생성된 시나리오가 없습니다.');
       return;
     }
-
-    mutation.mutate(parsedData);
+    mutate(parsedData);
   };
 
   return (
     <div className="flex flex-col items-center gap-1">
-      {mutation.isPending && <Spinner />}
+      {isPending && <Spinner />}
       <Button
-        color={`${isEmpty ? 'disabled' : 'black'}`}
+        color={isEmpty ? 'disabled' : 'black'}
         icon={<BsDatabaseFillAdd />}
         className="font-semibold w-[352px]"
         onClick={handleSaveButtonClick}
-        disabled={isEmpty || mutation.isPending}
+        disabled={isEmpty || isPending}
       >
         데이터베이스에 저장하기
       </Button>

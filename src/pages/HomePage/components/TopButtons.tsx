@@ -8,14 +8,15 @@ import { useSetSelectedCaseStore } from '@store/selected-case';
 
 const InputAccidentModalButton = () => {
   const setModal = useSetSelectedModalStore();
-  const handleOpenDataModal = useCallback(() => {
+
+  const handleOpenModalClick = () => {
     setModal('사고');
-  }, [setModal]);
+  };
 
   return (
     <Button
       icon={<PiSirenFill />}
-      onClick={handleOpenDataModal}
+      onClick={handleOpenModalClick}
       color="black"
       className="font-semibold"
     >
