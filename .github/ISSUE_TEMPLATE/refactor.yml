@@ -1,11 +1,11 @@
-name: '🔨 Refactor'
+name: 'Refactor'
 description: '리팩터링을 해야할 부분이 있나요?'
 title: '[Refactor]: '
-labels: '🔨 refactor'
+labels: 'refactor'
 body:
   - type: textarea
     attributes:
-      label: Describe
+      label: Description
       description: 왜 리팩터링을 해야하는지 설명해 주세요.
       placeholder: 자세히 적을수록 좋습니다.
     validations:
@@ -19,5 +19,5 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: ETC
-      description: 더 전달할 내용이 있다면 여기에 작성해 주세요.
+      label: To Assignees
+      description: 담당자에게 전달할 내용이 있다면 여기에 작성해 주세요.

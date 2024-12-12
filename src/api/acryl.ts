@@ -1,21 +1,16 @@
 import { END_POINT } from '@constants/api';
-import { fetch } from '@tauri-apps/api/http';
+import type { ResponseDataType } from '@type/element';
+import { http } from '@utils/http';
 
-export const postAccidentData = async (data: string) => {
-  try {
-    const response = await fetch(END_POINT.ACRYL, {
-      method: 'POST',
-      body: {
-        type: 'Text',
-        payload: {
-          content: data,
-          layer: [1, 2, 3, 4, 5],
-        },
+export function postAccidentData(data: string) {
+  return http.post<ResponseDataType>(END_POINT.ACRYL, {
+    method: 'POST',
+    body: {
+      type: 'Text',
+      payload: {
+        layer: [1, 2, 3, 4, 5],
+        content: data,
       },
-    });
-
-    return response;
-  } catch (e) {
-    console.log(e);
-  }
-};
+    },
+  });
+}

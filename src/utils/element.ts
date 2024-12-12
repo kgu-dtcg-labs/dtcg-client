@@ -1,14 +1,14 @@
-import { Response } from '@tauri-apps/api/http';
-import { ParsedElement } from './../types/element';
-import { elementData, memoCases } from '@mocks/elementData';
-import { RandomType } from '@type/common';
+import type { Response } from '@tauri-apps/api/http';
+import type { ScenarioCreationMode } from '@type/common';
 import type {
   ElementType,
+  ParsedElement,
   ElementWithChildrenType,
   ParsedTestCasesLayer,
   TestCase,
-  responseDataType,
+  ResponseDataType,
 } from '@type/element';
+import { ELEMENT_DATA, MEMO_PARENT_CASES } from '@/data/element';
 
 /**
  * 레이어 ID를 받아서 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환하는 함수
@@ -16,11 +16,11 @@ import type {
  * @returns 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
  */
 export function treeParser(layer: number): ElementWithChildrenType {
-  const findLayer = elementData.find((item) => item.id === layer);
+  const findLayer = ELEMENT_DATA.find((item) => item.id === layer);
 
   if (findLayer) {
     // Layer가 존재하다면 해당 레이어의 하위 레이어를 찾아서 트리 구조로 반환
-    const children = elementData.filter((item) => item.parentId === layer);
+    const children = ELEMENT_DATA.filter((item) => item.parentId === layer);
     const result = {
       ...findLayer,
       children: children.map((item) => {
@@ -48,12 +48,16 @@ export function treeParser(layer: number): ElementWithChildrenType {
  */
 export async function createTestCases(
   cases: ElementType[],
-  numberOfScenarios: number = 1,
-  type: RandomType,
+  numberOfScenarios: number,
+  type: ScenarioCreationMode,
   description: string,
 ): Promise<TestCase> {
   const parentIds = [
-    ...new Set(cases.filter((c) => c.parentId !== null).map((c) => c.parentId)),
+    ...new Set(
+      cases
+        .filter((c) => typeof c.parentId === 'number')
+        .map((c) => c.parentId),
+    ),
   ];
 
   const scenarios = await Promise.all(
@@ -62,7 +66,7 @@ export async function createTestCases(
         parentIds.map(async (pid) => {
           const filteredCases =
             type === '랜덤'
-              ? memoCases[pid!]
+              ? MEMO_PARENT_CASES[pid]
               : cases.filter((c) => c.parentId === pid);
           return filteredCases[
             Math.floor(Math.random() * filteredCases.length)
@@ -81,7 +85,7 @@ export async function createTestCases(
  * 입력받은 데이터를 아크릴 측으로 전송합니다
  */
 export function matchingCaseWithResponse(
-  res: Response<responseDataType>,
+  res: Response<ResponseDataType>,
 ): ElementType[] {
   const result: ElementType[] = [];
 
@@ -96,13 +100,12 @@ export function matchingCaseWithResponse(
   });
 
   // mocks 배열을 순회하며 name이 searchValues에 포함되는지 확인
-  elementData.forEach((item) => {
+  ELEMENT_DATA.forEach((item) => {
     if (searchValues.includes(item.value) && item.type === 'case') {
       result.push(item);
     }
   });
 
-  console.log(result);
   return result;
 }
 
@@ -124,11 +127,14 @@ export function parseTestCasesByLayer(
   } else {
     result[descriptionKey] = '설명 없음';
   }
-
+  // TODO: 성능 개선 필요 (O(n^2))
   scenarios.cases.forEach((scenario, i) => {
     for (const element of scenario) {
-      const layer = element.layer;
+      if (element.type !== 'case') {
+        continue;
+      }
 
+      const layer = element.layer;
       if (layer !== undefined) {
         const layerKey = `layer${layer}DTOs`;
         if (!result[layerKey]) {
@@ -139,7 +145,7 @@ export function parseTestCasesByLayer(
         if (!result[layerKey][i]) {
           layerArray[i] = {};
         }
-        layerArray[i][element.name ?? '-'] = element.value ?? '-';
+        layerArray[i][element.name] = element.value;
       }
     }
   });
