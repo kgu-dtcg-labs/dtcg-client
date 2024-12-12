@@ -29,10 +29,15 @@ jobs:
         with:
           node-version: '20'
           cache: 'yarn'
-          cache-dependency-path: '**/yarn.lock'
+          cache-dependency-path: |
+            **/yarn.lock
+            **/.yarn/cache
 
       - name: Enable Yarn Berry
-        run: yarn set version berry
+        run: |
+          npm install -g corepack
+          corepack enable
+          yarn set version berry
 
       - name: Install dependencies
         run: yarn install
