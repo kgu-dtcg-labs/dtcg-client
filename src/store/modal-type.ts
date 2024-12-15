@@ -5,7 +5,7 @@ import {
   useSetRecoilState,
 } from 'recoil';
 
-import type { Modal as ModalType } from '@type/common';
+import type { Modal as ModalType } from '@type/modal';
 
 /**
  * 선택된 모달의 상태를 관리하는 atom입니다.

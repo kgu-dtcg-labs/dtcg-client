@@ -9,7 +9,6 @@ import type { TestCase } from '@type/element';
 
 /**
  * 결과 상태를 관리하는 atom입니다.
- * @type {import('recoil').RecoilState<TestCase>}
  */
 const resultState = atom<TestCase>({
   key: 'result',
