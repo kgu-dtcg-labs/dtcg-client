@@ -23,7 +23,7 @@
       "@api/*": ["./src/api/*"],
       "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
-      "@data/*": ["./src/constants/*"],
+      "@data/*": ["./src/data/*"],
       "@pages/*": ["./src/pages/*"],
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
