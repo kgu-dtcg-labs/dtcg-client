@@ -2,7 +2,7 @@ import type { ElementType } from '@type/element';
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@components/Button';
 import { useGetResultStore } from '@store/result';
-import ExtractCasesModal from '@components/Modal/ExtractCasesModal';
+import ExtractCasesModal from '@components/modal/ExtractCasesModal';
 import { TABLE_HEADER } from '@/data/element';
 
 const LIMIT = 20;

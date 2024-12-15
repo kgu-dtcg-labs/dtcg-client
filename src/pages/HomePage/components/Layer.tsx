@@ -4,7 +4,7 @@ import {
   type ElementProps,
   ElementTree,
   ElementTreeWrapper,
-} from '@components/ElementTree';
+} from '@components/element/ElementTree';
 import ResultTable from './ResultTable';
 import SaveButton from './SaveButton';
 import CreateRandomButton from './CreateRandomButton';

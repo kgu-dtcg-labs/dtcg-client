@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import clsx from 'clsx';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,26 +15,25 @@ const COLORS = {
   disabled: 'border bg-gray-200 text-white cursor-not-allowed',
 } as const;
 
-const Button = forwardRef<HTMLButtonElement, Props>(
-  ({ children, className, color = 'default', icon, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={clsx(
-          'border rounded py-1.5 px-2 transition-colors text-nowrap',
-          { 'flex items-center justify-center gap-1': icon },
-          COLORS[color],
-          className,
-        )}
-        {...props}
-      >
-        {icon}
-        {children}
-      </button>
-    );
-  },
-);
-
-Button.displayName = 'Button';
-
-export { Button };
+export const Button = ({
+  children,
+  className,
+  color = 'default',
+  icon,
+  ...props
+}: Props) => {
+  return (
+    <button
+      className={clsx(
+        'border rounded py-1.5 px-2 transition-colors text-nowrap',
+        { 'flex items-center justify-center gap-1': icon },
+        COLORS[color],
+        className,
+      )}
+      {...props}
+    >
+      {icon}
+      {children}
+    </button>
+  );
+};

@@ -1,9 +1,9 @@
-import AccidentModal from '@components/Modal/AccidentModal';
-import ApplyPresetModal from '@components/Modal/ApplyPresetModal';
-import LawModal from '@components/Modal/LawModal';
-import RandomModal from '@components/Modal/RandomModal';
-import SelectedRandomModal from '@components/Modal/SelectedRandomModal';
-import type { Modal as ModalType } from '@type/common';
+import AccidentModal from '@components/modal/AccidentModal';
+import ApplyPresetModal from '@components/modal/ApplyPresetModal';
+import LawModal from '@components/modal/LawModal';
+import RandomModal from '@components/modal/RandomModal';
+import SelectedRandomModal from '@components/modal/SelectedRandomModal';
+import type { Modal as ModalType } from '@type/modal';
 
 interface Props {
   modalType: ModalType;

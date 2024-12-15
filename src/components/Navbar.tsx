@@ -10,7 +10,6 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    // 다크 모드 상태에 따라 클래스를 추가하거나 제거하고, 로컬 스토리지에 상태를 저장합니다.
     const className = darkMode ? 'dark' : 'light';
     document.documentElement.className = className;
     localStorage.setItem('theme', className);

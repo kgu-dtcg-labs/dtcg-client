@@ -7,5 +7,3 @@ export type Modal =
   | '프리셋'
   | '추출'
   | 'none';
-
-export type ScenarioCreationMode = '랜덤' | '선택';

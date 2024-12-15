@@ -9,12 +9,14 @@ import {
 } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Toaster } from 'react-hot-toast';
+import ErrorPage from '@pages/ErrorPage/ErrorPage';
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: PATH.ROOT, element: <HomePage /> },
       { path: '*', element: <Navigate to={PATH.ROOT} replace={true} /> },
