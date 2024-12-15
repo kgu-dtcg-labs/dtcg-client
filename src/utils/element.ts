@@ -1,5 +1,4 @@
 import type { Response } from '@tauri-apps/api/http';
-import type { ScenarioCreationMode } from '@type/common';
 import type {
   ElementType,
   ParsedElement,
@@ -49,7 +48,7 @@ export function treeParser(layer: number): ElementWithChildrenType {
 export async function createTestCases(
   cases: ElementType[],
   numberOfScenarios: number,
-  type: ScenarioCreationMode,
+  type: '랜덤' | '선택',
   description: string,
 ): Promise<TestCase> {
   const parentIds = [
