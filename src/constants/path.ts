@@ -1,4 +1,4 @@
 export const PATH = {
-  ROOT: '',
-  HOME: '/home',
+  ROOT: '/dtcg-client',
+  HOME: '/dtcg-client',
 } as const;
